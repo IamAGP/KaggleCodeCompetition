@@ -1,0 +1,15 @@
+.DS_Store
+__pycache__/
+.pytest_cache/
+*.py[cod]
+.venv/
+.env
+.env.*
+.aws/
+kaggle.json
+data/
+artifacts/
+*.joblib
+.ipynb_checkpoints/
+*executed.ipynb
+submission.parquet
