@@ -1,0 +1,80 @@
+{
+  "experiment": "improvement-v4-nested-stacking",
+  "defined_date": "2026-10-20",
+  "hypothesis": "A regularized joint classifier of complementary base-model evidence can improve attribution beyond the frozen equal-weight v3 ensemble.",
+  "components": [
+    "sparse:char15_c4",
+    "style:style_hist",
+    "style:char_style_svm",
+    "linear:joint_char_style_c16"
+  ],
+  "base_normalization": "Existing normalize_evidence: log clipped probabilities when applicable, then per-row mean-zero unit-standard-deviation evidence.",
+  "meta": {
+    "preprocessing": "StandardScaler fitted only on meta-training rows",
+    "C": 0.05,
+    "solver": "lbfgs",
+    "max_iter": 2000,
+    "tol": 0.0001
+  },
+  "nested_evaluation": {
+    "outer_folds": 5,
+    "inner_folds": "The other four saved folds; each inner fit excludes its validation fold and the outer held-out fold.",
+    "pair_cache": "Ten unordered excluded-fold pairs; each fit may predict both excluded folds, with predictions routed separately.",
+    "cached_original_outer_oof": "Allowed only after exact producer, row, class, fold, configuration and source provenance verification.",
+    "global_oof_as_outer_meta_training": false
+  },
+  "folds_sha256": "c64582951ffc6bd6a8233f97775fede7404a52ee5b73c88fcf18b8271fc80508",
+  "baseline": {
+    "name": "Frozen scored v3",
+    "components": [
+      "sparse:char15_c4",
+      "style:style_hist",
+      "linear:joint_char_style_c16"
+    ],
+    "weights": [1, 1, 1],
+    "pooling": "evidence",
+    "development_balanced_accuracy": 0.37006711409395976,
+    "public_score": 0.351
+  },
+  "candidates": {
+    "stack": {
+      "stack_weight": 1.0,
+      "v3_weight": 0.0
+    },
+    "stack_v3_half": {
+      "stack_weight": 0.5,
+      "v3_weight": 0.5
+    }
+  },
+  "candidate_pooling": "Normalize stacked probabilities with normalize_evidence, then combine with the unrenormalized mean of the three frozen v3 component evidence matrices.",
+  "selection": "Choose the highest pooled original-fold balanced accuracy among exactly these two candidates; break ties in favor of stack. No parameter or weight sweep.",
+  "development_min_gain": 0.0075,
+  "robustness": {
+    "seed": 31415,
+    "n_splits": 5,
+    "related_prompt_pairs": [
+      ["p010", "p082"],
+      ["p100", "p146"],
+      ["p017", "p148"],
+      ["p128", "p136"],
+      ["p008", "p131"],
+      ["p055", "p058"],
+      ["p004", "p111"]
+    ],
+    "refit_all_inner_and_outer_bases": true,
+    "baseline": "Frozen scored v3, evaluated using the same newly fitted outer components",
+    "min_pooled_gain": 0.005,
+    "min_fold_wins": 4,
+    "no_retuning_after_check": true
+  },
+  "runtime_fit": "Generate five prompt-group OOF folds with seed 42 inside fit, train the meta classifier on these predictions, and refit each base on all training rows.",
+  "resources": {
+    "threads_per_worker": 2,
+    "max_pair_workers": 2
+  },
+  "limitations": [
+    "All labeled data has been used in earlier development. These are robustness checks, not untouched holdouts.",
+    "Selecting the better of two candidates introduces selection optimism.",
+    "A validation gain does not guarantee a public or private leaderboard gain."
+  ]
+}

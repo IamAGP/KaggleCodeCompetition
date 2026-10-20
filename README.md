@@ -8,6 +8,73 @@ Git tags preserve the source, notebooks, and tests for each recorded checkpoint.
 Full experiment evidence and data are archived privately in S3; the repository contains no
 competition data or predictions.
 
+## Improvement v4
+
+V4 evaluates a learned combination of four frozen base classifiers. Its
+development winner averages normalized stacked evidence and v3 evidence with
+fixed 50/50 weights. The pure stack scored 37.1907%; the blend scored **37.8213%**
+versus v3's **37.0067%**, passing the predeclared 0.75 percentage-point gate and
+winning four of five folds. The frozen related-prompt comparison also passed:
+**39.5247% versus 38.1186%**, a 1.4062-point gain with four of five folds improved.
+
+| Evaluation | V3 | V4 fixed half blend |
+| --- | ---: | ---: |
+| Original prompt-grouped nested development | 37.0067% | 37.8213% |
+| Fresh related-prompt split, seed 31415 | 38.1186% | 39.5247% |
+
+The descriptive paired-group bootstrap interval on the new split is
+0.4144–2.3806 percentage points. This does not account for all development
+selection or dependencies between overlapping training folds.
+
+The four bases are the v3 character SVM, style histogram boosting and joint
+multinomial text/style classifier, plus v2's character/style SVM. Each contributes
+18 normalized scores. A training-only `StandardScaler` and
+`LogisticRegression(C=0.05, solver="lbfgs")` combine the resulting 72 features.
+
+Evaluation is genuinely nested by prompt group. For each outer fold, each
+meta-training prediction comes from a base model trained without either the
+outer fold or that row's own fold. Ten unordered excluded-fold pairs supply these
+predictions without repeating equivalent fits. Historical base predictions are
+used only for outer validation after checking their source, configuration,
+training data, row order, class order and fold provenance. The new split refits
+all inner and outer models and keeps seven related prompt pairs together.
+
+The protocol is motivated by [Ting and Witten's stacking study](https://arxiv.org/abs/1105.5466)
+and the [official scikit-learn stacking implementation](https://github.com/scikit-learn/scikit-learn/blob/1.6.1/sklearn/ensemble/_stacking.py).
+The historical paper names no GitHub repository. This is a project-specific
+logistic combiner, not a reproduction of the paper's model or a claim of
+state-of-the-art attribution.
+
+The available labels have already been used in earlier experiments. Nesting
+prevents direct validation leakage but does not eliminate earlier model-selection
+optimism or make the second split an untouched test set.
+
+Reproduce in a fresh output directory with the v2/v3 artifacts restored:
+
+```sh
+OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 python scripts/run_nested_v4.py --cached-outer-oof
+python scripts/select_v4.py select --output-dir artifacts/improvement-v4/selection
+python scripts/select_v4.py prepare-robustness --output-dir artifacts/improvement-v4/robustness
+OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 python scripts/run_nested_v4.py --folds artifacts/improvement-v4/robustness/folds.csv --output-dir artifacts/improvement-v4/robustness/nested --refit-outer
+python scripts/select_v4.py check --run artifacts/improvement-v4/robustness/nested --folds artifacts/improvement-v4/robustness/folds.csv --output-dir artifacts/improvement-v4/robustness/check
+python scripts/build_notebook_v4.py
+```
+
+The notebook builder rejects a candidate that fails either gate or whose
+validation inputs, source, evaluator, selector or frozen plan have changed.
+The standalone notebook generates five-fold training predictions, fits the
+combiner, and refits the four base models on all training data; no private cached
+scores are needed on Kaggle.
+
+All 114 software tests passed in a source-only temporary checkout containing no
+private data or saved artifacts. They include actual fit spies for prompt
+exclusion, routing, cache corruption, scaler boundaries, prediction batch
+independence, fixed candidate selection and notebook provenance.
+
+V4 logs, pair caches, rejected candidates, source snapshots and validation
+evidence are retained under `artifacts/improvement-v4/` and archived privately in
+`s3://kaggle-featured-code-comps/name-that-llm/experiments/improvement-v4/`.
+
 ## Improvement v3
 
 **V3 scored 35.1% public balanced accuracy, up from v2's 34.4% (+0.7 percentage
