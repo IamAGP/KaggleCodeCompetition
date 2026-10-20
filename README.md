@@ -3,9 +3,80 @@
 Reproducible experiments and submissions for [Kaggle's Name That LLM competition](https://www.kaggle.com/competitions/name-that-llm).
 The classifier predicts one of 18 generating models from a passage.
 
-The Git tag `name-that-llm-v2` preserves the source, notebooks, and tests for the
-34.4% public-score checkpoint. Full experiment evidence and data are archived
-privately in S3; the repository contains no competition data or predictions.
+Git tags preserve the source, notebooks, and tests for each recorded checkpoint.
+`name-that-llm-v2` retains the 34.4% submission; `name-that-llm-v3` records 35.1%.
+Full experiment evidence and data are archived privately in S3; the repository contains no
+competition data or predictions.
+
+## Improvement v3
+
+**V3 scored 35.1% public balanced accuracy, up from v2's 34.4% (+0.7 percentage
+points).** Submission `57440737` used notebook version 1, submitted once after
+both predeclared validation gates passed. The final rank snapshot was
+**1,591 of 2,121 teams**, versus 1,656 of 2,112 at the start of this experiment.
+It adds a joint multinomial text/style classifier to the
+two v2 components, with equal weights after passage-local score normalization:
+
+- Character 1–5 gram TF-IDF with `LinearSVC(C=4)`.
+- Histogram gradient boosting over the 465 fixed style measurements.
+- Character 1–5 gram TF-IDF plus normalized style measurements, classified by
+  `LogisticRegression(C=16, solver="lbfgs")`.
+
+Two frozen experiment rounds evaluated ten new individual models and ten fixed
+blends. The first round's best gain, 0.7400 percentage points, missed its
+0.75-point gate and was not submitted. The second round passed without changing
+that threshold. No validation-fold data enters vocabulary fitting, scaling,
+kernel bandwidth selection, or classifier training.
+
+| Evaluation | V2 | V3 candidate |
+| --- | ---: | ---: |
+| Original prompt-grouped development folds | 35.6366% | 37.0067% |
+| Frozen related-prompt split, seed 2027 | 35.7472% | 36.7097% |
+| Kaggle public leaderboard | 34.4% | 35.1% |
+
+Scored notebook: https://www.kaggle.com/code/adithyagiri/name-that-llm-validated-ensemble-v3?scriptVersionId=360441703
+The exact four-cell notebook was verified against the local source and completed
+on Kaggle with scikit-learn 1.6.1, private visibility, CPU, and internet disabled.
+
+On the second split, v3 won four folds and tied one. The pooled gain was
+0.9625 percentage points; the descriptive paired-group bootstrap interval was
+approximately 0.00–1.90 points. These results reuse development data, training
+folds overlap, and selection across candidates introduces optimism. They are not
+an untouched test estimate.
+
+Sixty-five software tests passed in a clean temporary checkout containing no
+private data or saved artifacts. They cover score and row alignment, training-only
+transforms, prompt-group routing, inference batch invariance, kernel arithmetic,
+and notebook source integrity.
+
+For a fresh reproduction, first run or restore the v2 experiment and original
+baseline folds as described below. Install experimental dependencies and copy the
+frozen public configuration files into a new experiment directory:
+
+```sh
+python -m pip install -e '.[dev,experiments]'
+mkdir -p artifacts/improvement-v3
+cp configs/name-that-llm/v3-first-round.json artifacts/improvement-v3/plan.json
+cp configs/name-that-llm/v3-second-round.json artifacts/improvement-v3/second-round-plan.json
+python scripts/run_boosting_v3.py
+python scripts/run_topic_v3.py
+python scripts/select_v3.py
+python scripts/run_kernel_v3.py
+python scripts/run_linear_v3.py
+python scripts/select_v3.py --plan artifacts/improvement-v3/second-round-plan.json --output-dir artifacts/improvement-v3/selection-second
+OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 python scripts/check_v3.py --plan artifacts/improvement-v3/second-round-plan.json --selected artifacts/improvement-v3/selection-second/selected.json
+python scripts/build_notebook_v3.py
+python -m pytest -q
+```
+
+Use a fresh checkout/output directory for reproduction; completed experiment
+directories refuse to be silently overwritten. The runnable submission notebook
+embeds its source and fits on all available training rows. It needs no restored
+experiment artifacts when run on Kaggle.
+
+Rejected candidates, diagnostics, source snapshots, logs, and scores are retained
+under `artifacts/improvement-v3/` and archived in
+`s3://kaggle-featured-code-comps/name-that-llm/experiments/improvement-v3/`.
 
 ## Improvement v2
 

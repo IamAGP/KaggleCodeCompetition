@@ -1,0 +1,96 @@
+{
+  "experiment": "improvement-v3-second-round",
+  "defined_utc": "2026-10-20T13:39:31.586987+00:00",
+  "reason": "First frozen round gained0.00739995, below its0.0075gate; test distinct nonlinear similarities and jointmulticlass loss instead of loosening gate.",
+  "branch_families": [
+    "kernel",
+    "linear"
+  ],
+  "kernel_candidates": [
+    "style_rbf_c4",
+    "additive_char_style_rbf_c4"
+  ],
+  "linear_candidates": [
+    "joint_char_style_c4",
+    "joint_char_style_c16"
+  ],
+  "blend_recipes": {
+    "v2": {
+      "components": [
+        "sparse:char15_c4",
+        "style:style_hist"
+      ],
+      "weights": [
+        1,
+        1
+      ],
+      "pooling": "evidence"
+    },
+    "v2_best_kernel": {
+      "components": [
+        "sparse:char15_c4",
+        "style:style_hist",
+        "kernel"
+      ],
+      "weights": [
+        1,
+        1,
+        1
+      ],
+      "pooling": "evidence"
+    },
+    "v2_best_linear": {
+      "components": [
+        "sparse:char15_c4",
+        "style:style_hist",
+        "linear"
+      ],
+      "weights": [
+        1,
+        1,
+        1
+      ],
+      "pooling": "evidence"
+    },
+    "kernel_linear_hist": {
+      "components": [
+        "kernel",
+        "linear",
+        "style:style_hist"
+      ],
+      "weights": [
+        1,
+        1,
+        1
+      ],
+      "pooling": "evidence"
+    },
+    "kernel_linear": {
+      "components": [
+        "kernel",
+        "linear"
+      ],
+      "weights": [
+        1,
+        1
+      ],
+      "pooling": "evidence"
+    }
+  },
+  "selection": "Bestindividual pooledscore perbranch; four newindividuals and fourfixedblends; choose highest pooled OOFbalancedaccuracy, no weight sweep.",
+  "folds_sha256": "c64582951ffc6bd6a8233f97775fede7404a52ee5b73c88fcf18b8271fc80508",
+  "development_min_gain": 0.0075,
+  "robustness": {
+    "seed": 2027,
+    "n_splits": 5,
+    "merge_related_prompt_pairs_from_v2": true,
+    "baseline": "Frozen v2 ensemble",
+    "min_pooled_gain": 0.005,
+    "min_fold_wins": 4,
+    "no_retuning_after_check": true
+  },
+  "limitations": [
+    "All available labeled data was already used in prior development; splits are robustness checks, not untouched holdouts.",
+    "Best-of-candidates development score has selection optimism."
+  ]
+}

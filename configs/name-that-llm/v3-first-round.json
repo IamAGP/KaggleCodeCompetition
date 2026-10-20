@@ -1,0 +1,126 @@
+{
+  "experiment": "improvement-v3",
+  "defined_utc": "2026-10-20T13:33:03.580491+00:00",
+  "starting_commit": "4083e48dde1d131ca464da0399f7d41d54c6582c",
+  "starting_public_score": 0.344,
+  "starting_rank": 1656,
+  "starting_team_count": 2112,
+  "boosting_candidates": [
+    "lightgbm7",
+    "lightgbm15",
+    "dart7"
+  ],
+  "topic_candidates": [
+    "centered_ridge_half",
+    "centered_ridge_full",
+    "masked_char_style_svm"
+  ],
+  "blend_recipes": {
+    "v2": {
+      "components": [
+        "sparse:char15_c4",
+        "style:style_hist"
+      ],
+      "weights": [
+        1,
+        1
+      ],
+      "pooling": "evidence"
+    },
+    "char_style_hist": {
+      "components": [
+        "style:char_style_svm",
+        "style:style_hist"
+      ],
+      "weights": [
+        1,
+        1
+      ],
+      "pooling": "evidence"
+    },
+    "three_old_evidence": {
+      "components": [
+        "sparse:char15_c4",
+        "style:style_hist",
+        "style:char_style_svm"
+      ],
+      "weights": [
+        1,
+        1,
+        1
+      ],
+      "pooling": "evidence"
+    },
+    "three_old_probability": {
+      "components": [
+        "sparse:char15_c4",
+        "style:style_hist",
+        "style:char_style_svm"
+      ],
+      "weights": [
+        1,
+        1,
+        1
+      ],
+      "pooling": "probability"
+    },
+    "v2_best_boosting": {
+      "components": [
+        "sparse:char15_c4",
+        "style:style_hist",
+        "boosting"
+      ],
+      "weights": [
+        1,
+        1,
+        1
+      ],
+      "pooling": "evidence"
+    },
+    "v2_best_topic": {
+      "components": [
+        "sparse:char15_c4",
+        "style:style_hist",
+        "topic"
+      ],
+      "weights": [
+        1,
+        1,
+        1
+      ],
+      "pooling": "evidence"
+    },
+    "four_branch": {
+      "components": [
+        "sparse:char15_c4",
+        "style:style_hist",
+        "boosting",
+        "topic"
+      ],
+      "weights": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "pooling": "evidence"
+    }
+  },
+  "branch_selection": "Best standalone pooled OOF balanced accuracy per new branch; ties follow declared order.",
+  "selection": "Choose among six new standalone candidates and six fixed blends, with unchanged v2 as benchmark; no learned stacking.",
+  "folds_sha256": "c64582951ffc6bd6a8233f97775fede7404a52ee5b73c88fcf18b8271fc80508",
+  "development_min_gain": 0.0075,
+  "robustness": {
+    "seed": 2027,
+    "n_splits": 5,
+    "merge_related_prompt_pairs_from_v2": true,
+    "baseline": "Frozen v2 ensemble",
+    "min_pooled_gain": 0.005,
+    "min_fold_wins": 4,
+    "no_retuning_after_check": true
+  },
+  "limitations": [
+    "All available labeled data was already used in prior development; splits are robustness checks, not untouched holdouts.",
+    "Best-of-candidates development score has selection optimism."
+  ]
+}
