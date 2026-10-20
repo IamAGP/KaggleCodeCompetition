@@ -4,11 +4,20 @@ Reproducible experiments and submissions for [Kaggle's Name That LLM competition
 The classifier predicts one of 18 generating models from a passage.
 
 Git tags preserve the source, notebooks, and tests for each recorded checkpoint.
-`name-that-llm-v2` retains the 34.4% submission; `name-that-llm-v3` records 35.1%.
+`name-that-llm-v2` retains the 34.4% submission; `name-that-llm-v3` records 35.1%,
+and `name-that-llm-v4` records **36.6%**.
 Full experiment evidence and data are archived privately in S3; the repository contains no
 competition data or predictions.
 
 ## Improvement v4
+
+**V4 scored 36.6% public balanced accuracy, up from v3's 35.1%
+(+1.5 percentage points).** Submission `57444632` used notebook version 1 and
+was submitted exactly once after both predeclared validation gates passed.
+The post-score snapshot was **rank 1,503 of 2,147 teams**, compared with
+1,615 of 2,142 at the start of the experiment.
+
+Scored notebook: https://www.kaggle.com/code/adithyagiri/name-that-llm-nested-stack-v4?scriptVersionId=360469832
 
 V4 evaluates a learned combination of four frozen base classifiers. Its
 development winner averages normalized stacked evidence and v3 evidence with
@@ -21,6 +30,13 @@ winning four of five folds. The frozen related-prompt comparison also passed:
 | --- | ---: | ---: |
 | Original prompt-grouped nested development | 37.0067% | 37.8213% |
 | Fresh related-prompt split, seed 31415 | 38.1186% | 39.5247% |
+| Kaggle public leaderboard | 35.1% | 36.6% |
+
+The private offline CPU notebook completed on Kaggle in approximately 816 seconds,
+with scikit-learn 1.6.1 and Python 3.13.15. Its four cells matched the local
+notebook exactly, all seven runtime source hashes matched, and the generated
+Parquet file passed the ID, label, row-count and schema checks before submission.
+The hidden-data rerun subsequently completed and returned the public score above.
 
 The descriptive paired-group bootstrap interval on the new split is
 0.4144–2.3806 percentage points. This does not account for all development
