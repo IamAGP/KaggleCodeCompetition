@@ -181,7 +181,11 @@ class ExperimentPackager:
         paths = sorted(path for path in self.run.rglob("*")
                        if path.is_file() and path.name not in GENERATED
                        and not set(path.relative_to(self.run).parts) & EXCLUDED_PARTS
+                       # Staging copies the model; retain sibling dataset records only.
+                       and path.relative_to(self.run).parts[0] != "kaggle-dataset-upload"
                        and path.suffix not in {".zip", ".bundle", ".partial", ".tmp"})
+        if any(path.suffix == ".safetensors" for path in paths):
+            raise ValueError("Model weights belong only in model-bundle.zip")
         if not has_model:
             paths.append(self.run / "shared-inputs-manifest.json")
         members = [ArchiveFile.capture(path, str(path.relative_to(self.run))) for path in paths]

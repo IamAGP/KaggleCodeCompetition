@@ -11,7 +11,8 @@ competition data or predictions.
 
 ## StyleDistance experiment v7
 
-**V7 passed both frozen validation gates; the Kaggle run is pending.**
+**V7 passed both frozen validation gates and Kaggle runtime checks.**
+Submission `57491848` uses notebook version 1; its hidden-data score is pending.
 It uses [StyleDistance](https://huggingface.co/StyleDistance/styledistance) at
 revision `b7df5f0b0480773c097ba3121d83ca32b71015ca` with a fixed balanced
 logistic classifier (`C=64`). The selected recipe averages its normalized log
@@ -58,6 +59,13 @@ fixture from private S3 before reproduction; use fresh output directories.
 The notebook requires the private model dataset and competition data attached,
 with internet disabled. It fits the fixed linear probe and v4 stacker on all
 training rows at runtime.
+
+The offline Kaggle CPU run completed in 2,088 seconds (34.8 minutes), using
+Python 3.13.15, PyTorch 2.11.0+cpu and Transformers 5.16.1. All 14 pinned model
+file hashes and 17 runtime source hashes matched; the synthetic encoder check
+differed from the local reference by at most 2.39e-7, below its 1e-4 tolerance.
+The three-row example Parquet passed ID, label and schema checks, with no
+convergence warnings. This runtime check does not establish hidden-test accuracy.
 
 ## Frozen representation experiments v5 and v6
 
