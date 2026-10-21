@@ -1,0 +1,80 @@
+{
+  "experiment": "improvement-v5-frozen-authorship-embeddings",
+  "defined_date": "2026-10-21",
+  "hypothesis": "Frozen LUAR-CRUD writing-style representations may add attribution information beyond v4's sparse and stylometric features.",
+  "model": {
+    "id": "rrivera1849/LUAR-CRUD",
+    "revision": "8b36ce7f289ee91900a7dff0eaccf5cdca745ab1",
+    "license": "Apache-2.0",
+    "dimensions": 512,
+    "fine_tuning": false
+  },
+  "encoder": {
+    "content_tokens": 126,
+    "sequence_length": 128,
+    "max_batch_windows": 32,
+    "document_batch_size": 16,
+    "cpu_threads": 2,
+    "device": "cpu"
+  },
+  "representation": "Preserve raw text; tokenize once without truncation; consecutive nonoverlapping 126-content-token windows with two special tokens. All windows from exactly one row form one episode. Batch only episodes with equal window counts. L2-normalize each float32 512-dimensional vector. No label-informed preprocessing or test-row aggregation.",
+  "classifier": {
+    "C": 1.0,
+    "class_weight": "balanced",
+    "solver": "lbfgs",
+    "max_iter": 3000,
+    "tol": 0.0001
+  },
+  "candidates": {
+    "luar": {
+      "luar_weight": 1.0,
+      "v4_weight": 0.0
+    },
+    "luar_v4_half": {
+      "luar_weight": 0.5,
+      "v4_weight": 0.5
+    }
+  },
+  "pooling": "LUAR evidence is normalized log probabilities. Incumbent v4 evidence is 0.5 normalized stack log probabilities plus 0.5 mean of base evidence components 0,1,3. Normalize this completed incumbent evidence again before the v5 blend so both branches have unit per-row standard deviation. No weight or parameter search.",
+  "selection": "Highest original-fold pooled balanced accuracy among these two candidates, ties favor standalone luar. Check only the selected recipe on the related-prompt robustness split. No changes after seeing scores.",
+  "baseline": {
+    "name": "Frozen scored v4 stack_v3_half",
+    "public_score": 0.366,
+    "development_balanced_accuracy": 0.3782127765349242,
+    "robustness_balanced_accuracy": 0.39524732786477756,
+    "source_commit": "0a854da912f1bdb2f9fac023ce45c9112c64efde",
+    "plan_sha256": "69f5d01ab0477bb471032c91bcd240064ef12fd95fed1ef1c3408f01dd6b3c89"
+  },
+  "development": {
+    "folds": "artifacts/baseline-v1/folds.csv",
+    "folds_sha256": "c64582951ffc6bd6a8233f97775fede7404a52ee5b73c88fcf18b8271fc80508",
+    "incumbent_run": "artifacts/improvement-v4/nested",
+    "min_gain": 0.0075
+  },
+  "robustness": {
+    "folds": "artifacts/improvement-v4/robustness/folds.csv",
+    "folds_sha256": "090c42e940fcfd380d821e2e7a6414605e301f826e5e6e29ad678be5643eee32",
+    "incumbent_run": "artifacts/improvement-v4/robustness/nested",
+    "min_gain": 0.005,
+    "min_fold_wins": 4,
+    "seed": 31415,
+    "bootstrap_draws": 5000
+  },
+  "cache_policy": "Frozen label-independent embeddings may be computed once and reused. Audit exact row IDs/texts, model revision and file hashes, settings, encoder and extraction source hashes, input data hashes, and vector hashes. Audit v4 producers against their unchanged source, recipe, class order, rows, folds and output manifests. Fit a fresh LUAR classifier separately inside each evaluation fold.",
+  "runtime": {
+    "threads": 2,
+    "offline": true,
+    "training": "Fit the fixed LUAR classifier on all training embeddings; if the blend is selected, fit the unchanged v4 runtime stacker on all training rows using internal prompt-group OOF."
+  },
+  "limitations": [
+    "Both validation partitions reuse labeled data and previously inspected splits; neither is an untouched holdout.",
+    "Selecting between two recipes introduces selection optimism; group-bootstrap intervals are descriptive only.",
+    "The cited paper does not establish transfer to this 18-class competition or guarantee any leaderboard gain.",
+    "No blind submission if the frozen gates fail. A later distinct experiment requires a separately recorded plan."
+  ],
+  "sources": [
+    "https://arxiv.org/html/2401.06712v2",
+    "https://github.com/LLNL/LUAR/tree/main/fewshot_iclr2024",
+    "https://huggingface.co/rrivera1849/LUAR-CRUD/tree/8b36ce7f289ee91900a7dff0eaccf5cdca745ab1"
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "experiment": "improvement-v7-styledistance",
+  "defined_date": "2026-10-21",
+  "hypothesis": "The released contrastive StyleDistance encoder may provide more transferable LLM style information than LUAR; this is a separately recorded representation change after v5 and v6 failed their gates.",
+  "model": {
+    "id": "StyleDistance/styledistance",
+    "revision": "b7df5f0b0480773c097ba3121d83ca32b71015ca",
+    "license": "MIT",
+    "dimensions": 768,
+    "fine_tuning": false
+  },
+  "encoder": {
+    "content_tokens": 510,
+    "sequence_length": 512,
+    "max_batch_windows": 8,
+    "cpu_threads": 2,
+    "device": "cpu",
+    "dtype": "float32"
+  },
+  "representation": "Preserve raw text and case. Tokenize once without truncation; consecutive nonoverlapping windows of up to 510 content tokens plus two RoBERTa specials. Apply released attention-mask token-mean pooling in each window, aggregate windows weighted by non-padding token count including specials, then L2-normalize once per passage. Dynamic token padding within at most eight-window batches. No custom remote code. Long-text aggregation is an explicit project extension of the released single-window pooling. Never aggregate distinct rows.",
+  "classifier": {
+    "C": 64.0,
+    "class_weight": "balanced",
+    "solver": "lbfgs",
+    "max_iter": 3000,
+    "tol": 0.0001
+  },
+  "candidates": {
+    "styledistance": {
+      "embedding_weight": 1.0,
+      "v4_weight": 0.0
+    },
+    "styledistance_v4_half": {
+      "embedding_weight": 0.5,
+      "v4_weight": 0.5
+    }
+  },
+  "pooling": "Normalize log probabilities from the fixed StyleDistance logistic probe per row. Blend with separately normalized completed v4 evidence as defined in v5; no LUAR or v6 classifier output is used.",
+  "selection": "Highest original-fold balanced accuracy among exactly two recipes; ties favor standalone. Evaluate only the winner on robustness folds. No threshold changes or parameter/weight search after scores.",
+  "baseline": {
+    "name": "Frozen scored v4 stack_v3_half",
+    "public_score": 0.366,
+    "development_balanced_accuracy": 0.3782127765349242,
+    "robustness_balanced_accuracy": 0.39524732786477756,
+    "source_commit": "0a854da912f1bdb2f9fac023ce45c9112c64efde",
+    "plan_sha256": "69f5d01ab0477bb471032c91bcd240064ef12fd95fed1ef1c3408f01dd6b3c89"
+  },
+  "development": {
+    "folds": "artifacts/baseline-v1/folds.csv",
+    "folds_sha256": "c64582951ffc6bd6a8233f97775fede7404a52ee5b73c88fcf18b8271fc80508",
+    "incumbent_run": "artifacts/improvement-v4/nested",
+    "min_gain": 0.0075
+  },
+  "robustness": {
+    "folds": "artifacts/improvement-v4/robustness/folds.csv",
+    "folds_sha256": "090c42e940fcfd380d821e2e7a6414605e301f826e5e6e29ad678be5643eee32",
+    "incumbent_run": "artifacts/improvement-v4/robustness/nested",
+    "min_gain": 0.005,
+    "min_fold_wins": 4,
+    "seed": 31415,
+    "bootstrap_draws": 5000
+  },
+  "predecessors": {
+    "artifacts/improvement-v5/development/selected.json": "906e378636b36fb514cca86b7ec157795977277a1416b6618af6722df0dda4e6",
+    "artifacts/improvement-v6/development/selected.json": "d6a1c498d66a2c07196d46ad99beae8efa8f3e093d467b453211ba34b67a9b42",
+    "artifacts/improvement-v6/robustness/metrics.json": "b4f4300d0aebb32e0d91d5be615b85de204a4cd7cf38c179d78b95657fc662d9"
+  },
+  "limitations": [
+    "Both validation partitions reuse labeled data and previously inspected splits; neither is an untouched holdout.",
+    "Selecting between two recipes introduces selection optimism; group-bootstrap intervals are descriptive only.",
+    "The cited paper does not establish transfer to this 18-class competition or guarantee any leaderboard gain.",
+    "No blind submission if the frozen gates fail. A later distinct experiment requires a separately recorded plan.",
+    "This third attempt follows inspection of v5 and v6 results on the same two partitions, increasing development-selection optimism.",
+    "The released model and paper do not establish accuracy for this 18-class competition. Raw-text preservation and long-text aggregation are project preprocessing choices."
+  ],
+  "sources": [
+    "https://arxiv.org/abs/2410.12757v2",
+    "https://huggingface.co/StyleDistance/styledistance/tree/b7df5f0b0480773c097ba3121d83ca32b71015ca",
+    "https://github.com/huggingface/transformers",
+    "https://github.com/UKPLab/sentence-transformers"
+  ]
+}

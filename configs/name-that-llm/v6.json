@@ -1,0 +1,109 @@
+{
+  "experiment": "improvement-v6-authorship-probes",
+  "defined_date": "2026-10-21",
+  "hypothesis": "A less regularized linear classifier or nonlinear RBF classifier may recover attribution information from frozen LUAR vectors. V5 weak transfer alone does not establish underfitting; training scores will be diagnostic only.",
+  "predecessor_result": {
+    "path": "artifacts/improvement-v5/development/selected.json",
+    "sha256": "906e378636b36fb514cca86b7ec157795977277a1416b6618af6722df0dda4e6",
+    "development_balanced_accuracy": 0.37375093214019395,
+    "gate_passed": false
+  },
+  "embedding_plan": "configs/name-that-llm/v5.json",
+  "embedding_plan_sha256": "f2e0968e9cf8fe44fbe82fb2244d0e429199cc4764c614b8b923390f8f79100e",
+  "train_embedding_sha256": "67c86a34bcbfa1b1e064926de89f6447d3a6b6871c0e39b6fcba0ee207a5b58f",
+  "models": {
+    "lr64": {
+      "kind": "logistic",
+      "parameters": {
+        "C": 64.0,
+        "class_weight": "balanced",
+        "solver": "lbfgs",
+        "max_iter": 3000,
+        "tol": 0.0001
+      }
+    },
+    "rbf10": {
+      "kind": "svc",
+      "parameters": {
+        "C": 10.0,
+        "kernel": "rbf",
+        "gamma": "scale",
+        "class_weight": "balanced",
+        "probability": false,
+        "decision_function_shape": "ovr",
+        "cache_size": 512,
+        "tol": 0.001,
+        "max_iter": -1
+      }
+    }
+  },
+  "candidates": {
+    "lr64": {
+      "model": "lr64",
+      "embedding_weight": 1.0,
+      "v4_weight": 0.0
+    },
+    "lr64_v4_half": {
+      "model": "lr64",
+      "embedding_weight": 0.5,
+      "v4_weight": 0.5
+    },
+    "rbf10": {
+      "model": "rbf10",
+      "embedding_weight": 1.0,
+      "v4_weight": 0.0
+    },
+    "rbf10_v4_half": {
+      "model": "rbf10",
+      "embedding_weight": 0.5,
+      "v4_weight": 0.5
+    }
+  },
+  "selection": "Choose highest original-fold pooled balanced accuracy among exactly four recipes; ties follow declaration order. Check only that classifier and blend on robustness folds. No retuning.",
+  "pooling": "Normalize logistic log probabilities or SVC OVR decision scores per row. Mix with separately renormalized completed v4 evidence using the declared weights. SVC is uncalibrated; no probability fitting.",
+  "baseline": {
+    "name": "Frozen scored v4 stack_v3_half",
+    "public_score": 0.366,
+    "development_balanced_accuracy": 0.3782127765349242,
+    "robustness_balanced_accuracy": 0.39524732786477756,
+    "source_commit": "0a854da912f1bdb2f9fac023ce45c9112c64efde",
+    "plan_sha256": "69f5d01ab0477bb471032c91bcd240064ef12fd95fed1ef1c3408f01dd6b3c89"
+  },
+  "development": {
+    "folds": "artifacts/baseline-v1/folds.csv",
+    "folds_sha256": "c64582951ffc6bd6a8233f97775fede7404a52ee5b73c88fcf18b8271fc80508",
+    "incumbent_run": "artifacts/improvement-v4/nested",
+    "min_gain": 0.0075
+  },
+  "robustness": {
+    "folds": "artifacts/improvement-v4/robustness/folds.csv",
+    "folds_sha256": "090c42e940fcfd380d821e2e7a6414605e301f826e5e6e29ad678be5643eee32",
+    "incumbent_run": "artifacts/improvement-v4/robustness/nested",
+    "min_gain": 0.005,
+    "min_fold_wins": 4,
+    "seed": 31415,
+    "bootstrap_draws": 5000
+  },
+  "limits": {
+    "classifiers": 2,
+    "candidate_recipes": 4,
+    "threads": 2,
+    "fine_tuning": false,
+    "new_embedding_extraction": false
+  },
+  "diagnostics": "Record per-fold training balanced accuracy, held-out balanced accuracy, iterations/support vectors and fitted SVC gamma. Diagnostics do not change candidate selection or thresholds.",
+  "limitations": [
+    "Both validation partitions reuse labeled data and previously inspected splits; neither is an untouched holdout.",
+    "Selecting between four recipes introduces selection optimism; group-bootstrap intervals are descriptive only.",
+    "The cited paper does not establish transfer to this 18-class competition or guarantee any leaderboard gain.",
+    "No blind submission if the frozen gates fail. A later distinct experiment requires a separately recorded plan.",
+    "This follow-up was proposed after observing v5 failure and reuses its development labels; it adds further selection optimism."
+  ],
+  "sources": [
+    "https://arxiv.org/html/2401.06712v2",
+    "https://github.com/LLNL/LUAR/tree/main/fewshot_iclr2024",
+    "https://huggingface.co/rrivera1849/LUAR-CRUD/tree/8b36ce7f289ee91900a7dff0eaccf5cdca745ab1",
+    "https://scikit-learn.org/1.7/modules/generated/sklearn.svm.SVC.html",
+    "https://scikit-learn.org/1.7/modules/generated/sklearn.linear_model.LogisticRegression.html"
+  ]
+}

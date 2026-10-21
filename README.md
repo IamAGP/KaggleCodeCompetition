@@ -9,6 +9,103 @@ and `name-that-llm-v4` records **36.6%**.
 Full experiment evidence and data are archived privately in S3; the repository contains no
 competition data or predictions.
 
+## StyleDistance experiment v7
+
+**V7 passed both frozen validation gates; the Kaggle run is pending.**
+It uses [StyleDistance](https://huggingface.co/StyleDistance/styledistance) at
+revision `b7df5f0b0480773c097ba3121d83ca32b71015ca` with a fixed balanced
+logistic classifier (`C=64`). The selected recipe averages its normalized log
+probabilities with separately normalized v4 evidence. No LUAR predictions enter v7.
+
+| Evaluation | Frozen v4 | V7 fixed half blend | Fold wins |
+| --- | ---: | ---: | ---: |
+| Original prompt groups | 37.8213% | **40.4509%** | 5 / 5 |
+| Related-prompt groups | 39.5247% | **40.8588%** | 4 / 5 |
+
+The standalone StyleDistance classifier scored 29.5600% on the original folds.
+The blend improves development by 2.6296 percentage points and the related-prompt
+check by 1.3341 points. Descriptive paired-group bootstrap intervals are
+1.2215–4.0031 points and -0.0738–2.8330 points respectively; the second includes
+zero. These intervals do not account for the full adaptive search across earlier
+experiments. Both partitions reuse inspected labels and are not untouched tests.
+
+The [paper](https://arxiv.org/abs/2410.12757v2) trains style representations using
+synthetic and natural examples; it does not demonstrate this competition's
+18-class performance. The pinned release is standard RoBERTa with masked token
+mean pooling, a 512-token input limit, and MIT license metadata. We preserve raw
+text and use all consecutive 510-content-token windows plus two special tokens,
+combine window means by nonpadding token count, then normalize the resulting
+768-dimensional passage vector. Raw whitespace preservation differs from
+SentenceTransformers' default stripping; long-text aggregation and final
+normalization are explicit project choices. All training passages fit one window.
+
+All vectors were extracted offline in 192 seconds on the local CPU; peak memory
+was 1.48 GB. Source, model, input-row and cache checksums are bound to the frozen
+plan in `configs/name-that-llm/v7.json`. The notebook verifies model files and
+synthetic cross-runtime vectors before training, keeps each test row independent,
+and validates runtime IDs, labels and the serialized Parquet output.
+
+```sh
+python scripts/extract_embeddings_v7.py smoke --plan configs/name-that-llm/v7.json
+python scripts/extract_embeddings_v7.py extract --plan configs/name-that-llm/v7.json
+python scripts/run_embeddings_v7.py development --output-dir artifacts/improvement-v7/development
+python scripts/run_embeddings_v7.py robustness --output-dir artifacts/improvement-v7/robustness
+python scripts/build_notebook_v7.py
+```
+
+Restore the pinned model, immutable baseline artifacts and synthetic runtime
+fixture from private S3 before reproduction; use fresh output directories.
+The notebook requires the private model dataset and competition data attached,
+with internet disabled. It fits the fixed linear probe and v4 stacker on all
+training rows at runtime.
+
+## Frozen representation experiments v5 and v6
+
+V6 followed the failed v5 probe with two separately preregistered classifiers on
+the same immutable vectors: logistic regression with `C=64`, and RBF SVC with
+`C=10, gamma="scale"`. Each was evaluated alone and in a fixed half blend with v4.
+The logistic blend won development at **39.3381% versus 37.8213%**, improving all
+five folds. On the related-prompt split it reached **39.8556% versus 39.5247%**,
+a gain of only **0.3308 percentage points**, with three of five folds improved.
+This failed the frozen 0.5-point/four-fold robustness gate. **V6 was not submitted**;
+v4 remains the scored incumbent. `configs/name-that-llm/v6.json` records the
+follow-up plan and its dependence on the inspected v5 result.
+
+On October 21, v5 tested frozen [LUAR-CRUD](https://huggingface.co/rrivera1849/LUAR-CRUD)
+authorship embeddings, revision `8b36ce7f289ee91900a7dff0eaccf5cdca745ab1`, with
+`LogisticRegression(C=1, class_weight="balanced")`. The standalone probe scored
+**26.8183%** and its fixed half blend with v4 scored **37.3751%**, below v4's
+**37.8213%** on the same prompt folds. It failed the predeclared improvement
+gate; no robustness fit or Kaggle submission was made for v5.
+
+Each unchanged passage becomes one episode containing every consecutive
+126-token window plus RoBERTa special tokens. Only equal-length episodes share
+an inference batch. The 512-dimensional output is unit normalized. The encoder
+uses no competition labels and never aggregates passages across test rows.
+All 2,699 training vectors and three visible test vectors were extracted offline
+in 72.4 seconds on the local CPU, with peak memory about 990 MiB.
+
+The [author paper](https://arxiv.org/html/2401.06712v2) and its
+[LLNL implementation](https://github.com/LLNL/LUAR/tree/main/fewshot_iclr2024)
+motivate the representation experiment; their detection results do not establish
+performance on this 18-model classification task. Two library-compatibility
+repairs, empty-cache offline checks, exact repeated outputs, batch-equivalence
+checks and all data/model/source checksums are retained in the private evidence.
+
+`configs/name-that-llm/v5.json` preserves the frozen plan. Install the optional
+`representations` dependencies into an isolated environment. With the audited
+model package restored to `artifacts/improvement-v5/model/`:
+
+```sh
+python scripts/extract_embeddings_v5.py smoke --plan configs/name-that-llm/v5.json
+python scripts/extract_embeddings_v5.py extract --plan configs/name-that-llm/v5.json
+python scripts/run_embeddings_v5.py development --output-dir artifacts/improvement-v5/development
+```
+
+These commands require fresh output paths; completed caches and evaluation
+records are deliberately not overwritten. Both validation partitions reuse
+previously inspected development data, and no local result is a hidden-test score.
+
 ## Improvement v4
 
 **V4 scored 36.6% public balanced accuracy, up from v3's 35.1%
