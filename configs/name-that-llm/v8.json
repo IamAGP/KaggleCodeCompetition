@@ -5,7 +5,11 @@
   "base_scores": "Unchanged v7 evidence (StyleDistance C=64 half blend with v4); no refit, no new classifier.",
   "assignment": {
     "module": "src/name_that_llm/assignment_v8.py",
-    "tfidf": {"sublinear_tf": true, "stop_words": "english", "min_df": 2},
+    "tfidf": {
+      "sublinear_tf": true,
+      "stop_words": "english",
+      "min_df": 2
+    },
     "clustering": "average-linkage cosine agglomerative, n_clusters=round(rows/18), recursively split clusters above 18",
     "matching": "scipy linear_sum_assignment on -log softmax(evidence) per recovered group",
     "skip_when": "round(rows/18) < 2 (e.g. the 3-row visible test)"
@@ -16,8 +20,18 @@
     "Related-prompt split was evaluated once with the chosen recipe after selection."
   ],
   "results": {
-    "development": {"v7_argmax": 0.404509, "v8": 0.524897, "oracle_prompt_ids": 0.526008, "cluster_ari": 0.9869},
-    "robustness": {"v7_argmax": 0.408588, "v8": 0.523791, "oracle_prompt_ids": 0.526386, "cluster_ari": 0.9869}
+    "development": {
+      "v7_argmax": 0.404509,
+      "v8": 0.524897,
+      "oracle_prompt_ids": 0.526008,
+      "cluster_ari": 0.9869
+    },
+    "robustness": {
+      "v7_argmax": 0.408588,
+      "v8": 0.523791,
+      "oracle_prompt_ids": 0.526386,
+      "cluster_ari": 0.9869
+    }
   },
   "limitations": [
     "Gain depends entirely on the hidden test containing complete or near-complete prompt groups; that is inferred from train and public notebooks, not verified.",
@@ -25,5 +39,11 @@
     "Both validation partitions reuse inspected labels; the selection was adaptive."
   ],
   "predecessor": "configs/name-that-llm/v7.json",
-  "predecessor_notebook_sha256": "ad5f52f1bebc5a1841d767e96f48a9fc781a8afcdeda934943e919915e719526"
+  "predecessor_notebook_sha256": "ad5f52f1bebc5a1841d767e96f48a9fc781a8afcdeda934943e919915e719526",
+  "outcome": {
+    "public_score": 0.36,
+    "v7_public": 0.382,
+    "submitted_utc": "2026-10-22T08:58:19Z",
+    "status": "failed: below incumbent"
+  }
 }

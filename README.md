@@ -9,6 +9,19 @@ Git tags preserve the source, notebooks, and tests for each recorded checkpoint.
 Full experiment evidence and data are archived privately in S3; the repository contains no
 competition data or predictions.
 
+## Prompt assignment experiment v8 (failed)
+
+**V8 scored 36.0% public, below v7's 38.2%; v7 remains the scored best.** Submission
+on October 22 (kernel `adithyagiri/name-that-llm-prompt-assignment-v8`, version 1) kept
+v7 evidence unchanged, recovered prompt groups from test text (TF-IDF cosine
+clustering, `round(rows/18)` groups capped at 18) and assigned models one-to-one per
+group. Offline it reached 52.49% development and 52.38% related-prompt versus 40.45% and
+40.86%, but both partitions share train's complete 18-models-per-prompt structure, so
+neither could falsify the assumption that the hidden test has it. The public notebook that
+motivated it only matches clusters of 12–18 passages; v8 omitted that guard. The likely
+failure is a wrong group count on the hidden test, merging unrelated prompts; this is an
+inference, not verified. `configs/name-that-llm/v8.json` records the plan.
+
 ## StyleDistance experiment v7
 
 **V7 scored 38.2% public balanced accuracy, up from v4's 36.6%
