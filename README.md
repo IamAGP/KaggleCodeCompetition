@@ -5,14 +5,20 @@ The classifier predicts one of 18 generating models from a passage.
 
 Git tags preserve the source, notebooks, and tests for each recorded checkpoint.
 `name-that-llm-v2` retains the 34.4% submission; `name-that-llm-v3` records 35.1%,
-and `name-that-llm-v4` records **36.6%**.
+`name-that-llm-v4` records 36.6%, and `name-that-llm-v7` records **38.2%**.
 Full experiment evidence and data are archived privately in S3; the repository contains no
 competition data or predictions.
 
 ## StyleDistance experiment v7
 
-**V7 passed both frozen validation gates and Kaggle runtime checks.**
-Submission `57491848` uses notebook version 1; its hidden-data score is pending.
+**V7 scored 38.2% public balanced accuracy, up from v4's 36.6%
+(+1.6 percentage points).** Submission `57491848` used notebook version 1 and
+was submitted once after both frozen validation gates and Kaggle runtime checks
+passed. The post-score snapshot on October 22 was **rank 1,682 of 2,477 teams**;
+the field grew by 330 teams since the v4 snapshot, so the ranks are not directly
+comparable.
+
+Scored notebook: https://www.kaggle.com/code/adithyagiri/name-that-llm-styledistance-v7
 It uses [StyleDistance](https://huggingface.co/StyleDistance/styledistance) at
 revision `b7df5f0b0480773c097ba3121d83ca32b71015ca` with a fixed balanced
 logistic classifier (`C=64`). The selected recipe averages its normalized log
@@ -22,6 +28,7 @@ probabilities with separately normalized v4 evidence. No LUAR predictions enter 
 | --- | ---: | ---: | ---: |
 | Original prompt groups | 37.8213% | **40.4509%** | 5 / 5 |
 | Related-prompt groups | 39.5247% | **40.8588%** | 4 / 5 |
+| Kaggle public leaderboard | 36.6% | **38.2%** | — |
 
 The standalone StyleDistance classifier scored 29.5600% on the original folds.
 The blend improves development by 2.6296 percentage points and the related-prompt
