@@ -1,0 +1,19 @@
+{
+  "id": "adithyagiri/name-that-llm-prompt-assignment-v8",
+  "title": "Name That LLM Prompt Assignment V8",
+  "code_file": "name-that-llm-prompt-assignment-v8.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "competition_sources": [
+    "name-that-llm"
+  ],
+  "dataset_sources": [
+    "adithyagiri/name-that-llm-styledistance-b7df5f0"
+  ],
+  "kernel_sources": [],
+  "model_sources": []
+}
