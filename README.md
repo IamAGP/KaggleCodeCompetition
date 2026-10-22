@@ -5,13 +5,23 @@ The classifier predicts one of 18 generating models from a passage.
 
 Git tags preserve the source, notebooks, and tests for each recorded checkpoint.
 `name-that-llm-v2` retains the 34.4% submission; `name-that-llm-v3` records 35.1%,
-`name-that-llm-v4` records 36.6%, and `name-that-llm-v7` records **38.2%**.
+`name-that-llm-v4` records 36.6%, `name-that-llm-v7` records 38.2%, and
+`name-that-llm-v10` records **42.7%**.
 Full experiment evidence and data are archived privately in S3; the repository contains no
 competition data or predictions.
 
+## Qwen3-4B probe blend v10
+
+**V10 scored 42.7% public, up from v7's 38.2% (+4.5 percentage points); it is the new
+scored best.** Submitted October 22 (kernel `adithyagiri/name-that-llm-v7-qwen-blend-v10`,
+version 1). It reruns the unchanged v7 pipeline, adds the v9 frozen Qwen3-4B-Base
+hidden-state probe (mean-pooled layers, standardized logistic regression, prompt-grouped
+CV 39.64%), and averages row-standardized evidence 50/50. Out-of-fold it moved development
+40.45% → 45.23% and related-prompt 40.86% → 44.89%, with 5/5 fold wins on each.
+
 ## Prompt assignment experiment v8 (failed)
 
-**V8 scored 36.0% public, below v7's 38.2%; v7 remains the scored best.** Submission
+**V8 scored 36.0% public, below v7's 38.2%; v7 was the scored best at the time.** Submission
 on October 22 (kernel `adithyagiri/name-that-llm-prompt-assignment-v8`, version 1) kept
 v7 evidence unchanged, recovered prompt groups from test text (TF-IDF cosine
 clustering, `round(rows/18)` groups capped at 18) and assigned models one-to-one per
