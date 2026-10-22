@@ -1,0 +1,19 @@
+{
+  "id": "adithyagiri/name-that-llm-qwen3-probe-v9",
+  "title": "Name That LLM Qwen3 Probe V9",
+  "code_file": "name-that-llm-qwen3-probe-v9.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "competition_sources": [
+    "name-that-llm"
+  ],
+  "dataset_sources": [],
+  "kernel_sources": [],
+  "model_sources": [
+    "qwen-lm/qwen-3/Transformers/4b-base/1"
+  ]
+}
