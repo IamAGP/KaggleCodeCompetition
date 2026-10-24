@@ -12,9 +12,10 @@ competition data or predictions.
 
 ## October 24 continuation
 
-V14 is a new frozen Qwen3-8B experiment, comparing mean-passage and prefix-128
-features on the existing prompt-held-out splits. Its extraction notebook is private
-and runs on dual T4 GPUs. The plan precedes feature scoring.
+V14 compared frozen Qwen3-8B mean-passage and prefix-128 features on the existing
+prompt-held-out splits. Feature extraction completed on dual T4 GPUs in 462 seconds.
+Neither blend passed development: mean-passage scored 44.60%, prefix-128 42.75%,
+against matched v10 at 45.34%. No robustness run or submission was made.
 
 V16 reproduces [Nishant Dahal's Two-stage LoRA, part two, version 2](https://www.kaggle.com/code/nishantdahal/two-stage-lora-part-two).
 The author's reported **0.620 public / 0.642 CV** are upstream results, not ours.
@@ -22,7 +23,9 @@ The original six inference cells, model weights, centered twins, Sinkhorn balanc
 and credits are retained. Added checks require real inference, all four members,
 finite probabilities and valid output IDs. The public pretrained asset dataset is
 [NTL handwriting blend](https://www.kaggle.com/datasets/nishantdahal/ntl-handwriting-blend),
-version 1, CC BY-SA 4.0. Our notebook is private; its own scored result is pending.
+version 1, CC BY-SA 4.0. Our private notebook completed real inference on the three
+visible rows in 733 seconds, with all four required members verified. Notebook
+version 1 was submitted October 24 as **57600315**; its own scored result is pending.
 This is a credited reproduction, not a claimed original modeling improvement.
 
 V13's stronger covariance shrinkage failed development (44.82% versus 45.34%).
