@@ -1,0 +1,67 @@
+{
+  "experiment": "improvement-v13",
+  "defined_date": "2026-10-24",
+  "hypothesis": "Explicit follow-up tuning: stronger covariance shrinkage may generalize better on frozen Qwen features.",
+  "incumbent": {
+    "submission": 57523017,
+    "public_score": 0.427,
+    "members": [
+      [
+        24,
+        0.02
+      ],
+      [
+        9,
+        0.02
+      ],
+      [
+        24,
+        0.2
+      ]
+    ],
+    "note": "Recompute fixed historical members on matching outer folds. Do not rerun their grid."
+  },
+  "candidates": {
+    "lda_s09_half": 0.9,
+    "lda_s10_half": 1.0
+  },
+  "probe": {
+    "layers": [
+      9,
+      24
+    ],
+    "scaler": "training-only StandardScaler",
+    "classifier": "LinearDiscriminantAnalysis solver=lsqr equal priors, shrinkage .9 or 1.0",
+    "pooling": "row_z(mean of per-layer row_z discriminant scores)",
+    "blend": "0.5*row_z(v10)+0.5*row_z(discriminant)"
+  },
+  "gates": {
+    "development_gain": 0.0075,
+    "robustness_gain": 0.005,
+    "robustness_fold_wins": 4
+  },
+  "selection": "Highest development BA, tie prefer .9; only winner reaches robustness with unchanged gates.",
+  "inputs": {
+    "artifacts/improvement-v10/kaggle-output/v9_train_features.npy": "4ff75931b7244cfa3919fe59663a1fe7afe5bae0355d34225d0c3e9dffad35ae",
+    "artifacts/improvement-v10/kaggle-output/v9_report.json": "d0adf4356bc73312637ee794cdab28b223301248e2d37232806b2ac65b785c0c",
+    "data/name-that-llm/train.csv": "40a22ce8d88c5f46feb4637a099db815bef5f713ffe53e89dbe1b7b21de77707",
+    "notebooks/improvement-v10/name-that-llm-v7-qwen-blend-v10.ipynb": "1ee7b4f10a786a83d1113d1ca1b9f5c6c88e76322fea0b083024394bd9896cc1",
+    "src/name_that_llm/qwen_probe_v11.py": "4cbbdf5fdcb0d07a2487de0c1d55f7476b1847eb3ec12183e61e57fb0d82c78a",
+    "src/name_that_llm/qwen_probe_v12.py": "96f16b4ac907bd0c0e1a3a924f52f625ca80bd887ab6ce7004f4f53ac236c305",
+    "artifacts/improvement-v11/development/result.json": "52a0e6b6d8990abf53489a9fdd546f80762f3aa88b9bda6fba9728a263a7ccf7",
+    "artifacts/improvement-v12/development/result.json": "57a43fbd3998b0738fcecd60d0e9ee78cadeb44e13afbac87ce50529a5eae1cb"
+  },
+  "limitations": [
+    "Previously inspected labels and folds; not untouched validation.",
+    "Historical Qwen members were selected on all development labels; this optimism affects both comparator and candidate.",
+    "No prompt-count or test-class-balance constraints.",
+    "Qwen paper does not validate this authorship classification method.",
+    "v13 tuning follows inspected v12 results; it is not independent evidence."
+  ],
+  "sources": [
+    "https://arxiv.org/html/2505.09388v1",
+    "https://github.com/QwenLM/Qwen3",
+    "https://scikit-learn.org/1.7/modules/generated/sklearn.svm.SVC.html",
+    "https://scikit-learn.org/1.7/modules/lda_qda.html"
+  ]
+}

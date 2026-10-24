@@ -10,6 +10,27 @@ Git tags preserve the source, notebooks, and tests for each recorded checkpoint.
 Full experiment evidence and data are archived privately in S3; the repository contains no
 competition data or predictions.
 
+## October 24 continuation
+
+V14 is a new frozen Qwen3-8B experiment, comparing mean-passage and prefix-128
+features on the existing prompt-held-out splits. Its extraction notebook is private
+and runs on dual T4 GPUs. The plan precedes feature scoring.
+
+V16 reproduces [Nishant Dahal's Two-stage LoRA, part two, version 2](https://www.kaggle.com/code/nishantdahal/two-stage-lora-part-two).
+The author's reported **0.620 public / 0.642 CV** are upstream results, not ours.
+The original six inference cells, model weights, centered twins, Sinkhorn balancing,
+and credits are retained. Added checks require real inference, all four members,
+finite probabilities and valid output IDs. The public pretrained asset dataset is
+[NTL handwriting blend](https://www.kaggle.com/datasets/nishantdahal/ntl-handwriting-blend),
+version 1, CC BY-SA 4.0. Our notebook is private; its own scored result is pending.
+This is a credited reproduction, not a claimed original modeling improvement.
+
+V13's stronger covariance shrinkage failed development (44.82% versus 45.34%).
+V15 separately checked the fixed v12 winner under an explicitly relaxed exploratory
+policy: related-prompt accuracy was 45.38% versus 45.23%, with only two material fold
+wins. It failed that policy too. Neither was submitted; v12's original failed gate
+was not changed. Plans, results and debug logs are separate for each experiment.
+
 ## Frozen-feature follow-ups v11 and v12 (October 24)
 
 Neither experiment qualified for submission. Both reused v10's frozen Qwen features,

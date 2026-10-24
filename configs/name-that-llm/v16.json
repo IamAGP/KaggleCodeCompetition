@@ -1,0 +1,29 @@
+{
+  "experiment": "improvement-v16",
+  "type": "credited public recipe reproduction",
+  "upstream": "https://www.kaggle.com/code/nishantdahal/two-stage-lora-part-two",
+  "version": 2,
+  "source_sha256": "7ec17cdbd79eff127b10afecc20841c5799ee35957bf95b3e6b6109be2282976",
+  "notebook_sha256": "03f61568045a4653a9b544232efa261d124e401a8af0bed2dd5c8775ef315db5",
+  "reported_upstream_score": 0.62,
+  "our_incumbent_score": 0.427,
+  "release_policy": "Submit once real visible-row inference completes with all four required members, valid ordered IDs/schema/labels and finite probabilities. No new local CV claimed.",
+  "changes": [
+    "Attribution header",
+    "Dual GPU and label checks",
+    "Member audits without modifying predictions",
+    "Parquet and input ID validation"
+  ],
+  "limitations": [
+    "Upstream CV not independently reproduced; pretrained heads saw host training labels.",
+    "Original centered twins and Sinkhorn assume a particular test distribution.",
+    "No gain claimed before our scored run."
+  ],
+  "asset_license": "CC BY-SA 4.0, original credits retained",
+  "sources": [
+    "https://arxiv.org/html/2106.09685v2",
+    "https://github.com/microsoft/LoRA",
+    "https://arxiv.org/html/2111.09543v4",
+    "https://github.com/microsoft/DeBERTa"
+  ]
+}
