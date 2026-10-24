@@ -6,7 +6,8 @@ The classifier predicts one of 18 generating models from a passage.
 Git tags preserve the source, notebooks, and tests for each recorded checkpoint.
 `name-that-llm-v2` retains the 34.4% submission; `name-that-llm-v3` records 35.1%,
 `name-that-llm-v4` records 36.6%, `name-that-llm-v7` records 38.2%, and
-`name-that-llm-v10` records **42.7%**.
+`name-that-llm-v10` records 42.7%. `name-that-llm-v16` records **62.0%**, the current
+scored best, from the credited public two-stage reproduction below.
 Full experiment evidence and data are archived privately in S3; the repository contains no
 competition data or predictions.
 
@@ -25,7 +26,10 @@ finite probabilities and valid output IDs. The public pretrained asset dataset i
 [NTL handwriting blend](https://www.kaggle.com/datasets/nishantdahal/ntl-handwriting-blend),
 version 1, CC BY-SA 4.0. Our private notebook completed real inference on the three
 visible rows in 733 seconds, with all four required members verified. Notebook
-version 1 was submitted October 24 as **57600315**; its own scored result is pending.
+version 1 was submitted October 24 as **57600315** and completed with **0.620 public**,
+up from **0.427** (+19.3 percentage points). The observed rank moved from 1,861/2,998
+before submission to **491/3,009** after scoring. Scored notebook:
+[v16, script version 361856593](https://www.kaggle.com/code/adithyagiri/name-that-llm-two-stage-v16?scriptVersionId=361856593).
 This is a credited reproduction, not a claimed original modeling improvement.
 
 V13's stronger covariance shrinkage failed development (44.82% versus 45.34%).
@@ -58,8 +62,8 @@ frozen plans, source/input hashes, fold audits, scores, and debug logs. This new
 
 ## Qwen3-4B probe blend v10
 
-**V10 scored 42.7% public, up from v7's 38.2% (+4.5 percentage points); it is the new
-scored best.** Submitted October 22 (kernel `adithyagiri/name-that-llm-v7-qwen-blend-v10`,
+**V10 scored 42.7% public, up from v7's 38.2% (+4.5 percentage points); it was the
+scored best before v16.** Submitted October 22 (kernel `adithyagiri/name-that-llm-v7-qwen-blend-v10`,
 version 1). It reruns the unchanged v7 pipeline, adds the v9 frozen Qwen3-4B-Base
 hidden-state probe (mean-pooled layers, standardized logistic regression, prompt-grouped
 CV 39.64%), and averages row-standardized evidence 50/50. Out-of-fold it moved development
