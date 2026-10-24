@@ -10,6 +10,28 @@ Git tags preserve the source, notebooks, and tests for each recorded checkpoint.
 Full experiment evidence and data are archived privately in S3; the repository contains no
 competition data or predictions.
 
+## Frozen-feature follow-ups v11 and v12 (October 24)
+
+Neither experiment qualified for submission. Both reused v10's frozen Qwen features,
+fit preprocessing only on training folds, and compared against the same reconstructed
+v10 classifier on the existing prompt-held-out development folds.
+
+| Experiment | Best development balanced accuracy | Matched v10 | Difference |
+| --- | ---: | ---: | ---: |
+| v11: RBF SVM probe blend | 43.01% | 45.34% | −2.34 points |
+| v12: shrinkage LDA probe blend | 45.71% | 45.34% | +0.37 points |
+
+Each plan fixed two candidates before fitting and required at least +0.75 development
+points before robustness evaluation. Neither passed; no robustness runs or Kaggle
+submissions were made. These reused development labels are not an untouched test set.
+The fixed historical Qwen members also share prior selection optimism with the comparator.
+V12's reported four fold wins include a floating-point tie: materially it won three,
+tied one, and lost one. The recorded raw results are preserved unchanged.
+
+Plans are `configs/name-that-llm/v11.json` and `v12.json`; private artifacts retain
+frozen plans, source/input hashes, fold audits, scores, and debug logs. This new
+45.34% comparison does not replace the historical v10 CV figures below.
+
 ## Qwen3-4B probe blend v10
 
 **V10 scored 42.7% public, up from v7's 38.2% (+4.5 percentage points); it is the new

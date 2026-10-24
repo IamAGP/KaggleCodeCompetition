@@ -1,0 +1,63 @@
+{
+  "experiment": "improvement-v11",
+  "defined_date": "2026-10-24",
+  "hypothesis": "Nonlinear RBF decision functions on frozen Qwen3 features add complementary information to scored v10.",
+  "incumbent": {
+    "submission": 57523017,
+    "public_score": 0.427,
+    "members": [
+      [
+        24,
+        0.02
+      ],
+      [
+        9,
+        0.02
+      ],
+      [
+        24,
+        0.2
+      ]
+    ],
+    "note": "Recompute fixed historical members on matching outer folds. Do not rerun their grid."
+  },
+  "candidates": {
+    "rbf_c1_half": 1.0,
+    "rbf_c10_half": 10.0
+  },
+  "probe": {
+    "layers": [
+      9,
+      24
+    ],
+    "scaler": "StandardScaler fitted only on each training fold",
+    "kernel": "RBF gamma=1/hidden_dimension, precomputed",
+    "classifier": "OneVsRest SVC class_weight=balanced probability=False tol=.001",
+    "pooling": "row_z(mean of per-layer row_z binary margins)",
+    "blend": "0.5*row_z(v10 evidence)+0.5*row_z(kernel evidence)"
+  },
+  "gates": {
+    "development_gain": 0.0075,
+    "robustness_gain": 0.005,
+    "robustness_fold_wins": 4
+  },
+  "selection": "Choose highest development balanced accuracy; tie prefer C=1. Only winner enters robustness. No post-score weight/parameter changes.",
+  "inputs": {
+    "artifacts/improvement-v10/kaggle-output/v9_train_features.npy": "4ff75931b7244cfa3919fe59663a1fe7afe5bae0355d34225d0c3e9dffad35ae",
+    "artifacts/improvement-v10/kaggle-output/v9_report.json": "d0adf4356bc73312637ee794cdab28b223301248e2d37232806b2ac65b785c0c",
+    "data/name-that-llm/train.csv": "40a22ce8d88c5f46feb4637a099db815bef5f713ffe53e89dbe1b7b21de77707",
+    "notebooks/improvement-v10/name-that-llm-v7-qwen-blend-v10.ipynb": "1ee7b4f10a786a83d1113d1ca1b9f5c6c88e76322fea0b083024394bd9896cc1",
+    "src/name_that_llm/qwen_probe_v11.py": "4cbbdf5fdcb0d07a2487de0c1d55f7476b1847eb3ec12183e61e57fb0d82c78a"
+  },
+  "limitations": [
+    "Previously inspected labels and folds; not untouched validation.",
+    "Historical Qwen members were selected on all development labels; this optimism affects both comparator and candidate.",
+    "No prompt-count or test-class-balance constraints.",
+    "Qwen paper does not validate this authorship classification method."
+  ],
+  "sources": [
+    "https://arxiv.org/html/2505.09388v1",
+    "https://github.com/QwenLM/Qwen3",
+    "https://scikit-learn.org/1.7/modules/generated/sklearn.svm.SVC.html"
+  ]
+}
