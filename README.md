@@ -54,6 +54,23 @@ within-pool duplicates or conflicting duplicate labels; this does not rule out
 near-duplicates or generation-setting mismatch. The next priority is new
 attribution training with prompt-held-out validation.
 
+V18 is now running as a private
+[paired training experiment](https://www.kaggle.com/code/adithyagiri/name-that-llm-contrastive-v18),
+version 1, on dual T4 GPUs. Both arms start from Qwen3-4B-base with rank-16 LoRA
+on query/value projections. One optimizes cross-entropy; the other adds a 0.1
+supervised contrastive term using two different prompts per author in each
+four-row batch. Seeds, sampled batches, data and training budgets are matched.
+The public pool screen excludes 934 near-host passages (TF-IDF cosine >=0.3),
+then selects 250 per class (4,500 total). Host training uses 2,159 rows;
+540 rows from 30 prompts are held out. Training samples paired batches with
+replacement for one pool-equivalent epoch and two host-equivalent epochs.
+The fixed final epoch is evaluated; there is no best-epoch selection.
+External-only and final adapter checkpoints are saved separately. The frozen
+promotion threshold is +1 point over the CE control before broader validation.
+This pilot produces no competition submission. Three semantic tests passed,
+real-data batch checks passed, and remote source, attachments, privacy and GPU
+configuration were verified. Results are pending.
+
 The topic/style distinction is motivated by
 [Altakrori et al., Topic Confusion](https://arxiv.org/html/2104.08530v2).
 That paper studies human authors; it does not establish a score prediction for
