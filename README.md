@@ -90,6 +90,15 @@ representations and regularized readouts against the unadapted base before
 investing in a full-fold training confirmation. This is a new diagnostic,
 not a retrospective change to v18's promotion threshold. No v18 submission.
 
+V19 freezes that diagnostic: unadapted Qwen3-4B, CE external-only/final, and
+SupCon external-only/final checkpoints receive identical standardized logistic
+readouts (C=0.02) at layers 12/24/36. The primary score uses the equal mean of
+the three log-probability arrays; individual layers are diagnostic only.
+Readouts fit the 2,159 host fitting rows and evaluate only v18's 540 held-out
+rows. A checkpoint must beat the matched base readout by at least one point
+and reach 40.44% to justify broader confirmation. This is a separate experiment
+with checkpoint hashes; it does not alter v18 or produce a submission.
+
 The topic/style distinction is motivated by
 [Altakrori et al., Topic Confusion](https://arxiv.org/html/2104.08530v2).
 That paper studies human authors; it does not establish a score prediction for

@@ -1,0 +1,22 @@
+{
+  "id": "adithyagiri/name-that-llm-readout-v19",
+  "title": "Name That LLM Readout V19",
+  "code_file": "readout.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "machine_shape": "NvidiaTeslaT4",
+  "competition_sources": [
+    "name-that-llm"
+  ],
+  "dataset_sources": [],
+  "kernel_sources": [
+    "adithyagiri/name-that-llm-contrastive-v18"
+  ],
+  "model_sources": [
+    "qwen-lm/qwen-3/Transformers/4b-base/1"
+  ]
+}

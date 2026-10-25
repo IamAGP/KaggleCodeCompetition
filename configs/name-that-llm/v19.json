@@ -1,0 +1,20 @@
+{
+  "experiment": "improvement-v19",
+  "kind": "representation/readout diagnostic after v18",
+  "model": "qwen-lm/qwen-3/Transformers/4b-base/1",
+  "upstream_kernel": "adithyagiri/name-that-llm-contrastive-v18",
+  "upstream_version": 2,
+  "variants": ["base", "ce_external", "ce_final", "supcon_external", "supcon_final"],
+  "layers": [12, 24, 36],
+  "max_length": 256,
+  "batch_size": 8,
+  "C": 0.02,
+  "max_iter": 1000,
+  "pilot_fold": 0,
+  "seed": 1901,
+  "primary_readout": "Equal mean of three layer log probabilities; per-layer results diagnostic only",
+  "preprocessing": "StandardScaler fit on 2159 host fitting rows only; same fit/validation rows for all five backbones",
+  "promotion": "An adapted primary readout must beat the identical base readout by >=0.01 and reach >=0.4044444444 before broader confirmation. No pilot submission.",
+  "limitations": ["One repeatedly inspected fold", "Final host adapters are valid only on v18's held-out fold; their training rows must never be used as OOF evidence", "External-only adapters can support later folds, but v18's global host-text overlap exclusion is retained", "This tests readout quality, not new backbone training"],
+  "sources": ["https://arxiv.org/html/2606.10794v1", "https://arxiv.org/html/2004.11362v5", "https://github.com/HobbitLong/SupContrast", "https://github.com/microsoft/LoRA"]
+}
