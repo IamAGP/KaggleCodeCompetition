@@ -27,9 +27,28 @@ for name in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS"):
 os.environ["HF_HUB_OFFLINE"] = "1"
 os.environ["TRANSFORMERS_OFFLINE"] = "1"
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
+import importlib.metadata
+from packaging.version import Version
+try:
+    torchao_version = importlib.metadata.version("torchao")
+except importlib.metadata.PackageNotFoundError:
+    torchao_version = None
+if torchao_version is not None and Version(torchao_version) < Version("0.16.0"):
+    print({{"environment_fix":"remove unused incompatible torchao", "version":torchao_version}}, flush=True)
+    subprocess.run([sys.executable, "-m", "pip", "uninstall", "-y", "torchao"], check=True)
 import torch, peft, transformers
 assert torch.cuda.device_count() == 2, "Paired pilot requires two GPUs"
 print({{"torch":torch.__version__, "peft":peft.__version__, "transformers":transformers.__version__}}, flush=True)
+# Check the actual image's adapter integration before loading two full backbones.
+tiny = transformers.AutoModel.from_config(transformers.Qwen3Config(
+    vocab_size=128, hidden_size=64, intermediate_size=128, num_hidden_layers=2,
+    num_attention_heads=4, num_key_value_heads=2, head_dim=16))
+tiny = peft.get_peft_model(tiny, peft.LoraConfig(r=4, lora_alpha=8, target_modules=["q_proj","v_proj"]))
+tiny(input_ids=torch.tensor([[1,2,3,4]]), use_cache=False).last_hidden_state.sum().backward()
+assert any(p.grad is not None and torch.isfinite(p.grad).all() and p.grad.abs().sum()>0
+           for n,p in tiny.named_parameters() if "lora_B" in n)
+print({{"adapter_backward_smoke":"passed"}}, flush=True)
+del tiny
 plan = json.loads({json.dumps(json.dumps(plan))})
 fold_by_prompt = json.loads({json.dumps(json.dumps(mapping))})
 Path("worker.py").write_text({worker!r})
@@ -55,7 +74,9 @@ try:
         if failed:
             raise RuntimeError(f"Paired worker failed: {{failed}}")
         time.sleep(10)
-    assert all(p.returncode == 0 for _,p in processes)
+    failed = [(v,p.returncode) for v,p in processes if p.returncode != 0]
+    if failed:
+        raise RuntimeError(f"Paired worker failed: {{failed}}")
 except BaseException:
     for _,p in processes:
         if p.poll() is None: p.terminate()

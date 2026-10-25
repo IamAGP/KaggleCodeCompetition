@@ -56,7 +56,7 @@ attribution training with prompt-held-out validation.
 
 V18 is now running as a private
 [paired training experiment](https://www.kaggle.com/code/adithyagiri/name-that-llm-contrastive-v18),
-version 1, on dual T4 GPUs. Both arms start from Qwen3-4B-base with rank-16 LoRA
+version 2, on dual T4 GPUs. Both arms start from Qwen3-4B-base with rank-16 LoRA
 on query/value projections. One optimizes cross-entropy; the other adds a 0.1
 supervised contrastive term using two different prompts per author in each
 four-row batch. Seeds, sampled batches, data and training budgets are matched.
@@ -69,7 +69,12 @@ External-only and final adapter checkpoints are saved separately. The frozen
 promotion threshold is +1 point over the CE control before broader validation.
 This pilot produces no competition submission. Three semantic tests passed,
 real-data batch checks passed, and remote source, attachments, privacy and GPU
-configuration were verified. Results are pending.
+configuration were verified. Version 1 failed before training: the image's PEFT
+rejected optional torchao 0.10.0 (requires >=0.16.0). Version 2 removes this unused
+package and checks a tiny adapter backward pass before loading full models.
+The worker, data, objectives, seeds, budgets and promotion rule are unchanged;
+failed-run logs and source are retained. Remote prepared frames were compared
+row-for-row with local preflight and matched. Results are pending.
 
 The topic/style distinction is motivated by
 [Altakrori et al., Topic Confusion](https://arxiv.org/html/2104.08530v2).
