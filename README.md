@@ -111,6 +111,27 @@ in `configs/name-that-llm/v20.json`: reuse fold zero, train fresh host adapters
 for folds 1–4 from external-only checkpoints, and require >=1.5-point pooled
 gains over CE and base with positive CE gains on at least three folds.
 
+V21 now takes priority as a **prospective additive submission**. V20 has not
+run; its confirmation gate has not passed and is not being relabeled as passed.
+The [full-host training notebook](https://www.kaggle.com/code/adithyagiri/name-that-llm-full-contrastive-v21)
+version 1 is running. It restores our v18 external-only SupCon adapter and all
+heads, trains on all 2,699 host rows for two equivalent epochs with the fixed
+paired sampler, then fits the three-layer regularized readout. A fresh host
+optimizer and GradScaler are used; the scaler/LR use float64 for portable
+serialization equivalence. This is not an out-of-fold evaluation.
+
+The candidate retains all v16 ensemble members and weights, adds a fixed 0.15
+log-probability vote from the new component, and retains the existing Sinkhorn
+step. This directly tests complementarity with the 0.620 incumbent. The choice
+is motivated by v19's matched pilot gain, but **no complete-ensemble CV gain is
+claimed**, and the public score can fall. V16 remains the incumbent unless the
+new submission improves its score. Release requires completed training, pinned
+artifact hashes, real visible-row inference, correct label reordering and valid
+output IDs/schema. The full training source and remote attachments were verified;
+the portable readout round-trip and arbitrary-row ordering check passed locally.
+Code, configuration, notebook and inference builder are version controlled;
+large artifacts remain private in S3. No v21 submission has been made yet.
+
 The topic/style distinction is motivated by
 [Altakrori et al., Topic Confusion](https://arxiv.org/html/2104.08530v2).
 That paper studies human authors; it does not establish a score prediction for

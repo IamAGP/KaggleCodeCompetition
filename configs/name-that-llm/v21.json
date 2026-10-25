@@ -1,0 +1,16 @@
+{
+  "experiment": "improvement-v21",
+  "kind": "prospective additive submission on v16",
+  "incumbent": "adithyagiri/name-that-llm-two-stage-v16",
+  "incumbent_public_score": 0.620,
+  "initialization": "v18 ce_supcon external_only adapter and heads; no host-adapted checkpoint",
+  "training": "All 2699 host rows, exactly two equivalent epochs with original v18 host-stage objective, paired sampler and optimizer",
+  "readout": {"layers": [12, 24, 36], "C": 0.02, "max_iter": 1000, "seed": 1901, "batch_size": 8, "fit_dtype": "float64 for portable numerical equivalence"},
+  "resume_state": "Restore adapter and all three heads; fresh host optimizer and GradScaler, since v18 did not save optimizer/scaler state",
+  "blend": {"incumbent_members_unchanged": true, "new_member_log_probability_weight": 0.15, "position": "Before unchanged incumbent Sinkhorn"},
+  "release_policy": "One prospective submission after complete all-host training, finite real inference for all visible rows, ordered label mapping and schema checks. No claim of ensemble CV improvement; retain v16 as incumbent unless scored improvement.",
+  "reason": "v19 fixed readout improves matched CE by 2.78 points on pilot fold; test complementarity directly as a small addition to existing 0.620 ensemble",
+  "confirmation_status": "Five-fold v20 has not run; v21 is a separate prospective submission, not a claim that v20 passed",
+  "attribution": "v16 credited reproduction of Nishant Dahal two-stage LoRA part two, with original contributors retained. Added component is our v18/v19 experimental combination of established LoRA and supervised contrastive methods. Public pool CC BY-SA 4.0.",
+  "limitations": ["Only one repeatedly inspected fold supports component selection", "Complementarity and blend weight are not validated against complete v16 ensemble", "Public score may fall", "Existing v16 test-distribution assumptions retained"]
+}
