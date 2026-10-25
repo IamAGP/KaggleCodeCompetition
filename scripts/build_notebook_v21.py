@@ -10,6 +10,8 @@ def build():
     output=Path('artifacts/improvement-v21/kaggle-output')
     trained=json.loads((output/'full/training_result.json').read_text())
     readout=json.loads((output/'full/readout_result.json').read_text())
+    audit=json.loads(Path('artifacts/improvement-v21/training-audit.json').read_text())
+    assert audit['verified'] and audit['training']==trained and audit['readout']==readout
     assert trained['completed'] and trained['rows']==2699 and trained['prompts']==150
     assert trained['labels']==plan['labels']==readout['labels'] and readout['fit_rows']==2699
     assert trained['epochs']==2 and trained['changed_adapter_tensors']>0
