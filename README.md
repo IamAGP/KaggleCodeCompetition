@@ -54,7 +54,7 @@ within-pool duplicates or conflicting duplicate labels; this does not rule out
 near-duplicates or generation-setting mismatch. The next priority is new
 attribution training with prompt-held-out validation.
 
-V18 is now running as a private
+V18 completed as a private
 [paired training experiment](https://www.kaggle.com/code/adithyagiri/name-that-llm-contrastive-v18),
 version 2, on dual T4 GPUs. Both arms start from Qwen3-4B-base with rank-16 LoRA
 on query/value projections. One optimizes cross-entropy; the other adds a 0.1
@@ -74,7 +74,21 @@ rejected optional torchao 0.10.0 (requires >=0.16.0). Version 2 removes this unu
 package and checks a tiny adapter backward pass before loading full models.
 The worker, data, objectives, seeds, budgets and promotion rule are unchanged;
 failed-run logs and source are retained. Remote prepared frames were compared
-row-for-row with local preflight and matched. Results are pending.
+row-for-row with local preflight and matched.
+
+Version 2 completed successfully (about 51 minutes including preparation).
+Audited final pilot accuracy: CE **29.07%**, CE plus SupCon **32.22%**, a
+**+3.15-point** gain (37 corrected errors, 20 new errors, 540 rows). The diagnostic
+prompt-cluster bootstrap interval for the difference was +1.11 to +5.37 points.
+This passes the frozen pilot promotion rule, but neither model is ready for a
+submission: both trail even the v17 sparse uniform-pool pilot at 39.44% on this
+fold (different training recipes, not a controlled method comparison).
+All 144 final adapter tensors per arm were finite and all 72 LoRA B matrices
+were nonzero. Each arm recorded one skipped mixed-precision optimizer step.
+Pool/host losses decreased; the next diagnostic should compare intermediate
+representations and regularized readouts against the unadapted base before
+investing in a full-fold training confirmation. This is a new diagnostic,
+not a retrospective change to v18's promotion threshold. No v18 submission.
 
 The topic/style distinction is motivated by
 [Altakrori et al., Topic Confusion](https://arxiv.org/html/2104.08530v2).
