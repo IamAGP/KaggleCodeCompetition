@@ -132,6 +132,17 @@ the portable readout round-trip and arbitrary-row ordering check passed locally.
 Code, configuration, notebook and inference builder are version controlled;
 large artifacts remain private in S3. No v21 submission has been made yet.
 
+While v21 trains, a descriptive check reuses saved, aligned 540-row pilot
+predictions at the already-frozen 0.15 component weight (no weight search).
+V17's capped sparse model scored 39.44%; adding the unadapted v19 readout gives
+44.26%, adding CE-final gives 47.41%, and adding SupCon-final also gives 47.41%.
+The SupCon addition corrects 78 sparse errors and introduces 35; CE corrects 77
+and introduces 34. This supports complementary information relative to that
+weaker sparse control, but shows no contrastive advantage in this particular
+blend. It is not a comparison against the complete 0.620 ensemble. The same
+inspected fold and v17's exact-only external-overlap screen limit the evidence.
+`scripts/diagnose_v21_blend.py` reproduces the check without fitting or tuning.
+
 The topic/style distinction is motivated by
 [Altakrori et al., Topic Confusion](https://arxiv.org/html/2104.08530v2).
 That paper studies human authors; it does not establish a score prediction for
