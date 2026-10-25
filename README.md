@@ -114,7 +114,7 @@ gains over CE and base with positive CE gains on at least three folds.
 V21 now takes priority as a **prospective additive submission**. V20 has not
 run; its confirmation gate has not passed and is not being relabeled as passed.
 The [full-host training notebook](https://www.kaggle.com/code/adithyagiri/name-that-llm-full-contrastive-v21)
-version 1 is running. It restores our v18 external-only SupCon adapter and all
+version 1 completed. It restores our v18 external-only SupCon adapter and all
 heads, trains on all 2,699 host rows for two equivalent epochs with the fixed
 paired sampler, then fits the three-layer regularized readout. A fresh host
 optimizer and GradScaler are used; the scaler/LR use float64 for portable
@@ -131,6 +131,15 @@ output IDs/schema. The full training source and remote attachments were verified
 the portable readout round-trip and arbitrary-row ordering check passed locally.
 Code, configuration, notebook and inference builder are version controlled;
 large artifacts remain private in S3. No v21 submission has been made yet.
+Full training completed in 1,888 seconds; readout fitting and packaging brought
+the notebook runtime to about 38 minutes. Both epochs completed, losses fell
+from 1.9321 to 1.7369, all 144 adapter tensors changed and remained finite, and
+two mixed-precision optimizer steps were skipped. The downloaded source, hashes,
+feature dimensions and full-training readout statistics passed the independent
+artifact audit. The [combined inference notebook](https://www.kaggle.com/code/adithyagiri/name-that-llm-contrastive-blend-v21)
+version 1 has been pushed; its remote source and all attachments were verified.
+Seven baseline code cells are retained unchanged, including the original
+inference calculations and checks. The final audit now covers the new member.
 
 While v21 trains, a descriptive check reuses saved, aligned 540-row pilot
 predictions at the already-frozen 0.15 component weight (no weight search).
