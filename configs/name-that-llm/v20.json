@@ -1,0 +1,17 @@
+{
+  "experiment": "improvement-v20",
+  "kind": "five-fold confirmation of v18/v19 paired objective",
+  "prerequisite": "Audited v19 completion and promotion of supcon_final",
+  "fold_file": "artifacts/baseline-v1/folds.csv",
+  "variants": ["ce", "ce_supcon"],
+  "reuse_fold": 0,
+  "train_folds": [1, 2, 3, 4],
+  "initialization": "Each fold starts independently from its matching v18 external-only adapter and saved heads; never from a host-adapted checkpoint",
+  "host_training": "Exactly v18 host stage: two equivalent epochs of paired sampling, original seed, objective, optimizer, learning rates, accumulation and max length",
+  "readout": "Exactly v19: StandardScaler and LogisticRegression C=0.02, max_iter=1000; layers 12/24/36; equal mean log probabilities",
+  "control": "CE and SupCon use the same fitting rows and paired batch schedules for each fold",
+  "primary_gate": "SupCon pooled OOF accuracy exceeds CE by >=0.015, with positive gains on at least three of five folds, and exceeds matched unadapted-base OOF by >=0.015",
+  "secondary_diagnostics": "Prompt-cluster bootstrap, corrected versus new errors, per-class recall; no new gate or layer selection",
+  "submission_policy": "No direct submission; passing supports larger-data training or separate ensemble validation against a stronger incumbent",
+  "limitations": ["Development prompts have been inspected repeatedly", "Fold zero is reused pilot evidence, not new confirmation", "External checkpoint is shared across folds but saw no host labels", "Global external overlap screen uses unlabeled host text conservatively", "Passing does not establish improvement over the complete v16 public ensemble"]
+}

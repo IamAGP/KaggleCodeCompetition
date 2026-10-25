@@ -99,6 +99,18 @@ rows. A checkpoint must beat the matched base readout by at least one point
 and reach 40.44% to justify broader confirmation. This is a separate experiment
 with checkpoint hashes; it does not alter v18 or produce a submission.
 
+V19 completed and passed artifact/ID/label/score audits. Primary pilot scores:
+base 37.22%, CE external-only 39.26%, CE final 39.26%, SupCon external-only
+39.44%, SupCon final **42.04%**. The final contrastive checkpoint corrected 58
+base errors while introducing 32 (+4.81 points), and corrected 32 CE-final
+errors while introducing 17 (+2.78 points). Its original v18 final classifier
+scored only 32.22%, so readout quality was a substantial limitation. Only
+SupCon-final passed v19's prospective gate. These are local pilot results,
+not gains over the complete v16 submission. Five-fold confirmation is frozen
+in `configs/name-that-llm/v20.json`: reuse fold zero, train fresh host adapters
+for folds 1–4 from external-only checkpoints, and require >=1.5-point pooled
+gains over CE and base with positive CE gains on at least three folds.
+
 The topic/style distinction is motivated by
 [Altakrori et al., Topic Confusion](https://arxiv.org/html/2104.08530v2).
 That paper studies human authors; it does not establish a score prediction for
