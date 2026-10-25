@@ -11,6 +11,56 @@ scored best, from the credited public two-stage reproduction below.
 Full experiment evidence and data are archived privately in S3; the repository contains no
 competition data or predictions.
 
+## Target: 0.700 (October 25)
+
+The verified starting point is v16 at 0.620. The target is a scored 0.700;
+it is not a forecast or a claim that the target has already been reached.
+The next experiments will separate new contributions from credited public assets.
+
+1. **Data quality and transfer (v17 first).** Audit the public pool for conflicting
+   labels, duplicates, collection-source coverage, and generation settings. Screen
+   source and length weighting against an identical uniformly weighted control.
+   V17 uses a fixed 18,000-row capped pool and one prompt-held-out pilot fold; a
+   promising result must survive full-fold and related-prompt confirmation before
+   it can justify a submission. This is not a comparison against the complete v16.
+2. **Train for style across topics.** Train new adapters from a clean base or a
+   verified external-only checkpoint, with host validation prompts excluded from
+   training. Compare ordinary classification with prompt-balanced batches and
+   style-focused objectives. Public final checkpoints have already seen host
+   labels and cannot supply honest host out-of-fold validation.
+3. **Complementary evidence.** Test author-conditioned likelihood or a genuinely
+   different encoder against the confirmed training baseline. Keep a new member
+   only when it corrects existing errors on held-out prompts, not merely because
+   its standalone accuracy is high. Previous frozen-reader additions failed.
+4. **Targeted data generation, if needed.** Use measured hard-pair errors to choose
+   models and generation settings. Before paid work, specify API availability,
+   permitted external-data sharing, number of requests/tokens, estimated cost and
+   a spending cap. More synthetic data is a hypothesis, not an automatic benefit.
+5. **Final blend and delivery.** Fit blending choices using genuine out-of-fold
+   predictions, check sensitivity to class balance and topic clustering, verify
+   hidden-run runtime headroom, then submit and record the actual scored result.
+
+Use available Kaggle compute first. Approximately 29.6 GPU quota hours remained
+at the October 25 check; quota and runtime are different quantities and need to
+be checked before each launch. Save each experiment separately with input hashes,
+debug logs, evaluation outputs, provenance and a verified private S3 manifest.
+The existing development folds are repeatedly inspected, not an untouched test.
+
+V17 completed its fixed 540-row pilot: host-only 28.70%, uniform external pool
+39.44%, source-balanced 38.15%, source-and-length-balanced 38.15%. Neither proposed
+weighting passed the +1-point promotion gate. No broader sweep or submission is
+justified by this result. Normalized exact-duplicate audit found no host overlap,
+within-pool duplicates or conflicting duplicate labels; this does not rule out
+near-duplicates or generation-setting mismatch. The next priority is new
+attribution training with prompt-held-out validation.
+
+The topic/style distinction is motivated by
+[Altakrori et al., Topic Confusion](https://arxiv.org/html/2104.08530v2).
+That paper studies human authors; it does not establish a score prediction for
+this LLM competition. V17's weighting experiment is our hypothesis, not a claimed
+reproduction of that paper. The external pool remains credited to
+[Nishant Dahal and its original contributors](https://www.kaggle.com/datasets/nishantdahal/ntl-handwriting-blend).
+
 ## October 24 continuation
 
 V14 compared frozen Qwen3-8B mean-passage and prefix-128 features on the existing

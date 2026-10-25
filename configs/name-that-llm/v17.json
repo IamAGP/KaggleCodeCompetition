@@ -1,0 +1,17 @@
+{
+  "experiment": "improvement-v17",
+  "hypothesis": "External collection source and response length confound author identity; source-balanced training may transfer better to unseen host prompts.",
+  "kind": "exploratory data-selection pilot, not a v16 OOF comparison",
+  "external_source": "nishantdahal/ntl-handwriting-blend/pool_v4.parquet",
+  "license": "CC BY-SA 4.0; credit Nishant Dahal and original pool contributors",
+  "seed": 1701,
+  "external_cap_per_class": 1000,
+  "pilot_fold": 0,
+  "fold_file": "artifacts/baseline-v1/folds.csv",
+  "candidates": ["host_only", "uniform_pool", "source_balanced", "source_and_length_balanced"],
+  "external_weight": 0.25,
+  "C": 0.5,
+  "promotion": "At least 0.01 accuracy above uniform_pool on pilot fold, then evaluate all five folds and related-prompt folds in a separately recorded confirmation. Pilot alone never authorizes submission.",
+  "limitations": ["Existing development folds have been inspected repeatedly.", "Normalized exact duplicates are removed; topical near-overlap remains an audit item.", "Small capped pool and reduced sparse features are screening tools, not the complete v16 recipe.", "No comparison to in-sample predictions of public fine-tuned models is allowed."],
+  "research_context": ["https://arxiv.org/html/2104.08530v2", "https://www.kaggle.com/code/nishantdahal/two-stage-lora-part-two"]
+}
