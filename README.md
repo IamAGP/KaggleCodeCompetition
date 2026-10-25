@@ -130,7 +130,7 @@ artifact hashes, real visible-row inference, correct label reordering and valid
 output IDs/schema. The full training source and remote attachments were verified;
 the portable readout round-trip and arbitrary-row ordering check passed locally.
 Code, configuration, notebook and inference builder are version controlled;
-large artifacts remain private in S3. No v21 submission has been made yet.
+large artifacts remain private in S3.
 Full training completed in 1,888 seconds; readout fitting and packaging brought
 the notebook runtime to about 38 minutes. Both epochs completed, losses fell
 from 1.9321 to 1.7369, all 144 adapter tensors changed and remained finite, and
@@ -140,6 +140,13 @@ artifact audit. The [combined inference notebook](https://www.kaggle.com/code/ad
 version 1 has been pushed; its remote source and all attachments were verified.
 Seven baseline code cells are retained unchanged, including the original
 inference calculations and checks. The final audit now covers the new member.
+Inference version 1 completed in 727.9 seconds on the three visible rows. All
+five required members ran, output IDs/labels/schema passed, and the additive
+scores were independently reconstructed from the saved arrays. The visible
+predictions were unchanged; three rows are not accuracy evidence. Submitted
+October 25 as **57632200**, [script version 362148441](https://www.kaggle.com/code/adithyagiri/name-that-llm-contrastive-blend-v21?scriptVersionId=362148441).
+The hidden rerun and public score are pending. V16's 0.620 remains the verified
+incumbent until a new completed score establishes an improvement.
 
 While v21 trains, a descriptive check reuses saved, aligned 540-row pilot
 predictions at the already-frozen 0.15 component weight (no weight search).
