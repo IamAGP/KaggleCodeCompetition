@@ -1,0 +1,68 @@
+{
+  "experiment": "improvement-v22",
+  "kind": "external-data scaling with matched CE/SupCon controls",
+  "model": "qwen-lm/qwen-3/Transformers/4b-base/1",
+  "seed": 1801,
+  "pilot_fold": 0,
+  "external_cap_per_class": 1000,
+  "external_host_cosine_exclusion": 0.3,
+  "max_length": 256,
+  "batch_size": 4,
+  "gradient_accumulation": 8,
+  "lora_rank": 16,
+  "lora_alpha": 32,
+  "target_modules": [
+    "q_proj",
+    "v_proj"
+  ],
+  "pool_epochs": 1,
+  "host_epochs": 2,
+  "pool_adapter_lr": 0.0001,
+  "pool_head_lr": 0.0005,
+  "host_adapter_lr": 3e-05,
+  "host_head_lr": 0.0001,
+  "contrastive_weight": 0.1,
+  "contrastive_temperature": 0.1,
+  "variants": [
+    "ce",
+    "ce_supcon"
+  ],
+  "checkpoint_rule": "Evaluate fixed final host epoch only; no best-epoch selection",
+  "promotion": "Fixed three-layer readout must reach >=0.4403703704 and fixed 0.15 sparse-pilot blend >=0.4840740741. Compare both CE and SupCon; report selection across two arms. No direct submission from this pilot.",
+  "wall_limit_seconds": 25200,
+  "sources": [
+    "https://arxiv.org/html/2004.11362v5",
+    "https://github.com/HobbitLong/SupContrast",
+    "https://arxiv.org/html/2106.09685v2",
+    "https://github.com/microsoft/LoRA",
+    "https://huggingface.co/docs/peft/package_reference/lora"
+  ],
+  "attribution": "LoRA and supervised contrastive learning are established methods. Joint CE plus cross-prompt supervised contrastive adaptation here is our experimental combination, not a reproduction of the image-learning paper. Public pool credited to Nishant Dahal and original contributors (CC BY-SA 4.0).",
+  "limitations": [
+    "Same repeatedly inspected 540-row pilot fold",
+    "Scaling increases both examples and optimizer steps; does not isolate those effects",
+    "Two-arm candidate selection must be reported",
+    "Does not establish gain over complete v16 or v21 ensemble",
+    "No new paid compute or model API calls"
+  ],
+  "comparison": {
+    "small_pool_readout_ce": 0.3925925926,
+    "small_pool_readout_supcon": 0.4203703704,
+    "small_pool_sparse_blend": 0.4740740741
+  },
+  "readout": {
+    "layers": [
+      12,
+      24,
+      36
+    ],
+    "C": 0.02,
+    "max_iter": 1000,
+    "seed": 1901,
+    "batch_size": 8
+  },
+  "differences_from_v18": [
+    "External cap increases from 250 to 1000 per label; more training steps follow the unchanged one-pool-equivalent-epoch rule",
+    "Append fixed v19 three-layer readouts; learned-head scores are diagnostics only"
+  ]
+}

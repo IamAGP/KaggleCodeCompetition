@@ -159,6 +159,21 @@ blend. It is not a comparison against the complete 0.620 ensemble. The same
 inspected fold and v17's exact-only external-overlap screen limit the evidence.
 `scripts/diagnose_v21_blend.py` reproduces the check without fitting or tuning.
 
+V22 tests external-data scaling while v21 is being scored. Matched CE and
+CE+SupCon arms retain v18's initialization, optimizer, paired sampler, host
+split and epoch counts, but increase the external cap from 250 to 1,000 per
+label (18,000 passages). Local preflight confirms that all prior 4,500 selected
+passages remain included, the same 934 near-host passages are excluded, and
+the 2,159 host fitting rows are unchanged. Scaling increases both examples and
+optimizer steps, so the experiment does not isolate those effects. The proven
+v18 training and v19 readout workers are reused without edits in a new notebook.
+Each arm gets the fixed layers 12/24/36, C=0.02 readout. Candidate qualification
+requires readout accuracy >=44.037% and the fixed 0.15 sparse-pilot blend
+>=48.407%; both arms and selection across them must be reported. This remains
+the inspected pilot fold, not full-ensemble validation, and produces no direct
+submission. The separate v20 confirmation plan has not run. Available Kaggle
+quota covers this experiment; no paid compute or model APIs are used.
+
 The topic/style distinction is motivated by
 [Altakrori et al., Topic Confusion](https://arxiv.org/html/2104.08530v2).
 That paper studies human authors; it does not establish a score prediction for
