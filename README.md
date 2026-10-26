@@ -283,6 +283,23 @@ with verified S3 size/checksum/version under `improvement-v29/launched-v1/`.
 Notebook: [V29 feasibility](https://www.kaggle.com/code/adithyagiri/name-that-llm-likelihood-probe-v29).
 V25's complete audited outputs are also now verified in the private S3 archive.
 
+V29 completed finite training updates, changed all 225 adapter tensors and passed
+checkpoint reload. Peak allocated memory was 4,269,575,168 bytes. Its measured
+2.008 seconds per training microstep projected **31,600.9 seconds** for the pilot,
+above the frozen 24,300-second gate; therefore V30 training was not launched.
+Projected hidden inference, including the 3,600-second base-ensemble allowance,
+was 17,983.1 seconds. These short-probe estimates are not runtime guarantees.
+
+V31 measures two-GPU distributed training for the same model and training work.
+Four passages per GPU and four accumulation steps preserve effective batch 32.
+The proposed pilot remains three epochs over 18,000 external rows and two over
+2,159 host training rows; source modeling and 512-token length are unchanged.
+The measured training time includes gradient synchronization. The private offline
+[V31 probe](https://www.kaggle.com/code/adithyagiri/name-that-llm-likelihood-probe-v31)
+was launched and its remote source and inputs verified. V30's configuration is
+prepared but requires a passing V31 audit before any training launch. No probe
+checkpoint may be used for the pilot, and there is no new accuracy result.
+
 V27 tested one fixed RBF SVC readout (C=1, gamma=1/width) on V22's saved
 task-adapted features, distinct from the earlier frozen-base V11 experiment.
 It failed both gates: readout accuracy **39.63% vs 44.26%**, fixed sparse blend
