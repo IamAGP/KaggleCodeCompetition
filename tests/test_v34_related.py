@@ -7,13 +7,28 @@ import unittest
 
 import nbformat
 import pandas as pd
+import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 from build_related_v34 import related_package, require_primary
 from prepare_likelihood_v33 import prepare
+from evaluate_related_v34 import score_related
 
 
 class RelatedConfirmationTest(unittest.TestCase):
+    def test_related_gate_needs_candidate_floor_and_gain(self):
+        truth = np.tile(np.arange(18), 30)
+        perfect = np.eye(18)[truth] * 10
+        neutral = np.zeros_like(perfect)
+        protocol = {'scoring': {'component_weight': .15}, 'related_gate': {
+            'candidate_balanced_accuracy_minimum': .5, 'candidate_minus_comparison_minimum': .015}}
+        passed, _ = score_related(truth, neutral, perfect, neutral, protocol)
+        self.assertTrue(passed['qualifies_for_full_host_training'])
+        tied, _ = score_related(truth, neutral, perfect, perfect, protocol)
+        self.assertFalse(tied['qualifies_for_full_host_training'])
+        weak, _ = score_related(truth, neutral, neutral, neutral, protocol)
+        self.assertFalse(weak['qualifies_for_full_host_training'])
+
     @classmethod
     def setUpClass(cls):
         cls.parent = json.loads(Path('artifacts/improvement-v34/frozen-plan.json').read_text())

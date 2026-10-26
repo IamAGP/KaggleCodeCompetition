@@ -405,7 +405,8 @@ loading/readout allowance, against a 24,300-second budget. This is an estimate,
 not a guarantee. Roughly 16.7 GPU quota hours were available before launch.
 
 `scripts/evaluate_v34.py` independently audits the completed fold artifacts and
-applies the frozen primary gates; five metric tests pass. The conditional builder
+applies the frozen primary gates. Re-audits compare existing predictions and audit
+records without rewriting them, preserving their hashes. The conditional builder
 `scripts/build_related_v34.py` refuses missing or failed primary audits and reruns
 the primary artifact audit before packaging. It preserves the embedded model and
 readout workers and the original protocol, changing only the predeclared split
@@ -414,6 +415,12 @@ unchanged recipes and group boundaries on the actual related split (2,159 fit
 rows; 540 validation rows in 29 related groups). This related notebook has not
 been built or launched; primary V34 is still running. GPU execution of this
 conditional package is not yet tested.
+`scripts/evaluate_related_v34.py` audits that conditional output, fits the fixed
+V17/V32 sparse specification on its training partition only, and applies the
+original related gates (balanced accuracy >=0.50 and gain >=0.015). Its cached
+sparse outputs are hash-checked and cannot be silently refit. Ten targeted tests
+cover the primary metrics, archive stability, conditional packaging and related
+gates. The related reference fit and GPU evaluation have not run.
 
 `scripts/diagnose_balance_transfer.py` applies the credited V16 equal-class-mass
 balancing (300 iterations) to saved sparse-pilot blends, with the existing 0.15

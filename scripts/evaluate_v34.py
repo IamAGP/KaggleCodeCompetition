@@ -18,6 +18,23 @@ def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+def save_audited_outputs(root, arrays, result):
+    """Re-audits verify existing artifacts without changing NPZ ZIP timestamps."""
+    predictions = root/'primary-oof.npz'
+    audit = root/'primary-audit.json'
+    if predictions.exists():
+        with np.load(predictions, allow_pickle=False) as saved:
+            assert set(saved.files) == set(arrays)
+            for key, value in arrays.items():
+                assert np.array_equal(saved[key], value), key
+    else:
+        np.savez_compressed(predictions, **arrays)
+    if audit.exists():
+        assert json.loads(audit.read_text()) == result, 'Re-audit differs from frozen result'
+    else:
+        audit.write_text(json.dumps(result, indent=2))
+
+
 def balanced_accuracy(truth, prediction, classes=18):
     counts = np.bincount(truth, minlength=classes)
     assert (counts > 0).all()
@@ -83,13 +100,14 @@ def score_primary(host, folds, labels, sparse, candidate, comparison, protocol):
             'submission_authorized':False}, outputs
 
 
-def audit_fold(root, global_plan, arm, fold, frozen):
+def audit_fold(root, global_plan, arm, fold, frozen, split_kind='primary'):
+    assert split_kind in ['primary', 'related']
     spec = global_plan['arms'][arm]
     folder = root/arm/f'fold-{fold}'
     expected = dict(spec['parameters'])
     expected.update(experiment='improvement-v34',pilot_fold=fold,labels=global_plan['labels'],
                     model_dir=spec['model_dir'],checkpoint=spec['checkpoint'],checkpoint_sha256=spec['checkpoint_sha256'],
-                    confirmation_split=f'primary-{fold}',confirmation_fold=fold,
+                    confirmation_split=f'{split_kind}-{fold}',confirmation_fold=fold,
                     host_sha256=global_plan['host_sha256'],**global_plan['fold_sizes'][str(fold)])
     assert json.loads((folder/'training-plan.json').read_text()) == expected
     assert json.loads((folder/'plan.json').read_text()) == expected
@@ -180,10 +198,11 @@ def main():
                                      all_scores['4b_small_supcon'],frozen['protocol'])
     result.update(verified=True,artifact_audits=audits,limitations=frozen['protocol']['limitations'],
                   protocol_sha256=frozen['protocol_sha256'],pilot_fold_reused=True)
-    np.savez_compressed(root/'primary-oof.npz',ids=host.id.to_numpy(dtype=str),labels=labels.astype(str),fold=folds,
+    arrays = dict(ids=host.id.to_numpy(dtype=str),labels=labels.astype(str),fold=folds,
                         candidate_scores=all_scores['8b_ce'],comparison_scores=all_scores['4b_small_supcon'],
                         candidate_predictions=predictions['candidate'],comparison_predictions=predictions['comparison'])
-    (root/'primary-audit.json').write_text(json.dumps(result,indent=2));print(json.dumps(result,indent=2))
+    save_audited_outputs(root, arrays, result)
+    print(json.dumps(result,indent=2))
 
 
 if __name__ == '__main__':

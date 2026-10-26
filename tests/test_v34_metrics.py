@@ -1,15 +1,27 @@
 import sys
 from pathlib import Path
 import unittest
+import tempfile
 
 import numpy as np
 import pandas as pd
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
-from evaluate_v34 import balanced_accuracy, paired_interval, score_primary
+from evaluate_v34 import balanced_accuracy, paired_interval, score_primary, save_audited_outputs, sha
 
 
 class ConfirmationMetricsTest(unittest.TestCase):
+    def test_reaudit_preserves_bytes_and_rejects_changed_predictions(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            arrays = {'ids': np.array(['a', 'b']), 'scores': np.eye(2)}
+            save_audited_outputs(root, arrays, {'verified': True})
+            before = {p.name: (sha(p), p.stat().st_mtime_ns) for p in root.iterdir()}
+            save_audited_outputs(root, arrays, {'verified': True})
+            self.assertEqual(before, {p.name: (sha(p), p.stat().st_mtime_ns) for p in root.iterdir()})
+            with self.assertRaises(AssertionError):
+                save_audited_outputs(root, dict(arrays, scores=np.zeros((2, 2))), {'verified': True})
+
     def test_balanced_accuracy_does_not_reward_majority_only(self):
         truth=np.array([0]*9+[1]);prediction=np.zeros(10,dtype=int)
         self.assertEqual(balanced_accuracy(truth,prediction,2),.5)
