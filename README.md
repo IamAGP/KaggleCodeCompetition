@@ -6,8 +6,9 @@ The classifier predicts one of 18 generating models from a passage.
 Git tags preserve the source, notebooks, and tests for each recorded checkpoint.
 `name-that-llm-v2` retains the 34.4% submission; `name-that-llm-v3` records 35.1%,
 `name-that-llm-v4` records 36.6%, `name-that-llm-v7` records 38.2%, and
-`name-that-llm-v10` records 42.7%. `name-that-llm-v16` records **62.0%**, the current
-scored best, from the credited public two-stage reproduction below.
+`name-that-llm-v10` records 42.7%. `name-that-llm-v16` records **62.0%**, from the
+credited public two-stage reproduction below. V21 now records **62.2%**, the
+current verified public best, after adding our contrastive readout component.
 Full experiment evidence and data are archived privately in S3; the repository contains no
 competition data or predictions.
 
@@ -145,8 +146,10 @@ five required members ran, output IDs/labels/schema passed, and the additive
 scores were independently reconstructed from the saved arrays. The visible
 predictions were unchanged; three rows are not accuracy evidence. Submitted
 October 25 as **57632200**, [script version 362148441](https://www.kaggle.com/code/adithyagiri/name-that-llm-contrastive-blend-v21?scriptVersionId=362148441).
-The hidden rerun and public score are pending. V16's 0.620 remains the verified
-incumbent until a new completed score establishes an improvement.
+The hidden rerun completed with **0.622 public**, verified October 26: a gain
+of **0.002** over v16's 0.620. V21 is the new scored incumbent. This is a small
+observed gain from our added component on the credited ensemble; it does not
+establish the 0.700 target or a statistically significant general improvement.
 
 While v21 trains, a descriptive check reuses saved, aligned 540-row pilot
 predictions at the already-frozen 0.15 component weight (no weight search).
