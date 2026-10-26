@@ -325,6 +325,17 @@ attachments were verified. Expected runtime is roughly five hours based on the
 short probe; this is an estimate, not a guarantee. Independent completion
 evaluator: `scripts/evaluate_v30.py`.
 
+V32 completed the fixed sparse reference on the remaining four prompt folds,
+reusing V17's fold-zero predictions unchanged. External IDs, features, C=0.5,
+external weight=0.25 and seed=1701 were fixed before execution. Pooled accuracy
+is **0.392738**; fold accuracies are 0.394444, 0.405556, 0.370370, 0.393321 and
+0.400000. This is a comparison reference, not a new submission candidate.
+V33's conditional confirmation plan is committed before V30 results: reuse the
+pilot fold, train the other four folds independently from the external-only
+checkpoint, then check one predeclared related-prompt holdout. The plan is not
+launched. Its gates and repeated-development-data limitations are recorded in
+`configs/name-that-llm/v33.json`; no full-public-ensemble validation is claimed.
+
 V27 tested one fixed RBF SVC readout (C=1, gamma=1/width) on V22's saved
 task-adapted features, distinct from the earlier frozen-base V11 experiment.
 It failed both gates: readout accuracy **39.63% vs 44.26%**, fixed sparse blend

@@ -57,14 +57,14 @@ def main():
         assert np.array_equal(model.classes_,labels)
         prediction=model.decision_function(v);assert np.isfinite(prediction).all()
         scores[heldout]=prediction
-        np.savez_compressed(path,ids=valid.id.to_numpy(),labels=labels,scores=prediction)
+        np.savez_compressed(path,ids=valid.id.to_numpy(dtype=str),labels=labels.astype(str),scores=prediction)
         record={'fold':fold,'accuracy':float((labels[prediction.argmax(1)]==valid.model).mean()),
                 'seconds':time.monotonic()-begin,'iterations':int(model.n_iter_),'rows':len(valid)}
         metrics[str(fold)]=record
         with (root/'progress.jsonl').open('a') as f:f.write(json.dumps(record)+'\n')
         print(json.dumps(record),flush=True)
     assert np.isfinite(scores).all()
-    np.savez_compressed(root/'oof.npz',ids=host.id.to_numpy(),labels=labels,scores=scores,fold=folds.fold.to_numpy())
+    np.savez_compressed(root/'oof.npz',ids=host.id.to_numpy(dtype=str),labels=labels.astype(str),scores=scores,fold=folds.fold.to_numpy())
     result={'accuracy':float((labels[scores.argmax(1)]==host.model).mean()),'folds':metrics,
             'submission_authorized':False,'purpose':'Reference only','limitations':plan['limitations']}
     (root/'result.json').write_text(json.dumps(result,indent=2));print(json.dumps(result,indent=2))
