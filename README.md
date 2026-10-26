@@ -234,6 +234,13 @@ or submitted. Full checkpoint/source/feature auditing remains pending while
 the complete outputs download. These are validation results, not public scores.
 Notebook:
 [V25 paired pilot](https://www.kaggle.com/code/adithyagiri/name-that-llm-qlora-training-v25).
+Saved-prediction diagnostics (`scripts/diagnose_v25_errors.py`) show that the
+V25 SupCon blend corrects 39 V22 blend errors but introduces 35, a net four
+passages out of 540. Its gain is 0.007407, with a 10,000-resample paired prompt
+bootstrap interval of [-0.018519, 0.033333]. This post-hoc interval does not
+remove repeated-fold selection bias. No weights or gates were changed. The
+diagnostic and preliminary scores are archived in private S3 with verified
+sizes, SHA-256 checksums and version IDs.
 QLoRA attribution: [Dettmers et al.](https://arxiv.org/abs/2305.14314) and
 [authors' repository](https://github.com/artidoro/qlora); the implementation uses
 Hugging Face PEFT/bitsandbytes, ordinary AdamW and fp16 compute on T4.
