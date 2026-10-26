@@ -82,6 +82,11 @@ def main():
         return head(pooled)
     elapsed = []
     skipped = 0
+    encoder.train(); head.train()
+    checkpointed = [module for module in encoder.modules() if getattr(module, 'gradient_checkpointing', False)]
+    assert checkpointed and all(module.training for module in checkpointed)
+    log(event='training_mode', encoder_training=encoder.training,
+        checkpointed_training_modules=len(checkpointed))
     optimizer.zero_grad(set_to_none=True)
     torch.cuda.reset_peak_memory_stats()
     for step in range(plan['microsteps']):
