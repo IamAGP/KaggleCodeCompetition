@@ -69,6 +69,14 @@ def build():
     import nbformat, hashlib
     path = Path('notebooks/training-v25/training.ipynb')
     nb = nbformat.read(path,4)
+    probe = nbformat.read('notebooks/probe-v24/probe.ipynb',4)
+    setup = probe.cells[1].source
+    assert '--no-index' in setup and "'0.50.0'" in setup
+    nb.cells.insert(1, nbformat.v4.new_code_cell(setup))
+    metadata_path = path.parent/'kernel-metadata.json'
+    metadata = json.loads(metadata_path.read_text())
+    metadata['dataset_sources'].append('adithyagiri/name-that-llm-offline-quantization-deps')
+    metadata_path.write_text(json.dumps(metadata,indent=2))
     nb.cells[0] = nbformat.v4.new_markdown_cell(
         '# V25: 8B QLoRA paired attribution pilot\n\n'
         'Matched CE and CE+SupCon, 18,000 external passages and two host epochs. '
