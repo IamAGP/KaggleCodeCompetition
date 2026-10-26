@@ -6,7 +6,7 @@
   "wall_limit_seconds": 1200,
   "model": "qwen-lm/qwen-3/Transformers/8b-base/1",
   "train_sha256": "40a22ce8d88c5f46feb4637a099db815bef5f713ffe53e89dbe1b7b21de77707",
-  "worker_sha256": "de4b42548269365cb30c83e08fe99ffb14b6e9056d664869f4ee5aeff9aacb8f",
+  "worker_sha256": "d40a91be16fce4faf1e561397dccf5cec1fdf7458059e3ffd15c162135a47d42",
   "quantization": "NF4 double quant, fp16 compute",
   "adapter": "all-linear rank16 alpha32",
   "training": "CE only, batch4 accumulation8, max256, AdamW 1e-4, longest32 host passages",
@@ -19,5 +19,6 @@
     "https://huggingface.co/docs/transformers/quantization/bitsandbytes"
   ],
   "source_assessment": "Authors paper/repository establish method, current Hugging Face docs establish API. bitsandbytes official repository not archived, pushed 2026-09-07 as observed 2026-10-26. Historical QLoRA claims are not competition accuracy evidence.",
-  "changes_from_paper": "Uses fp16 compute on T4 and ordinary AdamW; no paged optimizer, not instruction tuning. Probe is not an accuracy experiment."
+  "changes_from_paper": "Uses fp16 compute on T4 and ordinary AdamW; no paged optimizer, not instruction tuning. Probe is not an accuracy experiment.",
+  "setup_correction": "V3 fixes 8B locator to 36 layers, official Qwen config and existing v14 confirm; no training completed in v1/v2"
 }

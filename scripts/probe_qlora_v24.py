@@ -33,7 +33,9 @@ def main():
     configs = []
     for path in Path('/kaggle/input').rglob('config.json'):
         cfg = json.loads(path.read_text())
-        if cfg.get('model_type') == 'qwen3' and cfg.get('hidden_size') == 4096 and cfg.get('num_hidden_layers') == 32:
+        log(event='input_config', path=str(path), model_type=cfg.get('model_type'),
+            hidden_size=cfg.get('hidden_size'), num_hidden_layers=cfg.get('num_hidden_layers'))
+        if cfg.get('model_type') == 'qwen3' and cfg.get('hidden_size') == 4096 and cfg.get('num_hidden_layers') == 36:
             configs.append(path.parent)
     assert len(configs) == 1, configs
     model_dir = configs[0]
