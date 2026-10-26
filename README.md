@@ -177,6 +177,24 @@ the inspected pilot fold, not full-ensemble validation, and produces no direct
 submission. The separate v20 confirmation plan has not run. Available Kaggle
 quota covers this experiment; no paid compute or model APIs are used.
 
+V22 completed and passed the full artifact audit on October 26. CE readout
+accuracy increased from 39.26% to **44.63%**; SupCon increased from 42.04% to
+**44.26%**. At the fixed 0.15 weight with the sparse pilot, CE reached **50.00%**
+and SupCon **51.11%**, both above the previous **47.41%**. Both arms pass the
+frozen readout and blend thresholds; SupCon is selected for its stronger blend.
+This is selection across two arms on the same inspected fold, not proof of a
+full-ensemble or public-score gain. The evaluator's numeric regex initially
+captured sentence punctuation; it was corrected without changing either frozen
+threshold (0.4403703704 and 0.4840740741). No training rerun was needed.
+
+V23 resumes the qualified v22 external-only SupCon checkpoint, trains on all
+host prompts with the unchanged v21 full-training/readout code, and will replace
+the v21 component at the same 0.15 vote. It does not add a second correlated
+component. Full training and inference packaging reuse the audited v21 code;
+the current scored incumbent is v21 at 0.622. The
+[v23 full-training notebook](https://www.kaggle.com/code/adithyagiri/name-that-llm-full-scaled-v23)
+has been pushed. No v23 submission or accuracy claim has been made.
+
 The topic/style distinction is motivated by
 [Altakrori et al., Topic Confusion](https://arxiv.org/html/2104.08530v2).
 That paper studies human authors; it does not establish a score prediction for

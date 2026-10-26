@@ -1,0 +1,38 @@
+{
+  "experiment": "improvement-v23",
+  "kind": "larger-data replacement of the v21 additive component",
+  "incumbent": "adithyagiri/name-that-llm-contrastive-blend-v21",
+  "incumbent_public_score": 0.622,
+  "initialization": "v22 ce_supcon external_only adapter and heads, trained on 18000 external passages; no host-adapted checkpoint",
+  "training": "All 2699 host rows, exactly two equivalent epochs with original v18 host-stage objective, paired sampler and optimizer",
+  "readout": {
+    "layers": [
+      12,
+      24,
+      36
+    ],
+    "C": 0.02,
+    "max_iter": 1000,
+    "seed": 1901,
+    "batch_size": 8,
+    "fit_dtype": "float64 for portable numerical equivalence"
+  },
+  "resume_state": "Restore adapter and all three heads; fresh host optimizer and GradScaler, since v18 did not save optimizer/scaler state",
+  "blend": {
+    "incumbent_members_unchanged": true,
+    "new_member_log_probability_weight": 0.15,
+    "position": "Before unchanged incumbent Sinkhorn",
+    "replaces": "v21 contrastive component; same 0.15 vote, not an additional correlated vote"
+  },
+  "release_policy": "One prospective submission after complete all-host training, finite real inference for all visible rows, ordered label mapping and schema checks. No claim of ensemble CV improvement; retain v16 as incumbent unless scored improvement.",
+  "reason": "V22 contrastive readout 0.4425925926 and fixed sparse blend 0.5111111111 exceed frozen qualification thresholds; require full artifact audit before building",
+  "confirmation_status": "V22 fixed pilot qualifies; five-fold v20 remains unrun; no full-ensemble CV claim",
+  "attribution": "Credited Nishant Dahal v16 ensemble retained. Our v23 replaces the v21 contrastive readout using the larger v22 external checkpoint. Established LoRA/SupCon methods and original public-data contributors retain credit.",
+  "limitations": [
+    "Same repeatedly inspected fold; two-arm selection reported",
+    "Readout and sparse-blend improvements are not complete-ensemble validation",
+    "Public score may fall",
+    "Existing v16 test-distribution assumptions retained"
+  ],
+  "packaging_template_sha256": "78f9349d783abbc873367e716f0e2e58e2a0d8bef394735cc4638a8757fafdbd"
+}

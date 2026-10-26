@@ -38,7 +38,7 @@ def main():
     sparse_path=Path('artifacts/improvement-v17/uniform_pool_pilot.npz')
     sparse=np.load(sparse_path,allow_pickle=False)
     assert np.array_equal(sparse['ids'],ids) and np.array_equal(sparse['labels'],labels)
-    thresholds=[float(s) for s in re.findall(r'>=([0-9.]+)',plan['promotion'])]
+    thresholds=[float(s) for s in re.findall(r'>=(\d+(?:\.\d+)?)',plan['promotion'])]
     assert len(thresholds)==2
     results={}
     for variant,training_variant in [('ce_final','ce'),('supcon_final','ce_supcon')]:
