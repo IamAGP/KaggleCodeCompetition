@@ -1,0 +1,26 @@
+{
+  "id": "adithyagiri/name-that-llm-scaled-blend-v23",
+  "title": "Name That LLM Scaled Blend V23",
+  "code_file": "inference.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "machine_shape": "NvidiaTeslaT4",
+  "enable_internet": false,
+  "enable_tpu": false,
+  "competition_sources": [
+    "name-that-llm"
+  ],
+  "dataset_sources": [
+    "nishantdahal/ntl-handwriting-blend"
+  ],
+  "model_sources": [
+    "qwen-lm/qwen-3/Transformers/14b-base/1",
+    "qwen-lm/qwen2.5/Transformers/14b/1",
+    "qwen-lm/qwen-3/Transformers/4b-base/1"
+  ],
+  "kernel_sources": [
+    "adithyagiri/name-that-llm-full-scaled-v23"
+  ]
+}
