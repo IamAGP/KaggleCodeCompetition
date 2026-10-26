@@ -1,0 +1,31 @@
+{
+  "experiment": "improvement-v27",
+  "hypothesis": "Task-adapted V22 features may benefit from nonlinear readout despite failed frozen-feature V11 probes",
+  "feature_path": "artifacts/improvement-v22/kaggle-output/supcon_final_features.npy",
+  "feature_sha256": "60d1359d24e328997976234af91461399c4adb06a4741d0957ef1f45c104eb23",
+  "C": 1.0,
+  "gamma": "1/hidden_width",
+  "layers": [
+    12,
+    24,
+    36
+  ],
+  "scaler": "fit on 2159 host training rows only",
+  "probability": true,
+  "seed": 2701,
+  "blend_weight": 0.15,
+  "readout_threshold": 0.4525925926,
+  "blend_threshold": 0.5211111111,
+  "selection": "One fixed configuration; no tuning after results",
+  "sources": [
+    "https://arxiv.org/pdf/2104.03488",
+    "https://github.com/LorisNanni/Deep-Features-for-training-Support-Vector-Machine",
+    "https://scikit-learn.org/1.7/modules/generated/sklearn.svm.SVC.html"
+  ],
+  "limitations": [
+    "Repeatedly inspected outer fold",
+    "Internal SVC probability calibration uses ordinary five-fold training-only CV, not prompt groups; outer validation remains excluded",
+    "Vision paper is method context, not evidence of attribution gains; author repository is historical MATLAB RAR, not reused or claimed actively maintained",
+    "No full-ensemble CV claim or direct submission"
+  ]
+}
