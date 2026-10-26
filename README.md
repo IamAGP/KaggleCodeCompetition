@@ -230,8 +230,10 @@ completed. A preliminary recomputation from its downloaded validation arrays
 (checking IDs, labels and finite scores) gives CE accuracy **0.483333** and
 fixed sparse blend **0.507407**, versus SupCon accuracy **0.472222** and blend
 **0.518519**. Both miss the frozen blend gate of **0.531111**; neither is promoted
-or submitted. Full checkpoint/source/feature auditing remains pending while
-the complete outputs download. These are validation results, not public scores.
+or submitted. The complete outputs have now downloaded and passed the independent
+checkpoint/source/feature/data-split audit in `scripts/evaluate_v25.py`. Both
+training arms completed all planned stages with zero skipped optimizer steps.
+These are validation results, not public scores.
 Notebook:
 [V25 paired pilot](https://www.kaggle.com/code/adithyagiri/name-that-llm-qlora-training-v25).
 Saved-prediction diagnostics (`scripts/diagnose_v25_errors.py`) show that the
@@ -254,8 +256,9 @@ Accuracy was **0.525926**, versus **0.511111** for the fixed V22 sparse blend:
 32 corrected errors and 24 newly wrong. The paired prompt-bootstrap gain
 interval was [-0.009259, 0.038889]. It failed the frozen 0.531111 accuracy and
 positive lower-bound gates, so no further promotion or submission follows.
-The repeatedly inspected pilot split and incomplete full V25 artifact audit
-remain limitations. No neural training or post-result tuning was performed.
+The repeatedly inspected pilot split remains a limitation. V25's full artifact
+audit subsequently passed without changing these scores. No neural training
+or post-result tuning was performed for V28.
 Method context: [Guo et al.](https://arxiv.org/abs/1706.04599) and their
 [explicitly unmaintained demonstration repository](https://github.com/gpleiss/temperature_scaling).
 This multi-model combiner is our implementation, not a temperature-scaling
