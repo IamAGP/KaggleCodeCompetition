@@ -228,6 +228,13 @@ QLoRA attribution: [Dettmers et al.](https://arxiv.org/abs/2305.14314) and
 [authors' repository](https://github.com/artidoro/qlora); the implementation uses
 Hugging Face PEFT/bitsandbytes, ordinary AdamW and fp16 compute on T4.
 
+V27 tested one fixed RBF SVC readout (C=1, gamma=1/width) on V22's saved
+task-adapted features, distinct from the earlier frozen-base V11 experiment.
+It failed both gates: readout accuracy **39.63% vs 44.26%**, fixed sparse blend
+**46.11% vs 51.11%**. No GPU training or submission followed; settings were not
+tuned after the result. The original V22 readout is retained. This was one
+configuration on the same inspected fold, not a rejection of all kernel methods.
+
 The topic/style distinction is motivated by
 [Altakrori et al., Topic Confusion](https://arxiv.org/html/2104.08530v2).
 That paper studies human authors; it does not establish a score prediction for
