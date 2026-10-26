@@ -1,0 +1,51 @@
+{
+  "experiment": "improvement-v28",
+  "hypothesis": "Fit score scales and class biases using prompt-disjoint cross fitting to test whether fixed blend scaling limits complementarity",
+  "inputs": {
+    "sparse": {
+      "path": "artifacts/improvement-v17/uniform_pool_pilot.npz",
+      "sha256": "edc1b4601b4004236a237b5fb742389b8e01333e8559033599252af2f0b9d7e9"
+    },
+    "v22_supcon": {
+      "path": "artifacts/improvement-v22/kaggle-output/supcon_final_validation.npz",
+      "sha256": "339e1b2c3be55e9967ae94044e088598aa26278e80b13405e13ff6a6ad3e1353"
+    },
+    "v25_supcon": {
+      "path": "artifacts/improvement-v25/quick-results/supcon_final_validation.npz",
+      "sha256": "98305965ab3eaec012bbfc949830fa8572236472af139efd10aac8fb55d05b68"
+    },
+    "v25_ce": {
+      "path": "artifacts/improvement-v25/quick-results/ce_final_validation.npz",
+      "sha256": "f44631e99727578ba6083ea6d6ee4ce184ea2a0e7d61521a561bced98d503f05"
+    }
+  },
+  "validation_frame": "artifacts/improvement-v22/kaggle-output/validation_frame.parquet",
+  "folds": 6,
+  "seed": 2801,
+  "weight_l2": 0.01,
+  "bias_l2": 0.1,
+  "weight_bounds": [
+    0,
+    20
+  ],
+  "maxiter": 1000,
+  "ftol": 1e-12,
+  "gtol": 1e-08,
+  "threshold_accuracy": 0.5311111111,
+  "bootstrap_samples": 10000,
+  "require_gain_interval_lower_above_zero": true,
+  "reference": "sparse + 0.15*v22_supcon",
+  "selection": "One configuration; no hyperparameter search or refit after seeing results",
+  "sources": [
+    "https://arxiv.org/html/1706.04599v2",
+    "https://github.com/gpleiss/temperature_scaling",
+    "https://docs.scipy.org/doc/scipy/reference/optimize.minimize-lbfgsb.html"
+  ],
+  "limitations": [
+    "Repeatedly inspected 30-prompt fold; cross fitting avoids direct calibrator label leakage but not prior experiment selection bias",
+    "Full V25 artifact audit pending",
+    "Sparse proxy differs from full public ensemble; no direct submission authorization",
+    "This is a multi-model affine combiner inspired by calibration, not a reproduction of temperature scaling",
+    "Authors repository explicitly unmaintained; no code reused"
+  ]
+}
