@@ -404,6 +404,17 @@ across four folds; the slower arm projects about 18,392 seconds, including its
 loading/readout allowance, against a 24,300-second budget. This is an estimate,
 not a guarantee. Roughly 16.7 GPU quota hours were available before launch.
 
+`scripts/evaluate_v34.py` independently audits the completed fold artifacts and
+applies the frozen primary gates; five metric tests pass. The conditional builder
+`scripts/build_related_v34.py` refuses missing or failed primary audits and reruns
+the primary artifact audit before packaging. It preserves the embedded model and
+readout workers and the original protocol, changing only the predeclared split
+and single-fold orchestration. Three preparation tests verify the launch guard,
+unchanged recipes and group boundaries on the actual related split (2,159 fit
+rows; 540 validation rows in 29 related groups). This related notebook has not
+been built or launched; primary V34 is still running. GPU execution of this
+conditional package is not yet tested.
+
 `scripts/diagnose_balance_transfer.py` applies the credited V16 equal-class-mass
 balancing (300 iterations) to saved sparse-pilot blends, with the existing 0.15
 component weight. No models are refit or selected and no original gates change.
