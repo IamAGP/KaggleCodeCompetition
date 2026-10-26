@@ -10,6 +10,8 @@ def replace(source, old, new):
 
 def build():
     evidence = json.loads(Path('artifacts/improvement-v24/kaggle-output/result.json').read_text())
+    audit = json.loads(Path('artifacts/improvement-v24/probe-audit.json').read_text())
+    assert audit['verified'] and audit['qualifies_for_v25'] and audit['result'] == evidence
     assert evidence['completed'] and evidence['reload_check'] == 'passed'
     assert evidence['changed_tensors'] > 0 and evidence['skipped_updates'] == 0
     assert evidence['projected_5580_microsteps_seconds'] + 1800 <= 24300
