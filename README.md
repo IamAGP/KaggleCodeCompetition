@@ -225,8 +225,14 @@ using Qwen3-8B NF4 with all-linear rank-16 adapters. Model size, quantization,
 and adapter coverage change together; this is not an isolated scaling test.
 The fixed three-layer readout must exceed 0.4625925926, and its fixed 0.15 sparse
 blend must exceed 0.5311111111, before full-host training can be considered.
-Two-arm selection and repeated use of this fold must be reported. There is no
-V25 accuracy result or submission yet. Notebook:
+Two-arm selection and repeated use of this fold must be reported. V25 has now
+completed. A preliminary recomputation from its downloaded validation arrays
+(checking IDs, labels and finite scores) gives CE accuracy **0.483333** and
+fixed sparse blend **0.507407**, versus SupCon accuracy **0.472222** and blend
+**0.518519**. Both miss the frozen blend gate of **0.531111**; neither is promoted
+or submitted. Full checkpoint/source/feature auditing remains pending while
+the complete outputs download. These are validation results, not public scores.
+Notebook:
 [V25 paired pilot](https://www.kaggle.com/code/adithyagiri/name-that-llm-qlora-training-v25).
 QLoRA attribution: [Dettmers et al.](https://arxiv.org/abs/2305.14314) and
 [authors' repository](https://github.com/artidoro/qlora); the implementation uses
