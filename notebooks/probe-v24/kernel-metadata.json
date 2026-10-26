@@ -1,0 +1,20 @@
+{
+  "id": "adithyagiri/name-that-llm-qlora-probe-v24",
+  "title": "Name That LLM QLoRA Probe V24",
+  "code_file": "probe.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "machine_shape": "NvidiaTeslaT4",
+  "enable_internet": false,
+  "enable_tpu": false,
+  "competition_sources": [
+    "name-that-llm"
+  ],
+  "dataset_sources": [],
+  "kernel_sources": [],
+  "model_sources": [
+    "qwen-lm/qwen-3/Transformers/8b-base/1"
+  ]
+}

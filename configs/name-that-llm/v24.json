@@ -1,0 +1,23 @@
+{
+  "experiment": "improvement-v24",
+  "kind": "8B QLoRA bounded feasibility probe",
+  "seed": 2401,
+  "microsteps": 24,
+  "wall_limit_seconds": 1200,
+  "model": "qwen-lm/qwen-3/Transformers/8b-base/1",
+  "train_sha256": "40a22ce8d88c5f46feb4637a099db815bef5f713ffe53e89dbe1b7b21de77707",
+  "worker_sha256": "de4b42548269365cb30c83e08fe99ffb14b6e9056d664869f4ee5aeff9aacb8f",
+  "quantization": "NF4 double quant, fp16 compute",
+  "adapter": "all-linear rank16 alpha32",
+  "training": "CE only, batch4 accumulation8, max256, AdamW 1e-4, longest32 host passages",
+  "purpose": "Measure finite updates, memory, throughput and adapter reload before any full pilot",
+  "qualification": "Completed finite updates and reload; projected training plus measured overhead must fit 9h with 25% margin before a full pilot",
+  "sources": [
+    "https://arxiv.org/abs/2305.14314",
+    "https://github.com/artidoro/qlora",
+    "https://huggingface.co/docs/peft/developer_guides/quantization",
+    "https://huggingface.co/docs/transformers/quantization/bitsandbytes"
+  ],
+  "source_assessment": "Authors paper/repository establish method, current Hugging Face docs establish API. bitsandbytes official repository not archived, pushed 2026-09-07 as observed 2026-10-26. Historical QLoRA claims are not competition accuracy evidence.",
+  "changes_from_paper": "Uses fp16 compute on T4 and ordinary AdamW; no paged optimizer, not instruction tuning. Probe is not an accuracy experiment."
+}
