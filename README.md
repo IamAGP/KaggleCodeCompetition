@@ -264,6 +264,25 @@ Method context: [Guo et al.](https://arxiv.org/abs/1706.04599) and their
 This multi-model combiner is our implementation, not a temperature-scaling
 reproduction; no code from that repository was reused.
 
+V29 is a private offline GPU feasibility probe for source-conditioned language
+modeling, a different objective from V18–V25 classification. Method credit:
+[Ko et al., ATLAS](https://arxiv.org/abs/2610.19583), with the
+[authors' implementation](https://github.com/komseok0109/ATLAS) reviewed at
+`93c1b15da6143161e222eecee7ebcdc3c60645a9` (October 15, 2026).
+Our independent PyTorch implementation uses Qwen2.5-1.5B, shared down-projections,
+source-specific up-projections and learned prefixes for 18 exact source models.
+It is an adaptation, not a reproduction of the paper's five-family main setup.
+No author repository source is copied. Three semantic tests passed for routing,
+gradient isolation, clipped-score invariance, causal alignment, padding and reload.
+The 24-microstep probe measures memory and all-source inference cost. Its
+checkpoint must be discarded; it provides no accuracy estimate or submission.
+Both pilot and hidden-run projections must fit the frozen runtime gate before
+training can be considered. Remote source cells, privacy, offline mode, GPU
+and attached model were verified after launch. Source and plan are archived
+with verified S3 size/checksum/version under `improvement-v29/launched-v1/`.
+Notebook: [V29 feasibility](https://www.kaggle.com/code/adithyagiri/name-that-llm-likelihood-probe-v29).
+V25's complete audited outputs are also now verified in the private S3 archive.
+
 V27 tested one fixed RBF SVC readout (C=1, gamma=1/width) on V22's saved
 task-adapted features, distinct from the earlier frozen-base V11 experiment.
 It failed both gates: readout accuracy **39.63% vs 44.26%**, fixed sparse blend
