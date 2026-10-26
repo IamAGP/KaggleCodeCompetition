@@ -199,6 +199,31 @@ unless the new public score improves it. This corrects stale v16 wording copied
 into the training plan's delivery metadata; the frozen training run is preserved.
 V16's base members remain unchanged, while v21's contrastive member is replaced.
 
+V24 established **8B QLoRA feasibility**, not accuracy. The corrected probe
+completed 24 microsteps with no skipped updates, all 504 adapter tensors changed,
+and a saved-adapter reload reproduced predictions. Peak allocated memory was
+7.42 GiB on a T4. Mean measured throughput projects 22,289 seconds for 5,580
+microsteps; adding the fixed 1,800-second allowance gives 6.69 hours, below the
+predeclared 6.75-hour launch gate. The short probe does not guarantee full-run
+runtime. Failed setup attempts and their fixes are retained: missing notebook
+kernel metadata, incorrect model locator, incompatible installed bitsandbytes,
+and missing explicit training mode that prevented gradient checkpointing.
+The passing run uses a SHA-256-verified official bitsandbytes 0.50.0 wheel as a
+private offline input. Independent audit: `scripts/audit_v24_probe.py`.
+
+V25 launched on October 26 after that audit passed. It compares CE and CE+SupCon
+on the same 18,000 external passages and prompt-held-out host split as V22,
+using Qwen3-8B NF4 with all-linear rank-16 adapters. Model size, quantization,
+and adapter coverage change together; this is not an isolated scaling test.
+The fixed three-layer readout must exceed 0.4625925926, and its fixed 0.15 sparse
+blend must exceed 0.5311111111, before full-host training can be considered.
+Two-arm selection and repeated use of this fold must be reported. There is no
+V25 accuracy result or submission yet. Notebook:
+[V25 paired pilot](https://www.kaggle.com/code/adithyagiri/name-that-llm-qlora-training-v25).
+QLoRA attribution: [Dettmers et al.](https://arxiv.org/abs/2305.14314) and
+[authors' repository](https://github.com/artidoro/qlora); the implementation uses
+Hugging Face PEFT/bitsandbytes, ordinary AdamW and fp16 compute on T4.
+
 The topic/style distinction is motivated by
 [Altakrori et al., Topic Confusion](https://arxiv.org/html/2104.08530v2).
 That paper studies human authors; it does not establish a score prediction for
