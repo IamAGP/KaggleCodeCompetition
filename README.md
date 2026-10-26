@@ -196,8 +196,12 @@ the current scored incumbent is v21 at 0.622. The
 completed and passed the independent artifact audit. The inference notebook
 completed in 530.8 seconds and passed ordered-ID/schema, label, checkpoint-hash,
 member-weight and independent blend/prediction checks on the three visible rows.
-V23 version 1 was submitted on October 26 as **57655346**; hidden scoring is
-pending. Visible predictions matching V21 are not evidence about hidden accuracy.
+V23 version 1 was submitted on October 26 as **57655346** and completed with a
+public score of **0.620**, down 0.002 from V21. Its validation gain did not
+transfer to the public test; V21 remains the best verified submission at 0.622.
+The authoritative scored submission record is archived with a verified SHA-256
+checksum in private S3. Visible predictions matching V21 were not evidence
+about hidden accuracy.
 V23 inference packaging explicitly retains **v21 at 0.622** as the incumbent
 unless the new public score improves it. This corrects stale v16 wording copied
 into the training plan's delivery metadata; the frozen training run is preserved.
