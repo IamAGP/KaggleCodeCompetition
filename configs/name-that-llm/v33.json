@@ -1,0 +1,45 @@
+{
+  "experiment": "improvement-v33",
+  "kind": "conditional multi-fold likelihood confirmation",
+  "prerequisite": "V30 independent audit passes its frozen promotion gates",
+  "status": "planned_only_not_launched",
+  "primary_fold_file": "artifacts/baseline-v1/folds.csv",
+  "related_fold_file": "artifacts/improvement-v4/robustness/folds.csv",
+  "reuse_primary_fold": 0,
+  "train_primary_folds": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "related_confirmation_fold": 0,
+  "initialization": "Each fold starts from V30 external-only adapter and untouched Qwen2.5-1.5B; no host-adapted checkpoint reused",
+  "training": "Exact V30 host-stage settings, two epochs, new optimizer, same seed and epoch indexing; no pooling or neural hyperparameter search",
+  "score": "Same clipped evidence and fixed sparse + 0.15*log(clip(evidence,1e-8,1))",
+  "reference": "V32 fixed V17 uniform-pool sparse OOF; related fold uses identical sparse settings and fixed V17 external IDs with newly fitted training-only vocabulary",
+  "primary_gate": {
+    "pooled_blend_minimum": 0.5311111111,
+    "pooled_gain_minimum": 0.1,
+    "positive_gain_folds_minimum": 4,
+    "prompt_bootstrap_gain_lower_must_be_positive": true
+  },
+  "related_gate": {
+    "blend_minimum": 0.5,
+    "gain_minimum": 0.08
+  },
+  "bootstrap_seed": 3301,
+  "bootstrap_samples": 10000,
+  "selection": "All gates fixed before V30 results; no blend, temperature or epoch selection",
+  "submission_policy": "Passing supports separate full-host training and full-ensemble inference validation; never directly submit a fold model",
+  "limitations": [
+    "Repeatedly inspected development data, not an untouched confirmation set",
+    "Fold zero is reused pilot evidence",
+    "Related check is one predeclared related-prompt holdout, not full related-fold OOF",
+    "Sparse reference is not the complete public incumbent; no claim of beating 0.622 without an actual scored submission",
+    "Same external-only checkpoint across host folds is permissible only after verifying it saw no host labels"
+  ],
+  "fold_sha256": {
+    "primary_fold_file": "c64582951ffc6bd6a8233f97775fede7404a52ee5b73c88fcf18b8271fc80508",
+    "related_fold_file": "090c42e940fcfd380d821e2e7a6414605e301f826e5e6e29ad678be5643eee32"
+  }
+}
