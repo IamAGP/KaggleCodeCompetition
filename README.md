@@ -335,6 +335,13 @@ pilot fold, train the other four folds independently from the external-only
 checkpoint, then check one predeclared related-prompt holdout. The plan is not
 launched. Its gates and repeated-development-data limitations are recorded in
 `configs/name-that-llm/v33.json`; no full-public-ensemble validation is claimed.
+The host-only worker `scripts/train_likelihood_v33.py` is prepared but has not
+run. It requires a passing V30 audit and verifies the external-only checkpoint's
+SHA-256 before loading it. Each split gets a fresh optimizer and the unchanged
+two-epoch host schedule, with the external checkpoint's recorded AMP scale.
+It checks disjoint IDs and groups, supports the 539-row primary fold, and saves
+Unicode IDs. Syntax and the diff against V30 were checked locally; GPU execution
+is unverified. Packaging and independent cross-fold evaluation remain pending.
 
 V27 tested one fixed RBF SVC readout (C=1, gamma=1/width) on V22's saved
 task-adapted features, distinct from the earlier frozen-base V11 experiment.
