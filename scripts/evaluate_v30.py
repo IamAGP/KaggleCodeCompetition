@@ -44,7 +44,10 @@ def main():
         assert all(np.isfinite(e['mean_loss']) and e['rows']==(18000 if e['stage']=='pool' else 2159) for e in epochs)
         assert log[-1]['event']=='complete' and log[-1]['optimizer_steps']==1825
         assert log[-1]['skipped_steps']<=18
-        d=np.load(out/f'validation-rank{rank}.npz',allow_pickle=False)
+        # The frozen V30 worker may serialize pandas IDs as object arrays.
+        # These are outputs of our own source-verified notebook, not third-party
+        # NPZ inputs. Preserve the run and validate IDs against the host frame.
+        d=np.load(out/f'validation-rank{rank}.npz',allow_pickle=True)
         assert np.array_equal(d['labels'],labels) and np.array_equal(d['ids'],ids[rank::2])
         assert d['clipped'].shape==(270,18) and d['mean'].shape==(270,18)
         assert np.isfinite(d['clipped']).all() and np.isfinite(d['mean']).all()
@@ -74,7 +77,7 @@ def main():
             'qualifies_for_broader_validation':bool(good.mean()>=gate['fixed_sparse_blend_minimum'] and interval[0]>0),
             'submission_authorized':False,'limitations':plan['limitations'],
             'checkpoint_sha256':{name:hashlib.sha256((out/(name+'-adapter.safetensors')).read_bytes()).hexdigest() for name in checkpoints}}
-    np.savez_compressed(root/'validation.npz',ids=ids,labels=labels,scores=scores,clipped=clipped,mean=mean)
+    np.savez_compressed(root/'validation.npz',ids=ids.astype(str),labels=labels.astype(str),scores=scores,clipped=clipped,mean=mean)
     (root/'evaluation-audit.json').write_text(json.dumps(result,indent=2))
     print(json.dumps(result,indent=2))
 
