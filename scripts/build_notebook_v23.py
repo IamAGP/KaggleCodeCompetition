@@ -21,6 +21,10 @@ def build():
     for old,new in replacements.items():
         assert old in source,old
         source=source.replace(old,new)
+    # Correct inherited delivery metadata without changing the frozen training run.
+    needle="    plan=json.loads(Path('artifacts/improvement-v23/frozen-plan.json').read_text())"
+    assert needle in source
+    source=source.replace(needle,needle+"\n    plan['release_policy']='Submit once after completed training and real inference audits; retain v21 at 0.622 unless the new public score improves it.'\n    plan['blend']['incumbent_members_unchanged']=False\n    plan['blend']['base_v16_members_unchanged']=True")
     namespace={'__name__':'v23_inference_packaging'}
     exec(compile(source,'v21-inference-reused-for-v23','exec'),namespace)
     namespace['build']()

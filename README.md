@@ -194,6 +194,10 @@ component. Full training and inference packaging reuse the audited v21 code;
 the current scored incumbent is v21 at 0.622. The
 [v23 full-training notebook](https://www.kaggle.com/code/adithyagiri/name-that-llm-full-scaled-v23)
 has been pushed. No v23 submission or accuracy claim has been made.
+V23 inference packaging explicitly retains **v21 at 0.622** as the incumbent
+unless the new public score improves it. This corrects stale v16 wording copied
+into the training plan's delivery metadata; the frozen training run is preserved.
+V16's base members remain unchanged, while v21's contrastive member is replaced.
 
 The topic/style distinction is motivated by
 [Altakrori et al., Topic Confusion](https://arxiv.org/html/2104.08530v2).
