@@ -1,0 +1,77 @@
+{
+  "experiment": "improvement-v25",
+  "kind": "8B NF4 all-linear paired CE/SupCon pilot",
+  "model": "qwen-lm/qwen-3/Transformers/8b-base/1",
+  "seed": 1801,
+  "pilot_fold": 0,
+  "external_cap_per_class": 1000,
+  "external_host_cosine_exclusion": 0.3,
+  "max_length": 256,
+  "batch_size": 4,
+  "gradient_accumulation": 8,
+  "lora_rank": 16,
+  "lora_alpha": 32,
+  "target_modules": "all-linear",
+  "pool_epochs": 1,
+  "host_epochs": 2,
+  "pool_adapter_lr": 0.0001,
+  "pool_head_lr": 0.0005,
+  "host_adapter_lr": 3e-05,
+  "host_head_lr": 0.0001,
+  "contrastive_weight": 0.1,
+  "contrastive_temperature": 0.1,
+  "variants": [
+    "ce",
+    "ce_supcon"
+  ],
+  "checkpoint_rule": "Evaluate fixed final host epoch only; no best-epoch selection",
+  "promotion": "Fixed three-layer readout must reach >=0.4625925926 and fixed 0.15 sparse-pilot blend >=0.5311111111. Select highest blend among qualified arms, report two-arm selection. No direct pilot submission.",
+  "wall_limit_seconds": 25200,
+  "sources": [
+    "https://arxiv.org/html/2004.11362v5",
+    "https://github.com/HobbitLong/SupContrast",
+    "https://arxiv.org/html/2106.09685v2",
+    "https://github.com/microsoft/LoRA",
+    "https://huggingface.co/docs/peft/package_reference/lora",
+    "https://arxiv.org/abs/2305.14314",
+    "https://github.com/artidoro/qlora",
+    "https://huggingface.co/docs/peft/developer_guides/quantization",
+    "https://huggingface.co/Qwen/Qwen3-8B-Base/raw/main/config.json"
+  ],
+  "attribution": "LoRA and supervised contrastive learning are established methods. Joint CE plus cross-prompt supervised contrastive adaptation here is our experimental combination, not a reproduction of the image-learning paper. Public pool credited to Nishant Dahal and original contributors (CC BY-SA 4.0). QLoRA: Dettmers et al. 2305.14314; implementation uses Hugging Face PEFT/bitsandbytes. Uses ordinary AdamW and fp16 compute on T4.",
+  "limitations": [
+    "Same repeatedly inspected 540-row fold; not an untouched test",
+    "Changes model size, quantization and adapter coverage together; no pure scaling attribution",
+    "Two objectives compared; no full-ensemble CV claim",
+    "QLoRA instruction-tuning results do not predict attribution accuracy",
+    "No paid compute"
+  ],
+  "comparison": {
+    "v22_supcon_readout": 0.4425925926,
+    "v22_supcon_sparse_blend": 0.5111111111
+  },
+  "readout": {
+    "layers": [
+      12,
+      24,
+      36
+    ],
+    "C": 0.02,
+    "max_iter": 1000,
+    "seed": 1901,
+    "batch_size": 8
+  },
+  "differences_from_v18": [
+    "18000 external rows as V22",
+    "8B NF4 base with all-linear rank16 adapters instead of 4B fp16 q/v-only",
+    "Unchanged fixed readout layers12/24/36 and C0.02"
+  ],
+  "reason": "Test a stronger trainable reader, with matched CE and SupCon objectives; require two-point gains over V22 selected component and sparse blend.",
+  "launch_gate": "V24 completed finite 8B NF4 updates and adapter reload; projected 5580 training microsteps plus conservative 1800s readout/loading allowance <=24300s (25% below 9h).",
+  "quantization": {
+    "load_in_4bit": true,
+    "quant_type": "nf4",
+    "double_quant": true,
+    "compute_dtype": "float16"
+  }
+}

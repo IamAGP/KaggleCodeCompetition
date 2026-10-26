@@ -12,7 +12,9 @@
   "competition_sources": [
     "name-that-llm"
   ],
-  "dataset_sources": [],
+  "dataset_sources": [
+    "adithyagiri/name-that-llm-offline-quantization-deps"
+  ],
   "kernel_sources": [],
   "model_sources": [
     "qwen-lm/qwen-3/Transformers/8b-base/1"
