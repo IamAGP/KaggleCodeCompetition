@@ -300,6 +300,31 @@ was launched and its remote source and inputs verified. V30's configuration is
 prepared but requires a passing V31 audit before any training launch. No probe
 checkpoint may be used for the pilot, and there is no new accuracy result.
 
+V31 version 1 stopped at the first optimizer update with a non-finite gradient
+norm. Version 2 reduced AMP loss scale from 1024 to 128 and added per-microstep
+finite-gradient diagnostics. Both GPUs completed 24 microsteps and six updates,
+with all 225 adapter tensors changed, exact replica equality and successful
+checkpoint reload. The independent audit (`scripts/audit_v31_probe.py`) passed.
+The slower-rank projections were **17,599.5 seconds** for the pilot and
+**19,327.7 seconds** for hidden inference, both below 24,300 seconds.
+
+V30 version 1 is now launched as a private offline
+[source-likelihood training pilot](https://www.kaggle.com/code/adithyagiri/name-that-llm-likelihood-training-v30).
+It starts from the untouched Qwen2.5-1.5B base with a new training seed; probe
+checkpoints are not inputs. Exact-epoch two-GPU batching passed ten tests,
+including global-average gradient weighting for uneven final batches. The
+18,000-row screened external pool and 2,159 host training rows are unchanged.
+Training is three external epochs followed by two host epochs; evaluation uses
+540 excluded host passages after the final epoch only. AMP scale starts at 128
+with a long growth interval; skipped updates are logged and bounded.
+The frozen clipped-likelihood readout must achieve a fixed sparse-blend accuracy
+of at least 0.531111 and a positive paired-prompt bootstrap lower gain bound
+against the V22 blend before broader validation. Mean likelihood is diagnostic
+only. No pilot submission is authorized by this gate. Remote code and input
+attachments were verified. Expected runtime is roughly five hours based on the
+short probe; this is an estimate, not a guarantee. Independent completion
+evaluator: `scripts/evaluate_v30.py`.
+
 V27 tested one fixed RBF SVC readout (C=1, gamma=1/width) on V22's saved
 task-adapted features, distinct from the earlier frozen-base V11 experiment.
 It failed both gates: readout accuracy **39.63% vs 44.26%**, fixed sparse blend
