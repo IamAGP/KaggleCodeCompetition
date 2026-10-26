@@ -366,6 +366,24 @@ reproduction of that paper. The external pool remains credited to
 
 ## October 24 continuation
 
+### October 26 postprocessing diagnostic
+
+`scripts/diagnose_balance_transfer.py` applies the credited V16 equal-class-mass
+balancing (300 iterations) to saved sparse-pilot blends, with the existing 0.15
+component weight. No models are refit or selected and no original gates change.
+Its outputs match the upstream balancing function bit-for-bit on all four
+candidate score arrays. On the same inspected 540 rows, V19's blend changes
+from 0.474074 to 0.490741, V22's from 0.511111 to 0.524074, V25 CE's from
+0.507407 to 0.540741, and V25 SupCon's from 0.518519 to 0.540741.
+The V22-minus-V19 gain remains positive after balancing (0.033333; descriptive
+prompt-bootstrap interval [0.001852, 0.062963]), so this omission does not explain
+the observed V23 public regression. It changes the local comparison and merits
+attention in future protocols, but does not retroactively qualify V25 or authorize
+a new submission. The sparse proxy still omits the stronger public ensemble's
+members; development classes are exactly balanced and repeatedly inspected.
+The diagnostic and input hashes are archived privately; V30's frozen gate remains
+unchanged.
+
 V14 compared frozen Qwen3-8B mean-passage and prefix-128 features on the existing
 prompt-held-out splits. Feature extraction completed on dual T4 GPUs in 462 seconds.
 Neither blend passed development: mean-passage scored 44.60%, prefix-128 42.75%,
