@@ -341,7 +341,14 @@ SHA-256 before loading it. Each split gets a fresh optimizer and the unchanged
 two-epoch host schedule, with the external checkpoint's recorded AMP scale.
 It checks disjoint IDs and groups, supports the 539-row primary fold, and saves
 Unicode IDs. Syntax and the diff against V30 were checked locally; GPU execution
-is unverified. Packaging and independent cross-fold evaluation remain pending.
+is unverified. `scripts/build_training_v33.py --split primary-1` packages a split
+only after a qualifying audit exists, checking the parent source and checkpoint
+hashes. It preserves the recorded external-stage AMP scale and attaches V30's
+outputs. All five real-data holdouts passed ID, label and group-boundary checks;
+all five notebook packages passed schema/compilation checks using temporary,
+explicitly synthetic checkpoint fixtures. Missing or failed audits were rejected.
+No actual V33 notebook has been built or launched. Independent cross-fold
+evaluation remains pending; the preparation checks are archived separately.
 
 V27 tested one fixed RBF SVC readout (C=1, gamma=1/width) on V22's saved
 task-adapted features, distinct from the earlier frozen-base V11 experiment.
