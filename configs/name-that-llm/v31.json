@@ -29,5 +29,7 @@
     "Full training and hidden runtime projections are estimates from a short probe",
     "Two-GPU data parallelism preserves effective batch32 and total planned training examples; timing includes gradient synchronization"
   ],
-  "world_size": 2
+  "world_size": 2,
+  "initial_loss_scale": 128,
+  "numerical_fix": "V1 first update had non-finite gradient norm at loss scale1024; reduce scale128 and record finite gradient diagnostics per microstep"
 }

@@ -59,7 +59,7 @@ def main():
     params=[p for p in model.parameters() if p.requires_grad]
     before=model.adapter_state()
     opt=torch.optim.AdamW(params,lr=1e-4,weight_decay=.01)
-    scaler=torch.amp.GradScaler('cuda',init_scale=1024)
+    scaler=torch.amp.GradScaler('cuda',init_scale=plan['initial_loss_scale'])
     opt.zero_grad(set_to_none=True)
     steps=[]
     log(event='loaded',trainable_parameters=sum(p.numel() for p in params),torch=torch.__version__,device=torch.cuda.get_device_name())
@@ -74,6 +74,9 @@ def main():
                 loss=parallel(ids,mask,source[rows.cuda()])/plan['gradient_accumulation']
             assert torch.isfinite(loss)
             scaler.scale(loss).backward()
+        nonfinite=[name for name,p in model.named_parameters() if p.grad is not None and not torch.isfinite(p.grad).all()]
+        log(event='gradient_diagnostic',rank=rank,step=step,scale=scaler.get_scale(),nonfinite_parameters=nonfinite)
+        assert not nonfinite,nonfinite
         if update:
             scaler.unscale_(opt)
             norm=torch.nn.utils.clip_grad_norm_(params,1.)
