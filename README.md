@@ -422,6 +422,27 @@ sparse outputs are hash-checked and cannot be silently refit. Ten targeted tests
 cover the primary metrics, archive stability, conditional packaging and related
 gates. The related reference fit and GPU evaluation have not run.
 
+A separate metadata diagnostic, `scripts/diagnose_pool_provenance.py`, quantifies
+contributor/model association without fitting a text classifier. With an equal
+model prior, the empirical best contributor-only lookup has balanced accuracy
+0.186444 on V18's 4,500-row pool and 0.181222 on V22/V25's identical 18,000-row
+pool, versus chance 0.055556. This is an in-sample metadata statistic, not a
+predictive score or evidence that our models actually exploit contributor cues.
+The larger pool is not more associated by this measure, so this cannot establish
+the cause of V23's regression. Only drjcfmd and prvsiyan cover all 18 labels;
+equalizing labels within complete contributors without replacement would retain
+only 1,638 of the selected 18,000 rows (9,162 of the full 75,783-row pool).
+Independent row-level balanced-accuracy and entropy calculations verify the
+diagnostic. Full counts and hashes are archived privately.
+
+This motivates testing contributor-held-out transfer and contributor-matched
+author comparisons before assuming that more external data improves style
+learning. That is a hypothesis, not an executed experiment or a changed V34
+recipe. Historical motivation comes from the already cited Topic Confusion
+paper and its author repository; those human-author results are not evidence
+of present-day LLM attribution performance. Contributor names are provenance
+metadata, not verified topic or generation-setting labels.
+
 `scripts/diagnose_balance_transfer.py` applies the credited V16 equal-class-mass
 balancing (300 iterations) to saved sparse-pilot blends, with the existing 0.15
 component weight. No models are refit or selected and no original gates change.
