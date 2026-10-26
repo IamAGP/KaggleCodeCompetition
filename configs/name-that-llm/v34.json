@@ -1,0 +1,77 @@
+{
+  "experiment": "improvement-v34",
+  "kind": "Multi-fold comparison with the current incumbent component and fixed class balancing",
+  "status": "planned_not_launched",
+  "motivation": "Saved-prediction diagnostic exposed a difference between pilot and submitted postprocessing. Test two fixed training recipes across more prompts; do not retroactively pass V25.",
+  "candidate": {
+    "name": "8b_ce",
+    "initialization": "V25 CE external-only checkpoint, including adapter and heads",
+    "training_recipe": "Unchanged V25 CE host stage: two equivalent epochs; fresh optimizer and scaler; same paired sampler and seed",
+    "readout": "Unchanged V25 layers 12/24/36 logistic readout, C=0.02, mean log probabilities",
+    "pilot_scores": "artifacts/improvement-v25/kaggle-output/ce_final_validation.npz"
+  },
+  "comparison": {
+    "name": "4b_small_supcon",
+    "initialization": "V18 CE+SupCon external-only checkpoint from 4500 selected external rows, including adapter and heads",
+    "training_recipe": "Unchanged V18 CE+SupCon host stage: two equivalent epochs; fresh optimizer and scaler; same paired sampler and seed",
+    "readout": "Unchanged V19 layers 12/24/36 logistic readout, C=0.02, mean log probabilities",
+    "pilot_scores": "artifacts/improvement-v19/kaggle-output/supcon_final_validation.npz",
+    "reason": "This recipe supplies V21's added component, our current 0.622 public incumbent; V22's larger-data component regressed publicly. This is still not validation of the full incumbent ensemble."
+  },
+  "choice_disclosure": "Candidate CE was chosen after observing V25: it ties SupCon on the balanced pilot blend and has the higher standalone readout. This is post-pilot selection, not a pre-pilot discovery claim.",
+  "primary_folds": {
+    "file": "artifacts/baseline-v1/folds.csv",
+    "sha256": "c64582951ffc6bd6a8233f97775fede7404a52ee5b73c88fcf18b8271fc80508",
+    "reuse": [0],
+    "train": [1, 2, 3, 4]
+  },
+  "related_confirmation": {
+    "file": "artifacts/improvement-v4/robustness/folds.csv",
+    "sha256": "090c42e940fcfd380d821e2e7a6414605e301f826e5e6e29ad678be5643eee32",
+    "fold": 0,
+    "launch_requires": "All primary gates pass"
+  },
+  "scoring": {
+    "sparse_reference": "V32 fixed V17 sparse OOF; related holdout fits the identical specification using fixed V17 external IDs and train-only vocabulary",
+    "component_weight": 0.15,
+    "blend": "sparse decision scores + 0.15 * mean neural log probabilities",
+    "postprocessing": "Softmax then credited V16 equal-class-mass balancing for exactly 300 iterations, separately on each held-out fold; no prompt-wise one-to-one assignment",
+    "metric": "Balanced accuracy (mean recall across 18 source labels)",
+    "no_selection": "No weight, epoch, layer, temperature, seed or objective search. Evaluate fixed final checkpoints. Report ordinary accuracy as a diagnostic only."
+  },
+  "primary_gate": {
+    "candidate_pooled_balanced_accuracy_minimum": 0.52,
+    "candidate_minus_comparison_minimum": 0.02,
+    "materially_positive_gain_folds_minimum": 4,
+    "material_tolerance": 1e-8,
+    "paired_prompt_bootstrap_gain_lower_must_be_positive": true
+  },
+  "related_gate": {
+    "candidate_balanced_accuracy_minimum": 0.5,
+    "candidate_minus_comparison_minimum": 0.015
+  },
+  "bootstrap": {
+    "samples": 10000,
+    "seed": 3401,
+    "unit": "Whole prompt groups, stratified by primary fold; recompute pooled balanced accuracy for each paired resample",
+    "interval": [0.025, 0.975]
+  },
+  "runtime": {
+    "evidence": "V25 CE host stage through completion about 3811 seconds plus 557-second readout; V18 SupCon about 1483 seconds plus 264-second V19 readout",
+    "execution": "One GPU per recipe, four primary folds sequentially within each recipe; related fold only after primary qualification",
+    "primary_projection_seconds": 18392,
+    "wall_limit_seconds": 24300,
+    "launch_requires": "Independent verification of external-only artifacts, exact train/holdout boundaries, notebook source, offline model dependencies and sufficient current Kaggle quota",
+    "paid_compute": false
+  },
+  "attribution": "Public pool and fixed balancing: Nishant Dahal and original contributors, CC BY-SA 4.0. Qwen backbones: Qwen. LoRA, supervised contrastive learning and QLoRA retain the cited V18/V25 method credits. This is a new evaluation protocol, not a newly invented training method.",
+  "limitations": [
+    "Full credited 14B/DeBERTa ensemble is not included in local OOF; only an actual submission can prove a gain over 0.622",
+    "Pilot fold zero is reused; all development labels have been inspected before",
+    "Size, quantization, adapter coverage, objective and external-pool size differ between recipes; no pure scaling or causal method claim",
+    "Equal hidden class mass is an assumption; balancing is fixed because the submitted baseline already uses it",
+    "Related confirmation is one predeclared holdout, not full related-fold OOF",
+    "Passing supports separate full-host training and inference validation; a fold model is never submitted directly",
+    "V25 and V30 remain failed under their original gates; V33 remains unlaunched"
+  ]
+}
