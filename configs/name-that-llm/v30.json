@@ -51,5 +51,8 @@
   "host_sha256": "40a22ce8d88c5f46feb4637a099db815bef5f713ffe53e89dbe1b7b21de77707",
   "pool_sha256": "37750e899ff6634c147daa7888bfed048e92d3fb1381fe5d21f93bf72a84e8ec",
   "folds_sha256": "c64582951ffc6bd6a8233f97775fede7404a52ee5b73c88fcf18b8271fc80508",
-  "world_size": 2
+  "world_size": 2,
+  "initial_loss_scale": 128,
+  "loss_scale_growth_interval": 1000000,
+  "maximum_skipped_steps": "max(2, floor(0.01 * attempted optimizer updates)); abort above this bound"
 }
