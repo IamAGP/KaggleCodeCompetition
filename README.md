@@ -325,6 +325,18 @@ attachments were verified. Expected runtime is roughly five hours based on the
 short probe; this is an estimate, not a guarantee. Independent completion
 evaluator: `scripts/evaluate_v30.py`.
 
+V30 completed on October 26 and passed that independent audit: exact worker and
+plan hashes, row-for-row comparison with V22's fitting/validation frames, all
+225 adapter tensor shapes and finite values, changed checkpoints, both ranks'
+five complete epochs and 1,825 update attempts, and aligned finite score arrays.
+Its clipped-evidence accuracy is **0.372222** and the frozen sparse blend is
+**0.407407**, versus V22's **0.511111**. It corrects 29 reference errors and
+introduces 85; paired prompt-bootstrap gain interval is **[-0.150000, -0.057407]**.
+Mean-likelihood accuracy is 0.409259, diagnostic only; it cannot replace the frozen
+readout after observing results. V30 fails both promotion requirements. It is not
+submitted and **V33 will not launch** under its existing prerequisite. This rules
+out this tested recipe, not all source-conditioned attribution methods.
+
 V32 completed the fixed sparse reference on the remaining four prompt folds,
 reusing V17's fold-zero predictions unchanged. External IDs, features, C=0.5,
 external weight=0.25 and seed=1701 were fixed before execution. Pooled accuracy
