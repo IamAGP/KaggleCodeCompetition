@@ -68,7 +68,7 @@ def main():
                                        'README.md and versioned experiment artifacts',
                                        'Public external pool: Nishant Dahal and original contributors, CC BY-SA 4.0']})
     (DEST / 'data.js').write_text('window.NTL_DATA = ' + json.dumps(data, ensure_ascii=False).replace('</',r'<\/') + ';\n')
-    for name in ['index.html','app.js','style.css']:
+    for name in ['index.html','app.js','style.css','hypotheses.js','research-history-2026-10-26.txt']:
         shutil.copyfile(ROOT/'dashboard'/name, DEST/name)
     shutil.copyfile(ROOT/'README.md',DEST/'technical-history.txt')
     manifest = {p.name:{'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()}
