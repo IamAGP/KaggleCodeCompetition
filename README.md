@@ -245,6 +245,22 @@ QLoRA attribution: [Dettmers et al.](https://arxiv.org/abs/2305.14314) and
 [authors' repository](https://github.com/artidoro/qlora); the implementation uses
 Hugging Face PEFT/bitsandbytes, ordinary AdamW and fp16 compute on T4.
 
+V28 tested a separately frozen affine score combiner using sparse, V22 SupCon,
+V25 SupCon and V25 CE predictions. Six prompt-disjoint calibration folds each
+fit four nonnegative model weights and 18 regularized class biases on 25
+prompts, then predicted the other five. Score normalization used fitting rows
+only; analytic gradients passed numerical checks, and all optimizers converged.
+Accuracy was **0.525926**, versus **0.511111** for the fixed V22 sparse blend:
+32 corrected errors and 24 newly wrong. The paired prompt-bootstrap gain
+interval was [-0.009259, 0.038889]. It failed the frozen 0.531111 accuracy and
+positive lower-bound gates, so no further promotion or submission follows.
+The repeatedly inspected pilot split and incomplete full V25 artifact audit
+remain limitations. No neural training or post-result tuning was performed.
+Method context: [Guo et al.](https://arxiv.org/abs/1706.04599) and their
+[explicitly unmaintained demonstration repository](https://github.com/gpleiss/temperature_scaling).
+This multi-model combiner is our implementation, not a temperature-scaling
+reproduction; no code from that repository was reused.
+
 V27 tested one fixed RBF SVC readout (C=1, gamma=1/width) on V22's saved
 task-adapted features, distinct from the earlier frozen-base V11 experiment.
 It failed both gates: readout accuracy **39.63% vs 44.26%**, fixed sparse blend
