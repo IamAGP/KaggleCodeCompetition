@@ -380,6 +380,30 @@ reproduction of that paper. The external pool remains credited to
 
 ### October 26 postprocessing diagnostic
 
+V34 now follows that diagnostic as a separately frozen, broader comparison:
+Qwen3-8B CE from V25's external-only checkpoint versus the small-pool Qwen3-4B
+SupCon recipe supplying the current V21 incumbent component. It reuses each
+recipe's pilot fold zero and trains host folds 1–4 independently, retaining the
+original sampler, model definition, objective and fixed three-layer readout.
+Each local comparison uses the same sparse reference, 0.15 component weight,
+and the credited 300-iteration equal-class-mass balancing. Primary gates require
+pooled balanced accuracy >=0.52, >=0.02 gain over the comparison, at least four
+material fold wins, and a positive paired prompt-bootstrap lower gain bound.
+Only a primary pass authorizes the predeclared related-prompt holdout.
+`configs/name-that-llm/v34.json` discloses post-pilot candidate selection and
+the remaining mismatch with the complete public ensemble. No original failed
+gate is revised and no fold model is directly submitted.
+
+The [private V34 notebook](https://www.kaggle.com/code/adithyagiri/name-that-llm-fold-confirmation-v34)
+version 1 launched October 26 at approximately 14:43 UTC. Remote source cells,
+offline/private settings and all model/kernel/dataset inputs match the local
+package. Preflight verified checkpoint hashes and finite tensors, unchanged
+model/sampler/loss definitions, all four data splits and 540 sampled batches per
+fold without held-out prompt exposure. One GPU handles each recipe, sequentially
+across four folds; the slower arm projects about 18,392 seconds, including its
+loading/readout allowance, against a 24,300-second budget. This is an estimate,
+not a guarantee. Roughly 16.7 GPU quota hours were available before launch.
+
 `scripts/diagnose_balance_transfer.py` applies the credited V16 equal-class-mass
 balancing (300 iterations) to saved sparse-pilot blends, with the existing 0.15
 component weight. No models are refit or selected and no original gates change.
