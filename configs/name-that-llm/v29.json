@@ -1,0 +1,31 @@
+{
+  "experiment": "improvement-v29",
+  "kind": "source-conditioned likelihood feasibility only",
+  "model": "qwen-lm/qwen2.5/Transformers/1.5b/1",
+  "seed": 2901,
+  "sources": 18,
+  "rank": 16,
+  "alpha": 32,
+  "dropout": 0.05,
+  "max_length": 512,
+  "batch_size": 4,
+  "gradient_accumulation": 8,
+  "microsteps": 24,
+  "head_chunk": 16,
+  "train_sha256": "40a22ce8d88c5f46feb4637a099db815bef5f713ffe53e89dbe1b7b21de77707",
+  "projected_training_microsteps": 14580,
+  "pilot_validation_rows": 540,
+  "hidden_projection_rows": 4500,
+  "other_ensemble_allowance_seconds": 3600,
+  "launch_gate_seconds": 24300,
+  "paper": "https://arxiv.org/abs/2610.19583",
+  "authors_repo": "https://github.com/komseok0109/ATLAS",
+  "reviewed_commit": "93c1b15da6143161e222eecee7ebcdc3c60645a9",
+  "implementation": "Independent PyTorch implementation of published source-specific LoRA and prefix method; no repository code copied",
+  "limitations": [
+    "Feasibility checkpoint uses long host passages and must be discarded",
+    "No accuracy evaluation or selection",
+    "1.5B differs from main paper backbone; 18 exact models differ from five families",
+    "Full training and hidden runtime projections are estimates from a short probe"
+  ]
+}
