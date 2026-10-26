@@ -23,9 +23,16 @@ def main():
     labels=np.asarray(remote['labels']);assert labels.tolist()==sorted(valid.model.unique())
     ids=valid.id.astype(str).to_numpy();truth=valid.model.to_numpy()
     checkpoints={name:load_file(out/(name+'-adapter.safetensors')) for name in ['initial','external-only','final']}
+    expected_shapes={'prefix':(18,1536)}
+    for layer in range(28):
+        for projection,width in [('q',1536),('k',256),('v',256),('o',1536)]:
+            stem=f'lm.model.layers.{layer}.self_attn.{projection}_proj.'
+            expected_shapes[stem+'down']=(16,1536)
+            expected_shapes[stem+'up']=(18,16,width)
     for name,tensors in checkpoints.items():
         assert len(tensors)==225 and all(np.isfinite(v).all() for v in tensors.values()),name
-        assert set(tensors)==set(checkpoints['initial'])
+        assert set(tensors)==set(expected_shapes)
+        for key,value in tensors.items():assert value.shape==expected_shapes[key],(name,key,value.shape)
     for a,b in [('initial','external-only'),('external-only','final')]:
         assert all(not np.array_equal(checkpoints[a][k],v) for k,v in checkpoints[b].items())
     expected=[('pool',i) for i in range(3)]+[('host',i) for i in range(2)]
