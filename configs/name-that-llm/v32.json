@@ -1,0 +1,36 @@
+{
+  "experiment": "improvement-v32",
+  "kind": "fixed sparse reference for multi-fold confirmation",
+  "seed": 1701,
+  "reuse_fold": 0,
+  "fit_folds": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "C": 0.5,
+  "external_weight": 0.25,
+  "class_weight": "balanced",
+  "max_iter": 5000,
+  "selection": "No tuning; reuse V17 uniform-pool specification and selected external IDs exactly",
+  "sources": {
+    "host": "data/name-that-llm/train.csv",
+    "pool": "data/name-that-llm/external/pool_v4.parquet",
+    "selected_pool_ids": "artifacts/improvement-v17/selected-pool-ids.csv",
+    "folds": "artifacts/baseline-v1/folds.csv",
+    "fold0": "artifacts/improvement-v17/uniform_pool_pilot.npz"
+  },
+  "limitations": [
+    "Repeatedly inspected development folds",
+    "V17 exact-overlap screen differs from the stricter neural near-overlap screen",
+    "This is a reference only, not a new submission candidate or full public ensemble validation"
+  ],
+  "input_sha256": {
+    "host": "40a22ce8d88c5f46feb4637a099db815bef5f713ffe53e89dbe1b7b21de77707",
+    "pool": "37750e899ff6634c147daa7888bfed048e92d3fb1381fe5d21f93bf72a84e8ec",
+    "selected_pool_ids": "ef130cdd1f390ed26b5948e3d05cd294e4f3bede6f2407456f40fdb9fa016c98",
+    "folds": "c64582951ffc6bd6a8233f97775fede7404a52ee5b73c88fcf18b8271fc80508",
+    "fold0": "edc1b4601b4004236a237b5fb742389b8e01333e8559033599252af2f0b9d7e9"
+  }
+}
