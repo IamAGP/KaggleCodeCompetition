@@ -1,0 +1,56 @@
+{
+  "experiment": "improvement-v38",
+  "hypothesis": "Large between-prompt directions in response features may encode shared content that distracts author attribution; removing a few may help unseen-prompt classification.",
+  "evidence_status": "Our untested truncated prompt-mean PCA hypothesis, not a LEACE replication or guaranteed concept erasure.",
+  "sources": [
+    "https://arxiv.org/html/2306.03819v3",
+    "https://github.com/EleutherAI/concept-erasure",
+    "https://raw.githubusercontent.com/EleutherAI/concept-erasure/main/concept_erasure/leace.py"
+  ],
+  "source_connection": "LEACE relates concept means/cross-covariance to linear erasure and warns of collateral damage. Its oblique optimal erasure differs from our fixed-rank orthogonal PCA projection. No cited evidence establishes a gain on this competition.",
+  "features": "Existing independently fitted V34 8B CE outer folds 1-4 plus original V25 pilot fold 0; no new backbone training",
+  "ranks": [
+    0,
+    4,
+    16
+  ],
+  "projection": "Per layer, average raw features within each complete 18-author training prompt; centre these equally weighted means, take top right singular vectors, remove selected subspace from each row. Exclude incomplete prompts only from PCA; retain every training row in classifier fitting. No validation means or labels enter fitting.",
+  "readout": {
+    "C": 0.02,
+    "max_iter": 1000,
+    "seed": 1901,
+    "layers": [
+      12,
+      24,
+      36
+    ],
+    "method": "Train-only StandardScaler then multinomial logistic regression; mean per-layer log probabilities, unchanged historical specification"
+  },
+  "metrics": [
+    "pooled and per-fold balanced accuracy of raw neural classifier",
+    "secondary fixed V34 sparse plus .15 neural score blend with unchanged per-fold balancing",
+    "per-class recall and confusion counts"
+  ],
+  "rank0_parity": "Report cached score differences and prediction disagreements per fold. All hypothesis gains measured only against the refitted local rank0 control, never the cached Kaggle predictions.",
+  "inference": "Single text feature uses stored mean and projection then readout; no prompt ID or other responses needed",
+  "limits": [
+    "Exploratory repeatedly examined development CV, including reused pilot; not untouched confirmation",
+    "No rank selection or gates changed during run",
+    "No full-incumbent ensemble validation or leaderboard gain claim",
+    "No GPU, API generation or spending",
+    "Projection may erase author information intertwined with content"
+  ],
+  "cpu_threads": 2,
+  "wall_limit_seconds": 1800,
+  "amendment": {
+    "reason": "Strict parity preflight failed: 1/540 fold0 baseline predictions differ locally; max log-score drift .11144080595468608; exact cause unresolved. Prior attempt preserved separately.",
+    "before_hypothesis_metrics_inspected": true,
+    "method_ranks_data_unchanged": true,
+    "failed_attempt": "artifacts/improvement-v38-parity-attempt",
+    "local_versions": {
+      "sklearn": "1.7.1",
+      "numpy": "2.3.2",
+      "scipy": "1.16.1"
+    }
+  }
+}
