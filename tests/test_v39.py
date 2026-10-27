@@ -9,10 +9,22 @@ import tempfile
 import unittest
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from build_notebook_v39 import inference_source,build
-from quicksave_v39 import QuickSaveRequest,cell_sources
+from quicksave_v39 import QuickSaveRequest,cell_sources,normalize_metadata
 
 
 class InferencePackageTest(unittest.TestCase):
+    def test_sdk_camelcase_metadata_readback(self):
+        actual=normalize_metadata({'datasetDataSources':['owner/private'],
+            'modelDataSources':['owner/model/Transformers/base/1'],
+            'competitionDataSources':['name-that-llm'],'isPrivate':True,
+            'enableGpu':True,'enableInternet':False,'enableTpu':False})
+        self.assertEqual(actual['dataset_data_sources'],['owner/private'])
+        self.assertEqual(actual['model_data_sources'],['owner/model/Transformers/base/1'])
+        self.assertEqual(actual['competition_data_sources'],['name-that-llm'])
+        self.assertTrue(actual['is_private'] and actual['enable_gpu'])
+        self.assertFalse(actual['enable_internet'] or actual['enable_tpu'])
+        self.assertEqual(actual.get('kernel_data_sources') or [],[])
+
     def test_inference_extraction_preserves_methods_removes_fitting(self):
         source=Path('scripts/component_v26.py').read_text()
         extracted=inference_source(source)

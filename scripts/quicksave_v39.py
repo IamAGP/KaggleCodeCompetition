@@ -22,7 +22,18 @@ def cell_sources(source):
     return [(c['cell_type'],''.join(c['source']) if isinstance(c['source'],list) else c['source']) for c in notebook['cells']]
 
 
-def main(execute=False):
+def normalize_metadata(actual):
+    """Official SDK to_dict uses camelCase; request field maps use snake_case."""
+    names=['dataset_data_sources','kernel_data_sources','competition_data_sources','model_data_sources',
+           'is_private','enable_gpu','enable_internet','enable_tpu']
+    result=dict(actual)
+    for name in names:
+        parts=name.split('_');camel=parts[0]+''.join(p.title() for p in parts[1:])
+        if camel in actual:result[name]=actual[camel]
+    return result
+
+
+def main(execute=False,verify_only=False):
     root=Path('artifacts/improvement-v39');folder=Path('notebooks/improvement-v39')
     built=json.loads((root/'build-receipt.json').read_text());source=(folder/'inference.ipynb').read_text()
     assert hashlib.sha256(source.encode()).hexdigest()==built['notebook_sha256']
@@ -39,18 +50,23 @@ def main(execute=False):
     payload=request.to_field_map(request,ignore_defaults=True)
     for field,key in mapping.items():assert payload[field]==metadata[key]
     assert payload['kernel_execution_type']=='QuickSave'
-    if not execute:
+    if not execute and not verify_only:
         print(json.dumps({k:v for k,v in payload.items() if k!='text'},indent=2));return
     readback=json.loads((root/'private-dataset-readback-receipt.json').read_text())
     assert readback['all_nine_match'] and len(readback['verified_files'])==9
-    assert not (root/'sdk-quicksave-receipt.json').exists(),'Refuse duplicate save without explicit new review'
+    if not verify_only:
+        assert not (root/'sdk-quicksave-receipt.json').exists(),'Refuse duplicate save without explicit new review'
     api=KaggleApi();api.authenticate()
     with api.build_kaggle_client() as client:
-        result=client.kernels.kernels_api_client.save_kernel(request)
-        record=result.to_dict();(root/'sdk-quicksave-receipt.json').write_text(json.dumps(record,indent=2))
+        if verify_only:
+            record=json.loads((root/'sdk-quicksave-receipt.json').read_text())
+        else:
+            result=client.kernels.kernels_api_client.save_kernel(request)
+            record=result.to_dict();(root/'sdk-quicksave-receipt.json').write_text(json.dumps(record,indent=2))
         query=ApiGetKernelRequest();query.user_name=metadata['id'].split('/')[0];query.kernel_slug=metadata['id'].split('/')[1]
         remote=client.kernels.kernels_api_client.get_kernel(query)
     actual=remote.metadata.to_dict();(root/'saved-kernel-metadata.json').write_text(json.dumps(actual,indent=2))
+    actual=normalize_metadata(actual)
     (root/'saved-notebook.ipynb').write_text(remote.blob.source)
     assert cell_sources(remote.blob.source)==cell_sources(source),'Saved notebook source changed'
     for field,key in mapping.items():
@@ -66,4 +82,6 @@ def main(execute=False):
     print(json.dumps(receipt,indent=2))
 
 if __name__=='__main__':
-    parser=argparse.ArgumentParser();parser.add_argument('--execute',action='store_true');main(parser.parse_args().execute)
+    parser=argparse.ArgumentParser();mode=parser.add_mutually_exclusive_group()
+    mode.add_argument('--execute',action='store_true');mode.add_argument('--verify-only',action='store_true')
+    args=parser.parse_args();main(args.execute,args.verify_only)
