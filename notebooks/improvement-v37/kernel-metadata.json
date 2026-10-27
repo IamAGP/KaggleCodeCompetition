@@ -1,0 +1,32 @@
+{
+  "id": "adithyagiri/name-that-llm-conditional-delivery-v37",
+  "title": "Name That LLM Conditional Delivery V37",
+  "code_file": "inference.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "machine_shape": "NvidiaTeslaT4",
+  "enable_internet": false,
+  "enable_tpu": false,
+  "competition_sources": [
+    "name-that-llm"
+  ],
+  "dataset_sources": [
+    "nishantdahal/ntl-handwriting-blend",
+    "adithyagiri/name-that-llm-offline-quantization-deps",
+    "adithyagiri/name-that-llm-v37-private-evaluation-inputs"
+  ],
+  "model_sources": [
+    "qwen-lm/qwen-3/Transformers/14b-base/1",
+    "qwen-lm/qwen2.5/Transformers/14b/1",
+    "qwen-lm/qwen-3/Transformers/4b-base/1",
+    "qwen-lm/qwen-3/Transformers/8b-base/1"
+  ],
+  "kernel_sources": [
+    "adithyagiri/name-that-llm-full-contrastive-v21",
+    "adithyagiri/name-that-llm-contrastive-v18",
+    "adithyagiri/name-that-llm-qlora-training-v25",
+    "adithyagiri/name-that-llm-fold-confirmation-v34"
+  ]
+}

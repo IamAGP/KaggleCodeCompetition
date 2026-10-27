@@ -1,0 +1,59 @@
+{
+  "experiment": "improvement-v35",
+  "status": "frozen_before_training_not_launched",
+  "hypothesis": "Matching negative examples on prompt ID may reduce topic shortcuts in author attribution.",
+  "evidence_status": "Untested task-specific extension; SupCon establishes class-positive contrastive learning, not this prompt-control benefit.",
+  "sources": [
+    "https://arxiv.org/html/2004.11362v5",
+    "https://github.com/HobbitLong/SupContrast/blob/master/losses.py"
+  ],
+  "method_review": "Original SupCon averages positive log probabilities outside the log, excludes self comparisons, and operates on normalized projections. V18 loss retains that form with temperature/base-temperature ratio one. Original paper studies images; crossed text prompt sampling plus joint CE is our extension.",
+  "primary_folds": {
+    "file": "artifacts/baseline-v1/folds.csv",
+    "sha256": "c64582951ffc6bd6a8233f97775fede7404a52ee5b73c88fcf18b8271fc80508",
+    "train": [
+      1,
+      2
+    ]
+  },
+  "comparison": "Both arms restore identical V18 4500-row external-only adapter, norm, head and projection. Same Qwen3-4B, tokenizer, host data, seed, two epochs, batch4, accumulation8, CE plus 0.1 SupCon, learning rates and fixed final V19 readout. Only host batch sampling changes.",
+  "control": "Existing V18 independent prompt draws for each of two authors.",
+  "candidate": "Two authors and two shared host prompt IDs form all four cells. Same-author positives span prompts; each anchor has a same-prompt different-author negative.",
+  "external_groups": "Existing preparation constructs external groups from source + prompt_key. Cross-source prompt equivalence is not established. No external prompt matching or new external training is performed.",
+  "scoring": {
+    "metric": "Mean class recall, raw fixed V19 readout",
+    "readout": "Layers 12/24/36, standardized logistic C=.02, mean log probabilities",
+    "secondary": "Ordinary accuracy and existing fixed sparse blend may be reported, never used to replace primary gate."
+  },
+  "screen_gate": {
+    "pooled_balanced_accuracy_gain_minimum": 0.01,
+    "each_fold_gain_must_be_positive": true,
+    "next_step": "Broader folds and full-incumbent ensemble evaluation; never automatic submission."
+  },
+  "runtime": {
+    "wall_limit_seconds": 5400,
+    "projection_seconds": 3600,
+    "evidence": "Recorded V18 host stage about1483s plus V19 readout264s per fold. Two folds sequentially per arm, arms parallel on two T4 GPUs; estimate includes modest overhead but is not guaranteed.",
+    "gpu_hours_estimate": 2,
+    "execution": "One independent arm per GPU; terminate process groups at global deadline.",
+    "paid_compute": false,
+    "launch_requires": "Parent coordination, current quota and offline dependency preflight",
+    "portable": {
+      "execution": "Single GPU, independent then crossed; both fixed folds in each arm",
+      "wall_limit_seconds": 9000,
+      "projection_seconds": 7000,
+      "setup_allowance_seconds": 1200,
+      "setup_estimate_status": "Planning allowance, not measured; depends on image and download throughput",
+      "cost_cap_usd": 10,
+      "billing_guard": "Parent preflight must include setup, runtime and storage, and terminate paid pod after archive. Internal process timeout alone does not stop billing."
+    }
+  },
+  "limitations": [
+    "All host labels previously inspected; this is a screening comparison, not untouched confirmation.",
+    "Sampling with replacement changes row exposure and negative difficulty; seed alone does not equate individual examples across arms.",
+    "Single missing author/prompt cell handled by pairwise shared-prompt intersection, with slight sampling distribution change.",
+    "No claim of improvement over .622 without full inference submission.",
+    "Inference needs one text only, no prompt ID or other authors; same adapter architecture and cost as incumbent component."
+  ],
+  "attribution": "SupCon: Khosla et al.; Qwen model: Qwen team; public external pool: Nishant Dahal and original contributors. This experiment changes sampling only."
+}

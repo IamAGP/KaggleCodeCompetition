@@ -1,0 +1,24 @@
+{
+  "id": "adithyagiri/name-that-llm-prompt-control-v35",
+  "title": "Name That LLM Prompt Control V35",
+  "code_file": "training.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "machine_shape": "NvidiaTeslaT4",
+  "competition_sources": [
+    "name-that-llm"
+  ],
+  "dataset_sources": [
+    "adithyagiri/name-that-llm-offline-quantization-deps"
+  ],
+  "kernel_sources": [
+    "adithyagiri/name-that-llm-contrastive-v18"
+  ],
+  "model_sources": [
+    "qwen-lm/qwen-3/Transformers/4b-base/1"
+  ]
+}

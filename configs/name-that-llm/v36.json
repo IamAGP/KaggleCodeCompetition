@@ -1,0 +1,16 @@
+{
+  "experiment": "improvement-v36",
+  "kind": "fixed synthetic class-prior stress diagnostic on saved held-out predictions; no training",
+  "hypothesis": "Equal probability-mass balancing may lose its benefit when held-out class frequencies differ.",
+  "source": "https://www.kaggle.com/competitions/name-that-llm/overview/abstract",
+  "source_checked": "2026-10-27",
+  "source_fact": "Test passages per model are unequal; model mix differs between public and private leaderboards.",
+  "arms": ["unchanged argmax", "existing 300-iteration equal-mass balancing"],
+  "references": ["V17 sparse plus fixed 0.15 V22 SupCon", "V17 sparse plus fixed 0.15 V25 CE"],
+  "scenarios": [{"name":"balanced_control","low_count":30}, {"name":"mild_2_to_1","low_count":15}, {"name":"severe_6_to_1","low_count":5}],
+  "rotations": 18,
+  "seed": 3601,
+  "sampling": "Rotate nine high-frequency classes through sorted label order; high classes retain 30 rows, low classes retain the first low_count rows of a fixed seeded within-class permutation. All retained rows were held out from fitting.",
+  "metric": "mean per-class recall, with ordinary accuracy reported separately",
+  "restrictions": ["No fitting or hyperparameter search", "Do not treat synthetic rotations as independent replicates", "No full-ensemble or leaderboard gain claim", "No submission change solely from these proxy diagnostics", "Repeatedly inspected development fold; no pristine holdout claim"]
+}
