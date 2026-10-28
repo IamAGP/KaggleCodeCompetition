@@ -15,7 +15,7 @@ remote = r'''
 import hashlib,json,pathlib,tarfile
 root=pathlib.Path('/workspace/v42')
 files=[]
-for name in ['dependency-lock.txt','model-input-manifest.json','plan.json','bootstrap.log','round.log']:
+for name in ['dependency-lock.txt','model-input-manifest.json','plan.json','bootstrap.log','round.log','round-ready.log','v42-ready-launch.py']:
  p=root/name
  if p.exists():files.append(p)
 for result in (root/'results').glob('*/fold-*/result.json'):
