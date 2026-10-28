@@ -1,0 +1,98 @@
+{
+  "experiment": "V43",
+  "plan_sha256": "89bdd5733e4c85293334bdbd4d747212a8ae1bcaa6ae21f6766dcc461487cb6a",
+  "comparisons": [
+    {
+      "arm": "dense_ce",
+      "fold": 1,
+      "base": 0.5185185185185186,
+      "blend": 0.5148148148148148,
+      "gain": -0.0037037037037037646,
+      "changed": 15
+    },
+    {
+      "arm": "blocks_ce",
+      "fold": 1,
+      "base": 0.5185185185185186,
+      "blend": 0.5185185185185186,
+      "gain": 0.0,
+      "changed": 14
+    },
+    {
+      "arm": "dense_supcon",
+      "fold": 1,
+      "base": 0.5185185185185186,
+      "blend": 0.5148148148148148,
+      "gain": -0.0037037037037037646,
+      "changed": 15
+    },
+    {
+      "arm": "blocks_supcon",
+      "fold": 1,
+      "base": 0.5185185185185186,
+      "blend": 0.5203703703703704,
+      "gain": 0.0018518518518517713,
+      "changed": 16
+    },
+    {
+      "arm": "dense_ce",
+      "fold": 2,
+      "base": 0.49444444444444435,
+      "blend": 0.4907407407407407,
+      "gain": -0.0037037037037036535,
+      "changed": 6
+    },
+    {
+      "arm": "blocks_ce",
+      "fold": 2,
+      "base": 0.49444444444444435,
+      "blend": 0.4962962962962963,
+      "gain": 0.0018518518518519378,
+      "changed": 6
+    },
+    {
+      "arm": "dense_supcon",
+      "fold": 2,
+      "base": 0.49444444444444435,
+      "blend": 0.4907407407407407,
+      "gain": -0.0037037037037036535,
+      "changed": 5
+    },
+    {
+      "arm": "blocks_supcon",
+      "fold": 2,
+      "base": 0.49444444444444435,
+      "blend": 0.4962962962962963,
+      "gain": 0.0018518518518519378,
+      "changed": 6
+    }
+  ],
+  "decisions": [
+    {
+      "arm": "dense_ce",
+      "pooled_gain": -0.003703703703703709,
+      "passed": false
+    },
+    {
+      "arm": "blocks_ce",
+      "pooled_gain": 0.0009259259259259689,
+      "passed": false
+    },
+    {
+      "arm": "dense_supcon",
+      "pooled_gain": -0.003703703703703709,
+      "passed": false
+    },
+    {
+      "arm": "blocks_supcon",
+      "pooled_gain": 0.0018518518518518545,
+      "passed": false
+    }
+  ],
+  "public_score_claim": null,
+  "scope": [
+    "Repeatedly inspected splits, not untouched confirmation",
+    "Four comparisons all reported, no weight or temperature search",
+    "Reference is raw V34 8B component, not full 0.622 incumbent ensemble"
+  ]
+}
