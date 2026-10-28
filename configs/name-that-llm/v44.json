@@ -1,0 +1,41 @@
+{
+  "experiment": "V44",
+  "kind": "Fixed V34 plus V42 probability blend; CPU only",
+  "hypothesis": "Coverage-first V42 representations may add useful corrections to the stronger V34 component",
+  "premise": "V43 found no qualifying gain from V40. V42 dense CE improved pooled standalone accuracy, unevenly across splits; other fold-2 arms remain pending.",
+  "folds": [
+    1,
+    2
+  ],
+  "arms": [
+    "dense_ce",
+    "blocks_ce",
+    "dense_supcon",
+    "blocks_supcon"
+  ],
+  "base_weight": 0.85,
+  "candidate_weight": 0.15,
+  "weight_rationale": "One conservative fixed weight, matching the previously used 0.15 component addition; not optimized against these outcomes",
+  "probabilities": "Row softmax of V34 averaged log probabilities and V42 head logits; no fitted temperature or balancing",
+  "gate": {
+    "pooled_gain_min": 0.01,
+    "both_fold_gains_positive": true,
+    "action": "Further confirmation only; no inference/full-host work or submission from this screen alone"
+  },
+  "limitations": [
+    "Repeatedly inspected splits, not untouched confirmation",
+    "Four comparisons all reported, no weight or temperature search",
+    "Reference is raw V34 8B component, not full 0.622 incumbent ensemble",
+    "Protocol fixed after partial standalone results were known; not fully prospective or independent confirmation"
+  ],
+  "source_sha256": {
+    "artifacts/improvement-v34/kaggle-output/8b_ce/fold-1/ce_final_validation.npz": "742bc2fa4366ce87d9d70beeee5c0170724c0bd94cd29532bd986cc4fbf06c23",
+    "artifacts/improvement-v34/kaggle-output/8b_ce/fold-2/ce_final_validation.npz": "cbe46ea96c830f862098b7dc433d90f502dbdc76c13df5fc3b5dc49fb51044d1",
+    "artifacts/improvement-v40/final-validation/dense_ce/fold-1/validation.npz": "2a49ac8c068abe18432ff6d550d24edd086a09de0c625b1110134d57253abf97",
+    "artifacts/improvement-v40/final-validation/dense_ce/fold-2/validation.npz": "f2b24c04d4982d92786a0e75ccce881cb69d1540f8080f7d09f7e105f2e32159"
+  },
+  "candidate_root": "artifacts/improvement-v42/final-validation",
+  "known_at_plan": "Five V42 fits complete; all fold-1 results and dense_ce fold-2 inspected. No V42 blend outcome calculated.",
+  "reference_root": "artifacts/improvement-v40/final-validation",
+  "v42_plan_sha256": "3cf5d42449b8db4aa39a23729d34ad269c558eccb4ab86124e69de6b096a9239"
+}
