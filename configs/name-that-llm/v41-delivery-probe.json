@@ -1,0 +1,17 @@
+{
+  "experiment": "v41-deberta-tpu-delivery-probe",
+  "purpose": "Assess installed-stack CPU/TPU parity and runtime for the existing DeBERTa ensemble component",
+  "notebook": "adithyagiri/ntl-v41-deberta-tpu-delivery-probe",
+  "version": 1,
+  "kernel_id": 141312930,
+  "private": true,
+  "accelerator": "TpuV5E8",
+  "internet": false,
+  "session_timeout_seconds": 600,
+  "training": false,
+  "submitted_to_competition": false,
+  "parity_gate": {"min_feature_cosine": 0.999, "max_logit_abs_error": 0.05, "prediction_agreement": 1.0},
+  "scope_limits": ["Two samples only", "Installed-stack CPU reference, not original CUDA reference", "One small component, not full ensemble", "Editor offers TPU, but hidden rerun eligibility is not proven"],
+  "sources": ["https://www.kaggle.com/docs/tpu#tpu6", "https://github.com/pytorch/xla/blob/v2.8.0/docs/source/learn/pytorch-on-xla-devices.md"],
+  "attribution": "DeBERTa checkpoint and original ensemble from Nishant Dahal's ntl-handwriting-blend; this probe changes execution device only."
+}
