@@ -107,6 +107,16 @@
     "train_blocks_v46.py": "151639ce54e2122d5f94acd17305843e6c04e187aa130207d9939887a60d4583",
     "contrastive_cache.py": "0c93d25f78c9aad1ab922c36ec0e7103b9ccb803ae0e103605979b6c542218c9",
     "sampling_v42.py": "8b6f98e67d9fc4078f9a81e2f14a42e4aa6d87b6f0b8098ff9bbed722de91088",
-    "model_blocks_v40.py": "0088983cd309140e2f72d02080cb156a4e5c4f165784d1db98a4a4f1d737b39d"
+    "model_blocks_v40.py": "0088983cd309140e2f72d02080cb156a4e5c4f165784d1db98a4a4f1d737b39d",
+    "evaluate_v46.py": "7bcfe5b2336162de37f60aa3351c220180adc991377e65dcf0b08d914e6db5c7"
+  },
+  "evaluation_sha256": {
+    "configs/name-that-llm/v42.json": "3cf5d42449b8db4aa39a23729d34ad269c558eccb4ab86124e69de6b096a9239",
+    "artifacts/improvement-v42/final-validation/dense_supcon/fold-1/validation.npz": "21b091b1cb45556683135d11b5b690913202f56dfc9f4b6bf2ef4ea6d90df855",
+    "artifacts/improvement-v42/final-validation/dense_supcon/fold-2/validation.npz": "2434c2a11c0b76dc6a79aba76415975c2c652be3674733b80bd600917cde06f8",
+    "artifacts/improvement-v42/final-validation/blocks_supcon/fold-1/validation.npz": "47a6176a721bce249bcf54a2f3e720d8493944c7b7abceb7999a7dafcae90163",
+    "artifacts/improvement-v42/final-validation/blocks_supcon/fold-2/validation.npz": "ca004bb4f9fdb9241be63dce1a81af60c7f9e9603f76b87cd37658654069c772",
+    "artifacts/improvement-v34/kaggle-output/8b_ce/fold-1/ce_final_validation.npz": "742bc2fa4366ce87d9d70beeee5c0170724c0bd94cd29532bd986cc4fbf06c23",
+    "artifacts/improvement-v34/kaggle-output/8b_ce/fold-2/ce_final_validation.npz": "cbe46ea96c830f862098b7dc433d90f502dbdc76c13df5fc3b5dc49fb51044d1"
   }
 }

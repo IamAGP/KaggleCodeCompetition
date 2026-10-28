@@ -1,0 +1,18 @@
+{
+  "checked_unix": 1793187634.636487,
+  "source": "Runpod official list_pod_billing and list_network_volume_billing, month October 2026",
+  "attributed_records": {
+    "pod:z7lenmulmjise8": 1.6747563970275223,
+    "pod:w033l7c225384b": 0.8844157999847084,
+    "volume:pdz8b4jc0l": 0.2138888966292143,
+    "pod:cupebka857paq3": 0.7921852032886818,
+    "volume:fw3g3en8pb": 0.003888888983055949
+  },
+  "posted_total": 3.569135185913183,
+  "user_cap": 10,
+  "delayed_billing_reserve": 1,
+  "remaining_after_reserve": 5.430864814086817,
+  "v46_maximum_new_spend": 1.25,
+  "live_pods": [],
+  "note": "Posted figures can lag. Only conversation-owned resources count toward this experiment allocation; no new resource created."
+}

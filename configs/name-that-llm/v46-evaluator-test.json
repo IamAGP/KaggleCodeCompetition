@@ -1,0 +1,6 @@
+{
+  "fixture": "Archived V42 predictions presented as candidate solely for evaluator testing",
+  "unchanged_model_fails_promotion": true,
+  "reversed_ids_rejected": true,
+  "v46_training_completed": false
+}
