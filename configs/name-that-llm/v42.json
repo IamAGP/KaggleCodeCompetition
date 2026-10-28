@@ -1,0 +1,117 @@
+{
+  "experiment": "improvement-v42",
+  "status": "prepared_not_launched",
+  "hypothesis": "Full per-epoch training coverage may improve the four existing heads without changing architecture or loss.",
+  "base_model": "Qwen/Qwen3-4B-Base",
+  "initialization": "V18 ce_supcon external-only adapter and LayerNorm; all new heads freshly initialized identically where shared",
+  "base_architecture": {
+    "layers": 36,
+    "hidden_size": 2560
+  },
+  "quantization": "NF4 double quantization, BF16 computation",
+  "lora": {
+    "rank": 16,
+    "alpha": 32,
+    "target_modules": [
+      "q_proj",
+      "v_proj"
+    ],
+    "layers": "all 36"
+  },
+  "pooling": "attention-masked mean of all response tokens plus EOS; no first-token removal",
+  "head": "LayerNorm(2560) -> Linear(2560,1800) -> GELU; dense Linear(1800,18) or 18 separate Linear(100,1) heads",
+  "projection": "Linear(1800,256) -> GELU -> Linear(256,128); L2 normalization in SupCon",
+  "arms": [
+    "dense_ce",
+    "blocks_ce",
+    "dense_supcon",
+    "blocks_supcon"
+  ],
+  "folds": [
+    1,
+    2
+  ],
+  "labels": [
+    "claude-fable-5",
+    "claude-opus-4-6",
+    "claude-opus-4-8",
+    "claude-opus-5",
+    "claude-sonnet-5",
+    "gemini-3.1-pro-preview",
+    "gemini-3.6-flash",
+    "gemini-3.7-flash",
+    "gemini-3.8-flash",
+    "glm-5.3",
+    "glm-5.3-flash",
+    "gpt-5.5",
+    "gpt-5.6-luna",
+    "gpt-5.6-sol",
+    "gpt-5.6-terra",
+    "gpt-6-astra",
+    "kimi-k3",
+    "qwen3.8-max"
+  ],
+  "seed": 4001,
+  "epochs": 2,
+  "batch_size": 4,
+  "accumulation": 8,
+  "max_length": 256,
+  "adapter_lr": 3e-05,
+  "head_lr": 0.0001,
+  "weight_decay": 0.01,
+  "temperature": 0.1,
+  "contrastive_weight": 0.1,
+  "sampling": "V42 coverage-first crossed rectangles; every training row per epoch, 541 batches on each existing split; identical schedule across arms.",
+  "schedule": "fold 1 then fold 2; all four arms each; no interim winner selection",
+  "evaluation": "Final epoch direct head, raw balanced accuracy; no posthoc readout or balance tuning",
+  "gate": {
+    "blocks_supcon_over_v40_blocks_supcon_pooled_min": 0.01,
+    "blocks_supcon_over_v42_dense_ce_pooled_min": 0.01,
+    "both_fold_gains_positive_for_both_comparisons": true,
+    "action": "Require broader confirmation and incremental ensemble evaluation; not automatic submission"
+  },
+  "prior_evidence": {
+    "v40_pooled": {
+      "dense_ce": 0.3194444444444444,
+      "blocks_ce": 0.32037037037037036,
+      "dense_supcon": 0.3138888888888889,
+      "blocks_supcon": 0.32314814814814813
+    },
+    "v40_fold1_training_coverage_after_two_epochs": 1865,
+    "v42_coverage_each_epoch": 2159
+  },
+  "per_fit_seconds": 1500,
+  "round_training_seconds": 12600,
+  "budget": {
+    "existing_user_cap_usd": 10,
+    "maximum_new_spend_usd": 1.5,
+    "launch_requires": "Reconciled prior costs with reserve, live quote and sufficient balance, external deletion watchdog before provisioning; no paid machine created by preparation."
+  },
+  "inputs": {
+    "train.csv": "40a22ce8d88c5f46feb4637a099db815bef5f713ffe53e89dbe1b7b21de77707",
+    "folds.csv": "c64582951ffc6bd6a8233f97775fede7404a52ee5b73c88fcf18b8271fc80508",
+    "external/heads.pt": "6c540f09084be67029f3651a020214fcb2afe53e95a127486985bf521a7e10ff",
+    "external/adapter/adapter_model.safetensors": "353f3e3bacab0660d60b8b8e4a90e4d258f26fa5047a4010db3f2227b7bfb6d5",
+    "external/adapter/README.md": "c7094bd33e036ce53b5d373d4c251d03e96d7b624f3ce89c9805e5f5844dd79b",
+    "external/adapter/adapter_config.json": "5cc84f15952fcb3d9c192cc8d819fc201a31c73f95884656c5fe2acabda33ab7"
+  },
+  "sources": {
+    "qwen": "https://arxiv.org/html/2505.09388v1",
+    "qwen_code": "https://github.com/QwenLM/Qwen3",
+    "supcon": "https://arxiv.org/html/2004.11362v5",
+    "supcon_code": "https://github.com/HobbitLong/SupContrast/blob/master/losses.py",
+    "quantization": "https://huggingface.co/docs/peft/en/developer_guides/quantization"
+  },
+  "limitations": [
+    "Existing host labels and splits have been inspected previously; screening evidence only.",
+    "Dense and block readouts differ by 30,600 parameters; common 4.6M-parameter nonlinear map is identical.",
+    "Blocks are separate, not nested Matryoshka prefixes.",
+    "External-only initialization already used SupCon, shared across all four arms.",
+    "V42 versus V40 changes coverage, ordering, and one extra microbatch per epoch together; it cannot isolate those effects."
+  ],
+  "code_sha256": {
+    "train_blocks_v42.py": "7daa5c39c6993658786f1ce77d222bd6bca48b70543489853081bd8683f2d12d",
+    "sampling_v42.py": "8b6f98e67d9fc4078f9a81e2f14a42e4aa6d87b6f0b8098ff9bbed722de91088",
+    "model_blocks_v40.py": "0088983cd309140e2f72d02080cb156a4e5c4f165784d1db98a4a4f1d737b39d"
+  }
+}
