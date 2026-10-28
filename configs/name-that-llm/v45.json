@@ -1,0 +1,50 @@
+{
+  "experiment": "V45",
+  "kind": "CPU-only fixed class-mass normalization of saved V42 predictions",
+  "hypothesis": "Part of poor direct-head accuracy is class-score bias; existing equal-class-mass postprocessing may reveal useful ranking signal.",
+  "premise": "V42 dense_ce predicted 151 and 2 rows for two labels respectively despite 60 examples per label over both folds. No balanced V42 scores inspected before this plan.",
+  "credit": "Equal-class-mass balancing reused from credited V16, Nishant Dahal Two-stage LoRA part two v2; not an original algorithm.",
+  "folds": [
+    1,
+    2
+  ],
+  "arms": [
+    "dense_ce",
+    "blocks_ce",
+    "dense_supcon",
+    "blocks_supcon"
+  ],
+  "base_weight": 0.85,
+  "candidate_weight": 0.15,
+  "iterations": 300,
+  "temperature": 1.0,
+  "pipeline": "Compute row-softmax, use unchanged 300-iteration balance function on each standalone candidate, baseline and fixed probability blend separately. Do not fit to labels.",
+  "gate": {
+    "primary": "blocks_supcon blend versus balanced V34 8B",
+    "pooled_gain_min": 0.01,
+    "both_fold_gains_positive": true,
+    "action": "Further validation only, no automatic submission"
+  },
+  "limitations": [
+    "Previously inspected splits, post-hoc diagnosis",
+    "Validation classes are exactly balanced; hidden class proportions unknown",
+    "Reference is V34 8B component, not the full 0.622 ensemble",
+    "Four arms all reported; no temperature, iteration or weight search"
+  ],
+  "source_sha256": {
+    "artifacts/improvement-v34/kaggle-output/8b_ce/fold-1/ce_final_validation.npz": "742bc2fa4366ce87d9d70beeee5c0170724c0bd94cd29532bd986cc4fbf06c23",
+    "artifacts/improvement-v34/kaggle-output/8b_ce/fold-2/ce_final_validation.npz": "cbe46ea96c830f862098b7dc433d90f502dbdc76c13df5fc3b5dc49fb51044d1",
+    "artifacts/improvement-v40/final-validation/dense_ce/fold-1/validation.npz": "2a49ac8c068abe18432ff6d550d24edd086a09de0c625b1110134d57253abf97",
+    "artifacts/improvement-v40/final-validation/dense_ce/fold-2/validation.npz": "f2b24c04d4982d92786a0e75ccce881cb69d1540f8080f7d09f7e105f2e32159",
+    "artifacts/improvement-v42/final-validation/dense_ce/fold-1/validation.npz": "0b7cd5e4bb55c5ca24b4d3ed403f546b833ed48eb337199b4584fe22d6de2b94",
+    "artifacts/improvement-v42/final-validation/blocks_ce/fold-1/validation.npz": "c7d6a424e2b6b4ffdffd3c0c7bde2799b9abeb919c739f385f1d939f058996e1",
+    "artifacts/improvement-v42/final-validation/dense_supcon/fold-1/validation.npz": "21b091b1cb45556683135d11b5b690913202f56dfc9f4b6bf2ef4ea6d90df855",
+    "artifacts/improvement-v42/final-validation/blocks_supcon/fold-1/validation.npz": "47a6176a721bce249bcf54a2f3e720d8493944c7b7abceb7999a7dafcae90163",
+    "artifacts/improvement-v42/final-validation/dense_ce/fold-2/validation.npz": "c1fa527b4b0a6a569625eb3000dec0c4d83f488e06516a3acaf2d50ae6fa2f41",
+    "artifacts/improvement-v42/final-validation/blocks_ce/fold-2/validation.npz": "7afe3f864318885c872a9720b3749bd7058abe546d8d2aae198d08c39050e1ac",
+    "artifacts/improvement-v42/final-validation/dense_supcon/fold-2/validation.npz": "2434c2a11c0b76dc6a79aba76415975c2c652be3674733b80bd600917cde06f8",
+    "artifacts/improvement-v42/final-validation/blocks_supcon/fold-2/validation.npz": "ca004bb4f9fdb9241be63dce1a81af60c7f9e9603f76b87cd37658654069c772",
+    "scripts/diagnose_balance_transfer.py": "89a375811336593d0388743856e8161fc25775694c18fbf9174bc62102b828eb",
+    "configs/name-that-llm/v42.json": "3cf5d42449b8db4aa39a23729d34ad269c558eccb4ab86124e69de6b096a9239"
+  }
+}
