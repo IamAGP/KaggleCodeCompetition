@@ -1,0 +1,117 @@
+{
+  "experiment": "V44",
+  "plan_sha256": "880ca4df1b5d0d67348208602c12f18a2ecbbeea563d43df01d3a849f0a74737",
+  "candidate_sha256": {
+    "artifacts/improvement-v42/final-validation/dense_ce/fold-1/validation.npz": "0b7cd5e4bb55c5ca24b4d3ed403f546b833ed48eb337199b4584fe22d6de2b94",
+    "artifacts/improvement-v42/final-validation/blocks_ce/fold-1/validation.npz": "c7d6a424e2b6b4ffdffd3c0c7bde2799b9abeb919c739f385f1d939f058996e1",
+    "artifacts/improvement-v42/final-validation/dense_supcon/fold-1/validation.npz": "21b091b1cb45556683135d11b5b690913202f56dfc9f4b6bf2ef4ea6d90df855",
+    "artifacts/improvement-v42/final-validation/blocks_supcon/fold-1/validation.npz": "47a6176a721bce249bcf54a2f3e720d8493944c7b7abceb7999a7dafcae90163",
+    "artifacts/improvement-v42/final-validation/dense_ce/fold-2/validation.npz": "c1fa527b4b0a6a569625eb3000dec0c4d83f488e06516a3acaf2d50ae6fa2f41",
+    "artifacts/improvement-v42/final-validation/blocks_ce/fold-2/validation.npz": "7afe3f864318885c872a9720b3749bd7058abe546d8d2aae198d08c39050e1ac",
+    "artifacts/improvement-v42/final-validation/dense_supcon/fold-2/validation.npz": "2434c2a11c0b76dc6a79aba76415975c2c652be3674733b80bd600917cde06f8",
+    "artifacts/improvement-v42/final-validation/blocks_supcon/fold-2/validation.npz": "ca004bb4f9fdb9241be63dce1a81af60c7f9e9603f76b87cd37658654069c772"
+  },
+  "comparisons": [
+    {
+      "arm": "dense_ce",
+      "fold": 1,
+      "base": 0.5185185185185186,
+      "blend": 0.5203703703703703,
+      "gain": 0.0018518518518516602,
+      "corrected": 6,
+      "regressed": 5
+    },
+    {
+      "arm": "blocks_ce",
+      "fold": 1,
+      "base": 0.5185185185185186,
+      "blend": 0.5240740740740741,
+      "gain": 0.005555555555555536,
+      "corrected": 5,
+      "regressed": 2
+    },
+    {
+      "arm": "dense_supcon",
+      "fold": 1,
+      "base": 0.5185185185185186,
+      "blend": 0.5203703703703703,
+      "gain": 0.0018518518518516602,
+      "corrected": 6,
+      "regressed": 5
+    },
+    {
+      "arm": "blocks_supcon",
+      "fold": 1,
+      "base": 0.5185185185185186,
+      "blend": 0.5240740740740741,
+      "gain": 0.005555555555555536,
+      "corrected": 5,
+      "regressed": 2
+    },
+    {
+      "arm": "dense_ce",
+      "fold": 2,
+      "base": 0.49444444444444435,
+      "blend": 0.4981481481481482,
+      "gain": 0.00370370370370382,
+      "corrected": 5,
+      "regressed": 3
+    },
+    {
+      "arm": "blocks_ce",
+      "fold": 2,
+      "base": 0.49444444444444435,
+      "blend": 0.4925925925925925,
+      "gain": -0.0018518518518518268,
+      "corrected": 3,
+      "regressed": 4
+    },
+    {
+      "arm": "dense_supcon",
+      "fold": 2,
+      "base": 0.49444444444444435,
+      "blend": 0.4981481481481482,
+      "gain": 0.00370370370370382,
+      "corrected": 5,
+      "regressed": 3
+    },
+    {
+      "arm": "blocks_supcon",
+      "fold": 2,
+      "base": 0.49444444444444435,
+      "blend": 0.4925925925925925,
+      "gain": -0.0018518518518518268,
+      "corrected": 3,
+      "regressed": 4
+    }
+  ],
+  "decisions": [
+    {
+      "arm": "dense_ce",
+      "pooled_gain": 0.00277777777777774,
+      "passed": false
+    },
+    {
+      "arm": "blocks_ce",
+      "pooled_gain": 0.0018518518518518545,
+      "passed": false
+    },
+    {
+      "arm": "dense_supcon",
+      "pooled_gain": 0.00277777777777774,
+      "passed": false
+    },
+    {
+      "arm": "blocks_supcon",
+      "pooled_gain": 0.0018518518518518545,
+      "passed": false
+    }
+  ],
+  "public_score_claim": null,
+  "scope": [
+    "Repeatedly inspected splits, not untouched confirmation",
+    "Four comparisons all reported, no weight or temperature search",
+    "Reference is raw V34 8B component, not full 0.622 incumbent ensemble",
+    "Protocol fixed after partial standalone results were known; not fully prospective or independent confirmation"
+  ]
+}

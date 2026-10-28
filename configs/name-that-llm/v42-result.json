@@ -1,0 +1,40 @@
+{
+  "experiment": "V42",
+  "pooled": {
+    "dense_ce": 0.3425925925925926,
+    "blocks_ce": 0.3296296296296296,
+    "dense_supcon": 0.3416666666666667,
+    "blocks_supcon": 0.33611111111111114
+  },
+  "gains_over_v40": [
+    0.007407407407407418,
+    0.018518518518518545
+  ],
+  "gains_over_dense_ce": [
+    0.0018518518518518823,
+    -0.014814814814814892
+  ],
+  "frozen_screen_pass": false,
+  "action": "Require broader confirmation and incremental ensemble evaluation; not automatic submission",
+  "public_score_claim": null,
+  "status": "completed_not_promoted",
+  "decision": "Neither standalone block gate nor fixed V44 blend gate passed. No full-host retraining or competition submission.",
+  "incumbent_public_score": 0.622,
+  "archive": {
+    "key": "name-that-llm/research/2026-10-28/v42-final-results.tar.gz",
+    "bytes": 665547900,
+    "sha256": "8f3548bc982e8970dc4e71f70e92a36f7e1213275cd001e77c302ae52ee32658",
+    "local_manifest_files_verified": 125,
+    "s3_verified": true,
+    "version_id": "hu1o3oBG0QyRArYw39ANOQ9HpsC7sjFJ"
+  },
+  "scope": "Four controlled designs over two previously inspected prompt-disjoint validation splits. Original proposal: separate 100-dimensional blocks per class; this implementation does not use nested Matryoshka prefixes.",
+  "cleanup": {
+    "pod_id": "cupebka857paq3",
+    "volume_id": "fw3g3en8pb",
+    "pod_deleted": true,
+    "volume_deleted": true,
+    "verification": "Each delete returned 204; subsequent get returned 404 Not Found",
+    "verified_unix": 1793186290.665239
+  }
+}
