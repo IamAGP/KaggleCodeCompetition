@@ -93,7 +93,9 @@
     "external/heads.pt": "6c540f09084be67029f3651a020214fcb2afe53e95a127486985bf521a7e10ff",
     "external/adapter/adapter_model.safetensors": "353f3e3bacab0660d60b8b8e4a90e4d258f26fa5047a4010db3f2227b7bfb6d5",
     "external/adapter/README.md": "c7094bd33e036ce53b5d373d4c251d03e96d7b624f3ce89c9805e5f5844dd79b",
-    "external/adapter/adapter_config.json": "5cc84f15952fcb3d9c192cc8d819fc201a31c73f95884656c5fe2acabda33ab7"
+    "external/adapter/adapter_config.json": "5cc84f15952fcb3d9c192cc8d819fc201a31c73f95884656c5fe2acabda33ab7",
+    "v40-reference/blocks_supcon/fold-1/validation.npz": "6c95c50db23442b9f7d9b9c652e813f5001a017253b112fbe8ab8c32b8e765c3",
+    "v40-reference/blocks_supcon/fold-2/validation.npz": "9d975611b3f73dfa709cd9e14873e55f0327dfa2859e656a49431330a4e9aca6"
   },
   "sources": {
     "qwen": "https://arxiv.org/html/2505.09388v1",
@@ -112,6 +114,8 @@
   "code_sha256": {
     "train_blocks_v42.py": "7daa5c39c6993658786f1ce77d222bd6bca48b70543489853081bd8683f2d12d",
     "sampling_v42.py": "8b6f98e67d9fc4078f9a81e2f14a42e4aa6d87b6f0b8098ff9bbed722de91088",
-    "model_blocks_v40.py": "0088983cd309140e2f72d02080cb156a4e5c4f165784d1db98a4a4f1d737b39d"
+    "model_blocks_v40.py": "0088983cd309140e2f72d02080cb156a4e5c4f165784d1db98a4a4f1d737b39d",
+    "run_blocks_v42.py": "0ef4c5526245e4d8b64ee19d6f52a9fbe137b5b204f9ce9296cfcdfba0f11bf1",
+    "evaluate_blocks_v42.py": "8543f9b44be9504cca52a6a802edf1f158be59b2e5e152a61f96a5f1830e1052"
   }
 }
