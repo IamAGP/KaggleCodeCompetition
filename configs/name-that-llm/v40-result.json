@@ -1,0 +1,89 @@
+{
+  "audits": [
+    {
+      "arm": "dense_ce",
+      "fold": 1,
+      "balanced_accuracy": 0.34074074074074073,
+      "correct": 184
+    },
+    {
+      "arm": "dense_ce",
+      "fold": 2,
+      "balanced_accuracy": 0.29814814814814816,
+      "correct": 161
+    },
+    {
+      "arm": "blocks_ce",
+      "fold": 1,
+      "balanced_accuracy": 0.32592592592592595,
+      "correct": 176
+    },
+    {
+      "arm": "blocks_ce",
+      "fold": 2,
+      "balanced_accuracy": 0.3148148148148148,
+      "correct": 170
+    },
+    {
+      "arm": "dense_supcon",
+      "fold": 1,
+      "balanced_accuracy": 0.32407407407407407,
+      "correct": 175
+    },
+    {
+      "arm": "dense_supcon",
+      "fold": 2,
+      "balanced_accuracy": 0.3037037037037037,
+      "correct": 164
+    },
+    {
+      "arm": "blocks_supcon",
+      "fold": 1,
+      "balanced_accuracy": 0.3314814814814815,
+      "correct": 179
+    },
+    {
+      "arm": "blocks_supcon",
+      "fold": 2,
+      "balanced_accuracy": 0.3148148148148148,
+      "correct": 170
+    }
+  ],
+  "pooled": {
+    "dense_ce": 0.3194444444444444,
+    "blocks_ce": 0.32037037037037036,
+    "dense_supcon": 0.3138888888888889,
+    "blocks_supcon": 0.32314814814814813
+  },
+  "primary_gain": 0.009259259259259259,
+  "primary_fold_gains": [
+    0.007407407407407408,
+    0.011111111111111112
+  ],
+  "primary_prompt_bootstrap_95_percentile_interval": [
+    -0.0037037037037037034,
+    0.0212962962962963
+  ],
+  "bootstrap_scope": "Descriptive uncertainty across 60 held-out prompt groups; previously inspected splits, not untouched confirmation.",
+  "frozen_screen_pass": false,
+  "scope": "Standalone V40 comparison, not the incumbent ensemble or Kaggle score. No fitted weights or threshold search.",
+  "experiment": "V40",
+  "hypothesis": "18 class-specific 100-dimensional blocks with and without supervised contrastive loss",
+  "status": "completed_not_promoted",
+  "decision": "Frozen 1 percentage-point gate failed; no full-host retraining, no new submission.",
+  "incumbent_public_score": 0.622,
+  "incumbent_score_verified_utc": "2026-10-28T08:14:00Z",
+  "limitations": [
+    "Existing labels and folds were previously inspected.",
+    "Only 1865 of 2159 training rows were sampled across the two epochs on fold 1.",
+    "Fresh classifier heads; results do not compare directly with the full incumbent ensemble."
+  ],
+  "code_commit": "554cbe2",
+  "archive_key": "s3://kaggle-featured-code-comps/name-that-llm/research/2026-10-28/v40-final-results.tar.gz",
+  "archive_sha256": "ebb19a3460df60a0c7e90f21e0ba359bd183b8d8d113629847adf835d571423f",
+  "cleanup": {
+    "pod_deleted": true,
+    "temporary_volume_deleted": true,
+    "verification": "Both official delete calls returned 204, followed by get returning 404 Not Found."
+  }
+}
