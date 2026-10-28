@@ -1,0 +1,106 @@
+{
+  "scope": "V40 versus the raw V34 8B readout on previously inspected folds; not the full 0.622 ensemble",
+  "interpretation": "Oracle either-correct uses true labels and is NOT an attainable reported model score. No blend was fitted or evaluated.",
+  "comparisons": [
+    {
+      "fold": 1,
+      "arm": "dense_ce",
+      "rows": 540,
+      "base_correct": 280,
+      "candidate_correct": 184,
+      "candidate_correct_base_wrong": 60,
+      "base_correct_candidate_wrong": 156,
+      "both_wrong": 200,
+      "oracle_either_correct": 340
+    },
+    {
+      "fold": 1,
+      "arm": "blocks_ce",
+      "rows": 540,
+      "base_correct": 280,
+      "candidate_correct": 176,
+      "candidate_correct_base_wrong": 53,
+      "base_correct_candidate_wrong": 157,
+      "both_wrong": 207,
+      "oracle_either_correct": 333
+    },
+    {
+      "fold": 1,
+      "arm": "dense_supcon",
+      "rows": 540,
+      "base_correct": 280,
+      "candidate_correct": 175,
+      "candidate_correct_base_wrong": 53,
+      "base_correct_candidate_wrong": 158,
+      "both_wrong": 207,
+      "oracle_either_correct": 333
+    },
+    {
+      "fold": 1,
+      "arm": "blocks_supcon",
+      "rows": 540,
+      "base_correct": 280,
+      "candidate_correct": 179,
+      "candidate_correct_base_wrong": 55,
+      "base_correct_candidate_wrong": 156,
+      "both_wrong": 205,
+      "oracle_either_correct": 335
+    },
+    {
+      "fold": 2,
+      "arm": "dense_ce",
+      "rows": 540,
+      "base_correct": 267,
+      "candidate_correct": 161,
+      "candidate_correct_base_wrong": 43,
+      "base_correct_candidate_wrong": 149,
+      "both_wrong": 230,
+      "oracle_either_correct": 310
+    },
+    {
+      "fold": 2,
+      "arm": "blocks_ce",
+      "rows": 540,
+      "base_correct": 267,
+      "candidate_correct": 170,
+      "candidate_correct_base_wrong": 48,
+      "base_correct_candidate_wrong": 145,
+      "both_wrong": 225,
+      "oracle_either_correct": 315
+    },
+    {
+      "fold": 2,
+      "arm": "dense_supcon",
+      "rows": 540,
+      "base_correct": 267,
+      "candidate_correct": 164,
+      "candidate_correct_base_wrong": 43,
+      "base_correct_candidate_wrong": 146,
+      "both_wrong": 230,
+      "oracle_either_correct": 310
+    },
+    {
+      "fold": 2,
+      "arm": "blocks_supcon",
+      "rows": 540,
+      "base_correct": 267,
+      "candidate_correct": 170,
+      "candidate_correct_base_wrong": 46,
+      "base_correct_candidate_wrong": 143,
+      "both_wrong": 227,
+      "oracle_either_correct": 313
+    }
+  ],
+  "source_sha256": {
+    "artifacts/improvement-v34/kaggle-output/8b_ce/fold-1/ce_final_validation.npz": "742bc2fa4366ce87d9d70beeee5c0170724c0bd94cd29532bd986cc4fbf06c23",
+    "artifacts/improvement-v40/final-validation/dense_ce/fold-1/validation.npz": "2a49ac8c068abe18432ff6d550d24edd086a09de0c625b1110134d57253abf97",
+    "artifacts/improvement-v40/final-validation/blocks_ce/fold-1/validation.npz": "5e52d8caedc7d26e59f621808b23ebc6b39a496104795e7fe367bd20f775d1a1",
+    "artifacts/improvement-v40/final-validation/dense_supcon/fold-1/validation.npz": "361bd3f8d4dd67a61f9458f0c4e64d0cc56825bc945030f724d551a628dfa683",
+    "artifacts/improvement-v40/final-validation/blocks_supcon/fold-1/validation.npz": "6c95c50db23442b9f7d9b9c652e813f5001a017253b112fbe8ab8c32b8e765c3",
+    "artifacts/improvement-v34/kaggle-output/8b_ce/fold-2/ce_final_validation.npz": "cbe46ea96c830f862098b7dc433d90f502dbdc76c13df5fc3b5dc49fb51044d1",
+    "artifacts/improvement-v40/final-validation/dense_ce/fold-2/validation.npz": "f2b24c04d4982d92786a0e75ccce881cb69d1540f8080f7d09f7e105f2e32159",
+    "artifacts/improvement-v40/final-validation/blocks_ce/fold-2/validation.npz": "531f0bffa69589b66f57063df97d67f25b2a91de48c276981bc83218108f3de1",
+    "artifacts/improvement-v40/final-validation/dense_supcon/fold-2/validation.npz": "ff2400eedf2afc2b2bb2ed4221aadead0a7af7f93587c09d046cd1baa3a617bf",
+    "artifacts/improvement-v40/final-validation/blocks_supcon/fold-2/validation.npz": "9d975611b3f73dfa709cd9e14873e55f0327dfa2859e656a49431330a4e9aca6"
+  }
+}
