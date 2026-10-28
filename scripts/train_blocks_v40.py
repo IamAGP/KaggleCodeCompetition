@@ -34,7 +34,8 @@ def main():
     out.mkdir(parents=True, exist_ok=False)
     start = time.monotonic()
     def log(event, **values):
-        record = dict(event=event, elapsed_seconds=time.monotonic()-start, arm=args.arm, fold=args.fold, **values)
+        record = dict(values)
+        record.update(event=event, elapsed_seconds=time.monotonic()-start, arm=args.arm, fold=args.fold)
         with (out/'progress.jsonl').open('a') as f:
             f.write(json.dumps(record)+'\n')
         print(json.dumps(record), flush=True)
