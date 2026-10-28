@@ -103,10 +103,11 @@
     "External-only initialization already used SupCon, shared across all four arms."
   ],
   "code_sha256": {
-    "model_blocks_v40.py": "2a8262da3c139bcae42c28bd5e74409293a77525b339af2d29063eab47f5942e",
+    "model_blocks_v40.py": "0088983cd309140e2f72d02080cb156a4e5c4f165784d1db98a4a4f1d737b39d",
     "train_blocks_v40.py": "187be4231ae017a435d202916274afb4f126e4f9c50f7a0e2fc7949f4e6bf442",
     "sampling_v35.py": "45a33b000a88593e25a9dc687b9918589cbc6ce263f168c4dfb4264cd2c73d1b",
     "run_blocks_v40.py": "9a2f0fb90f2ab6a010ffb138c44eb655c274afe12b00100f439abdcbe8d25df5",
     "evaluate_blocks_v40.py": "79349a9c3441ab9240577e675d575437a841d4d563cde6e2beb8e47fa20254a5"
-  }
+  },
+  "initialization_amendment": "Before any fit: use fan-in uniform initialization for both block and dense scoring heads."
 }

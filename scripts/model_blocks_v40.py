@@ -14,7 +14,8 @@ class BlockReadout(nn.Module):
         self.classes, self.block_width = classes, block_width
         self.weight = nn.Parameter(torch.empty(classes, block_width))
         self.bias = nn.Parameter(torch.zeros(classes))
-        nn.init.normal_(self.weight, std=block_width ** -0.5)
+        # Match nn.Linear's fan-in initialization scale in the dense control.
+        nn.init.uniform_(self.weight, -block_width ** -0.5, block_width ** -0.5)
 
     def forward(self, z):
         z = z.reshape(-1, self.classes, self.block_width)
