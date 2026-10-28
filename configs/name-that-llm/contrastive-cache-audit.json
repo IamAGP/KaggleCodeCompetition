@@ -1,0 +1,43 @@
+{
+  "status": "cpu_gradient_gate_passed",
+  "torch_version": "2.14.1",
+  "comparison_rows": 36,
+  "classes": 18,
+  "physical_chunk": 4,
+  "cases": [
+    {
+      "blocked": false,
+      "dropout": 0.0,
+      "passed": true,
+      "cache_max_absolute_gradient_error": 1.4901161193847656e-08,
+      "accumulated_relative_gradient_difference": 0.36365029215812683,
+      "rng_state_preserved": true
+    },
+    {
+      "blocked": false,
+      "dropout": 0.2,
+      "passed": true,
+      "cache_max_absolute_gradient_error": 1.1175870895385742e-08,
+      "accumulated_relative_gradient_difference": 0.42287585139274597,
+      "rng_state_preserved": true
+    },
+    {
+      "blocked": true,
+      "dropout": 0.0,
+      "passed": true,
+      "cache_max_absolute_gradient_error": 7.450580596923828e-09,
+      "accumulated_relative_gradient_difference": 0.3856247663497925,
+      "rng_state_preserved": true
+    },
+    {
+      "blocked": true,
+      "dropout": 0.2,
+      "passed": true,
+      "cache_max_absolute_gradient_error": 1.4901161193847656e-08,
+      "accumulated_relative_gradient_difference": 0.42081740498542786,
+      "rng_state_preserved": true
+    }
+  ],
+  "scope": "Synthetic inputs; actual attribution heads and loss. No accuracy or GPU claim.",
+  "next_gate": "Validate quantized encoder, BF16, checkpointing and device RNG replay before training."
+}
