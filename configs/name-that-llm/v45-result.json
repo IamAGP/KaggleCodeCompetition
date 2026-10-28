@@ -1,0 +1,140 @@
+{
+  "experiment": "V45",
+  "plan_sha256": "a4c929b58b4aba885222031429fb5890d37c25fa63c3c8ea1f0860c272dcca9a",
+  "rows": [
+    {
+      "arm": "dense_ce",
+      "fold": 1,
+      "raw_candidate": 0.337037037037037,
+      "balanced_candidate": 0.3592592592592592,
+      "raw_base": 0.5185185185185186,
+      "balanced_base": 0.5074074074074074,
+      "balanced_blend": 0.512962962962963,
+      "gain": 0.005555555555555536,
+      "corrected": 5,
+      "regressed": 2
+    },
+    {
+      "arm": "blocks_ce",
+      "fold": 1,
+      "raw_candidate": 0.3259259259259259,
+      "balanced_candidate": 0.3592592592592592,
+      "raw_base": 0.5185185185185186,
+      "balanced_base": 0.5074074074074074,
+      "balanced_blend": 0.512962962962963,
+      "gain": 0.005555555555555536,
+      "corrected": 6,
+      "regressed": 3
+    },
+    {
+      "arm": "dense_supcon",
+      "fold": 1,
+      "raw_candidate": 0.3407407407407408,
+      "balanced_candidate": 0.3537037037037037,
+      "raw_base": 0.5185185185185186,
+      "balanced_base": 0.5074074074074074,
+      "balanced_blend": 0.512962962962963,
+      "gain": 0.005555555555555536,
+      "corrected": 5,
+      "regressed": 2
+    },
+    {
+      "arm": "blocks_supcon",
+      "fold": 1,
+      "raw_candidate": 0.3388888888888889,
+      "balanced_candidate": 0.3592592592592592,
+      "raw_base": 0.5185185185185186,
+      "balanced_base": 0.5074074074074074,
+      "balanced_blend": 0.512962962962963,
+      "gain": 0.005555555555555536,
+      "corrected": 6,
+      "regressed": 3
+    },
+    {
+      "arm": "dense_ce",
+      "fold": 2,
+      "raw_candidate": 0.3481481481481482,
+      "balanced_candidate": 0.36666666666666664,
+      "raw_base": 0.49444444444444435,
+      "balanced_base": 0.5018518518518519,
+      "balanced_blend": 0.5,
+      "gain": -0.0018518518518518823,
+      "corrected": 3,
+      "regressed": 4
+    },
+    {
+      "arm": "blocks_ce",
+      "fold": 2,
+      "raw_candidate": 0.3333333333333333,
+      "balanced_candidate": 0.3537037037037037,
+      "raw_base": 0.49444444444444435,
+      "balanced_base": 0.5018518518518519,
+      "balanced_blend": 0.4981481481481482,
+      "gain": -0.003703703703703709,
+      "corrected": 2,
+      "regressed": 4
+    },
+    {
+      "arm": "dense_supcon",
+      "fold": 2,
+      "raw_candidate": 0.34259259259259256,
+      "balanced_candidate": 0.3648148148148148,
+      "raw_base": 0.49444444444444435,
+      "balanced_base": 0.5018518518518519,
+      "balanced_blend": 0.5,
+      "gain": -0.0018518518518518823,
+      "corrected": 3,
+      "regressed": 4
+    },
+    {
+      "arm": "blocks_supcon",
+      "fold": 2,
+      "raw_candidate": 0.3333333333333333,
+      "balanced_candidate": 0.36296296296296293,
+      "raw_base": 0.49444444444444435,
+      "balanced_base": 0.5018518518518519,
+      "balanced_blend": 0.4981481481481482,
+      "gain": -0.003703703703703709,
+      "corrected": 2,
+      "regressed": 4
+    }
+  ],
+  "summary": [
+    {
+      "arm": "dense_ce",
+      "raw_candidate": 0.3425925925925926,
+      "balanced_candidate": 0.36296296296296293,
+      "pooled_blend_gain": 0.0018518518518518268,
+      "passed": false
+    },
+    {
+      "arm": "blocks_ce",
+      "raw_candidate": 0.3296296296296296,
+      "balanced_candidate": 0.35648148148148145,
+      "pooled_blend_gain": 0.0009259259259259134,
+      "passed": false
+    },
+    {
+      "arm": "dense_supcon",
+      "raw_candidate": 0.3416666666666667,
+      "balanced_candidate": 0.3592592592592593,
+      "pooled_blend_gain": 0.0018518518518518268,
+      "passed": false
+    },
+    {
+      "arm": "blocks_supcon",
+      "raw_candidate": 0.33611111111111114,
+      "balanced_candidate": 0.36111111111111105,
+      "pooled_blend_gain": 0.0009259259259259134,
+      "passed": false
+    }
+  ],
+  "credit": "Equal-class-mass balancing reused from credited V16, Nishant Dahal Two-stage LoRA part two v2; not an original algorithm.",
+  "limitations": [
+    "Previously inspected splits, post-hoc diagnosis",
+    "Validation classes are exactly balanced; hidden class proportions unknown",
+    "Reference is V34 8B component, not the full 0.622 ensemble",
+    "Four arms all reported; no temperature, iteration or weight search"
+  ],
+  "public_score_claim": null
+}
