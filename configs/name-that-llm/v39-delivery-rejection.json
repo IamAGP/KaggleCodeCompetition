@@ -1,0 +1,20 @@
+{
+  "checked_unix": 1793186787.388132,
+  "experiment": "V39 delivery check",
+  "notebook": "adithyagiri/name-that-llm-ce8b-inference-v39",
+  "version": 1,
+  "requested_output": "submission.parquet",
+  "method": "official Kaggle create_code_competition_submission",
+  "response": "Submission not allowed:  Did not find provided Notebook Output File.",
+  "submission_created": false,
+  "conclusion": "Saved QuickSave version is not directly submit-ready. A completed notebook output is required.",
+  "tpu_probe": {
+    "notebook": "adithyagiri/ntl-v41-deberta-tpu-delivery-probe",
+    "version_id": 363113143,
+    "source": "visible Chrome Logs page",
+    "status": "Queued",
+    "output_bytes": 0,
+    "accelerator": "TPU v5e-8"
+  },
+  "runpod_cleanup": "V42 pod and volume deleted; no replacement created"
+}
