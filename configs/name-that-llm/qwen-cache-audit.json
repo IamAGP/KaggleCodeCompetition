@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "scope": "Tiny random Qwen3, CPU; CUDA NF4 not tested",
+  "cases": [
+    {
+      "blocked": false,
+      "bf16": false,
+      "tensors_checked": 18,
+      "max_gradient_error": 2.9802322387695312e-08,
+      "checkpointing": true,
+      "lora_dropout": 0.1,
+      "passed": true
+    },
+    {
+      "blocked": false,
+      "bf16": true,
+      "tensors_checked": 18,
+      "max_gradient_error": 3.725290298461914e-09,
+      "checkpointing": true,
+      "lora_dropout": 0.1,
+      "passed": true
+    },
+    {
+      "blocked": true,
+      "bf16": false,
+      "tensors_checked": 18,
+      "max_gradient_error": 5.960464477539063e-08,
+      "checkpointing": true,
+      "lora_dropout": 0.1,
+      "passed": true
+    },
+    {
+      "blocked": true,
+      "bf16": true,
+      "tensors_checked": 18,
+      "max_gradient_error": 1.4901161193847656e-08,
+      "checkpointing": true,
+      "lora_dropout": 0.1,
+      "passed": true
+    }
+  ]
+}
