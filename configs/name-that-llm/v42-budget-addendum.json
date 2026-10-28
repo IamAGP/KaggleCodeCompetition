@@ -1,0 +1,22 @@
+{
+  "experiment": "V42",
+  "pod_id": "cupebka857paq3",
+  "v42_plan_sha256": "3cf5d42449b8db4aa39a23729d34ad269c558eccb4ab86124e69de6b096a9239",
+  "user_cap_usd": 10,
+  "prior_posted_usd": 2.773061093641445,
+  "prior_billing_resource_ids": [
+    "z7lenmulmjise8",
+    "w033l7c225384b",
+    "pdz8b4jc0l"
+  ],
+  "delayed_billing_reserve_usd": 1,
+  "original_round_cap_usd": 1.5,
+  "revised_round_cap_usd": 1.75,
+  "original_deadline_unix": 1793185960.9086149,
+  "revised_deadline_unix": 1793186860.9086149,
+  "gpu_hourly_rate_usd": 0.89,
+  "combined_hourly_upper_bound_usd": 0.92,
+  "reason": "Network-volume Python imports delayed startup; allow final frozen fit and verified backup without altering scientific plan or exceeding total user authorization.",
+  "announced_to_user": true,
+  "checked_unix": 1793184915.806158
+}
