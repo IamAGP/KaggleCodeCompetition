@@ -2,7 +2,8 @@
 
 Execution-only recovery: original plan, trainer, inputs and completed fits remain
 unchanged. Keeps the original absolute deadline and 300-second cleanup reserve.
-A 900-second start reserve is over twice the first observed 394-second fit.
+A 660-second start reserve exceeds 1.5 times the observed 427–435-second
+end-to-end intervals between completed fits (including process startup).
 Run only after confirming the original runner has exited; never concurrently."""
 import argparse
 import hashlib
@@ -39,7 +40,7 @@ def main():
                 continue
             if folder.exists():raise RuntimeError(f'Partial fit must be diagnosed before retry: {folder}')
             remaining=deadline-time.time()
-            if remaining < min(900, plan['per_fit_seconds']):raise TimeoutError('Insufficient reserved time for next fit')
+            if remaining < min(660, plan['per_fit_seconds']):raise TimeoutError('Insufficient reserved time for next fit')
             command=[sys.executable,'-u',str(code/'train_blocks_v42.py'),'--plan',str(Path(a.plan).resolve()),
                 '--input-root',str(Path(a.input_root).resolve()),'--model-dir',a.model_dir,'--output',str(folder),
                 '--arm',arm,'--fold',str(fold)]
