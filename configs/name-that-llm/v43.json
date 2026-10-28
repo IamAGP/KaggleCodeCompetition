@@ -1,0 +1,42 @@
+{
+  "experiment": "V43",
+  "kind": "Fixed probability blend of saved V34 and V40 predictions; CPU only",
+  "hypothesis": "Distinct correct predictions may provide incremental value despite weaker standalone accuracy",
+  "premise": "Paired audit found 101 corrections and 299 regressions for blocks_supcon against the raw 8B component across 1080 previously inspected rows",
+  "folds": [
+    1,
+    2
+  ],
+  "arms": [
+    "dense_ce",
+    "blocks_ce",
+    "dense_supcon",
+    "blocks_supcon"
+  ],
+  "base_weight": 0.85,
+  "candidate_weight": 0.15,
+  "weight_rationale": "One conservative fixed weight, matching the previously used 0.15 component addition; not optimized against these outcomes",
+  "probabilities": "Row softmax of V34 averaged log probabilities and V40 head logits; no fitted temperature or balancing",
+  "gate": {
+    "pooled_gain_min": 0.01,
+    "both_fold_gains_positive": true,
+    "action": "Further confirmation only; no inference/full-host work or submission from this screen alone"
+  },
+  "limitations": [
+    "Repeatedly inspected splits, not untouched confirmation",
+    "Four comparisons all reported, no weight or temperature search",
+    "Reference is raw V34 8B component, not full 0.622 incumbent ensemble"
+  ],
+  "source_sha256": {
+    "artifacts/improvement-v34/kaggle-output/8b_ce/fold-1/ce_final_validation.npz": "742bc2fa4366ce87d9d70beeee5c0170724c0bd94cd29532bd986cc4fbf06c23",
+    "artifacts/improvement-v40/final-validation/dense_ce/fold-1/validation.npz": "2a49ac8c068abe18432ff6d550d24edd086a09de0c625b1110134d57253abf97",
+    "artifacts/improvement-v40/final-validation/blocks_ce/fold-1/validation.npz": "5e52d8caedc7d26e59f621808b23ebc6b39a496104795e7fe367bd20f775d1a1",
+    "artifacts/improvement-v40/final-validation/dense_supcon/fold-1/validation.npz": "361bd3f8d4dd67a61f9458f0c4e64d0cc56825bc945030f724d551a628dfa683",
+    "artifacts/improvement-v40/final-validation/blocks_supcon/fold-1/validation.npz": "6c95c50db23442b9f7d9b9c652e813f5001a017253b112fbe8ab8c32b8e765c3",
+    "artifacts/improvement-v34/kaggle-output/8b_ce/fold-2/ce_final_validation.npz": "cbe46ea96c830f862098b7dc433d90f502dbdc76c13df5fc3b5dc49fb51044d1",
+    "artifacts/improvement-v40/final-validation/dense_ce/fold-2/validation.npz": "f2b24c04d4982d92786a0e75ccce881cb69d1540f8080f7d09f7e105f2e32159",
+    "artifacts/improvement-v40/final-validation/blocks_ce/fold-2/validation.npz": "531f0bffa69589b66f57063df97d67f25b2a91de48c276981bc83218108f3de1",
+    "artifacts/improvement-v40/final-validation/dense_supcon/fold-2/validation.npz": "ff2400eedf2afc2b2bb2ed4221aadead0a7af7f93587c09d046cd1baa3a617bf",
+    "artifacts/improvement-v40/final-validation/blocks_supcon/fold-2/validation.npz": "9d975611b3f73dfa709cd9e14873e55f0327dfa2859e656a49431330a4e9aca6"
+  }
+}
