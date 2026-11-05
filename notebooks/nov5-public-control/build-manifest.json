@@ -1,0 +1,122 @@
+{
+  "status": "local_preparation_not_executed",
+  "upstream": "omerfarukmerey/0-668-verifier-matched-rows-pool-prompts",
+  "upstream_version": 2,
+  "upstream_snapshot_sha256": "0259700bbb8e9cbc441e9fa879e516f6ba05e3ceaf5f89fe3d2d11e7ec735ea5",
+  "candidate_sha256": "2ccef0403100c00187a50541e47c36d2dbf56411276e56c3740e264de30ffe52",
+  "required_open_pool_kaggle_version": 13,
+  "required_open_pool_bytes": 96388050,
+  "required_open_pool_rows": 190588,
+  "asset_observations": [
+    {
+      "ref": "dhruvtibarewal/nlm-l24-adapters",
+      "observed_version": 7,
+      "bytes": 3730983134,
+      "license": "MIT"
+    },
+    {
+      "ref": "crtproduction/name-that-llm-open-pool",
+      "observed_version": 15,
+      "bytes": 117621243,
+      "license": "CC BY-SA 4.0"
+    },
+    {
+      "ref": "seyitkaangunes/ntl-extra-api-passages",
+      "observed_version": 2,
+      "bytes": 4660571,
+      "license": "Attribution 4.0 International (CC BY 4.0)"
+    },
+    {
+      "ref": "abdullah1afify/ntl-generations",
+      "observed_version": 11,
+      "bytes": 12218344,
+      "license": "Attribution 4.0 International (CC BY 4.0)"
+    },
+    {
+      "ref": "dophuchung/ntl-proxy-generations",
+      "observed_version": 1,
+      "bytes": 891947,
+      "license": "Attribution 4.0 International (CC BY 4.0)"
+    },
+    {
+      "ref": "zbigniewkirchner/ntl-qwen3-8b-lora-claude-head",
+      "observed_version": 1,
+      "bytes": 321066208,
+      "license": "Apache 2.0"
+    },
+    {
+      "ref": "dhruvtibarewal/nlm-matched-clean",
+      "observed_version": 3,
+      "bytes": 83376272,
+      "license": "MIT"
+    },
+    {
+      "ref": "dhruvtibarewal/nlm-offline-wheels",
+      "observed_version": 2,
+      "bytes": 45193795,
+      "license": "Other (specified in description)"
+    },
+    {
+      "ref": "josephadamski91/ntl-atlas-qwen3-8b-v1",
+      "observed_version": 3,
+      "bytes": 462803915,
+      "license": "Other (specified in description)"
+    },
+    {
+      "ref": "lucasboesen/ntl-free-proxy-generations",
+      "observed_version": 12,
+      "bytes": 7671212,
+      "license": "Attribution 4.0 International (CC BY 4.0)"
+    },
+    {
+      "ref": "nishantdahal/ntl-two-stage-lora",
+      "observed_version": 1,
+      "bytes": 317728259,
+      "license": "CC BY-SA 4.0"
+    },
+    {
+      "ref": "nishantdahal/ntl-handwriting-blend",
+      "observed_version": 1,
+      "bytes": 1281363560,
+      "license": "CC BY-SA 4.0"
+    },
+    {
+      "ref": "dhruvtibarewal/nlm-l24-adapters-v5",
+      "observed_version": 1,
+      "bytes": 2591835972,
+      "license": "Other (specified in description)"
+    },
+    {
+      "ref": "mercurydust/ntllm-chatgpt-a-b",
+      "observed_version": 1,
+      "bytes": 196110348,
+      "license": "Unknown"
+    },
+    {
+      "ref": "prvsiyan/prvsiyans-extended-name-that-llm-dataset",
+      "observed_version": 9,
+      "bytes": 131424133,
+      "license": "Attribution 4.0 International (CC BY 4.0)"
+    },
+    {
+      "ref": "pjmathematician/ultrabert-380m-ntl",
+      "observed_version": 1,
+      "bytes": 3819222687,
+      "license": "Apache 2.0"
+    }
+  ],
+  "required_annotation_revision": "03",
+  "unknown_license": [
+    "mercurydust/ntllm-chatgpt-a-b"
+  ],
+  "ce8b_v39_included": false,
+  "interface": "public-control-final.npz: ids,labels,pre_postprocessing_logits,final_logits,probabilities; public-control-core.npz contains weighted core members",
+  "remaining": [
+    "Dataset refs explicitly versioned; confirm resolved versions by server readback",
+    "Notebook-output refs need resolved version verification; observed versions are listed separately",
+    "Confirm runtime package compatibility; full GPU execution has not been tested",
+    "Review unknown annotation license before redistribution",
+    "Real visible-row execution then member audit"
+  ],
+  "public_score_claim": null
+}

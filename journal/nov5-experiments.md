@@ -44,4 +44,24 @@ Recipe sources: `notebooks/improvement-v16/name-that-llm-two-stage-v16.ipynb`; `
 
 ## Durable snapshot
 
-Reviewed code, aggregate reports and launch receipts were archived privately at `s3://kaggle-featured-code-comps/name-that-llm/research/2026-11-05/research-snapshot-1.tar.gz`, version `G5t3Xoa7ewMXGTTNUtimbu82uou.M2.z`. A download verified 25,848 bytes and SHA-256 `3e1a664889dc8da3bebfdcd2fb896f58debefe5c28d169eb54baefefb95a5723`. Bucket public-access blocking, encryption and versioning were verified. An initial MCP byte-body upload failed checksum verification; the verified version supersedes it. This snapshot predates this journal addendum and later experiment results.
+Reviewed code, aggregate reports and launch receipts were archived privately at `s3://kaggle-featured-code-comps/name-that-llm/research/2026-11-05/research-snapshot-1.tar.gz`, version `G5t3Xoa7ewMXGTTNUtimbu82uou.M2.z`. A download verified 25,848 bytes and SHA-256 `3e1a664889dc8da3bebfdcd2fb896f58debefe5c28d169eb54baefefb95a5723`. Bucket public-access blocking, encryption and versioning were verified. An initial MCP byte-body upload failed checksum verification; the verified version replaced it and the invalid version was removed. This snapshot predates this journal addendum and later experiment results.
+
+### Official upstream release check (November 6 continuation)
+
+Live Kaggle MCP inspection found **no published OOF, fold IDs, validation-row IDs, fold-specific checkpoints or stage-one-only checkpoints** in the author's two datasets and two linked notebooks. `ntl-handwriting-blend` is dataset **12792418, version 1**, with 15 files: three inference model directories and the external pool. Its description explicitly states that every checkpoint underwent public-data training followed by competition-training adaptation. `ntl-two-stage-lora` is dataset **12693662, version 1**, with 11 files containing two final LoRA sets and the old pool. Both notebooks expose only a 676-byte `submission.parquet` output. No large weights were downloaded.
+
+The current part-two source (notebook **140306245, version 2**) reports five-fold CV but explicitly excludes centered twins from those CV numbers; its reported 0.642 is therefore not validation of the complete submitted inference recipe. The retrieved source SHA-256 is `10ea965c83cf515a8ab98099f87bc6f41160fbf662e9edee6af84118405b6855`. Model weight checksums and fold boundaries are unavailable in the retrieved listings. Without additional author-released artifacts, exact full-baseline validation still requires retraining.
+
+Evidence: `artifacts/nov5-upstream-validation-inventory/{public-api-evidence,part-one-outputs,report}.json`. Official author releases: https://www.kaggle.com/datasets/nishantdahal/ntl-handwriting-blend ; https://www.kaggle.com/datasets/nishantdahal/ntl-two-stage-lora ; https://www.kaggle.com/code/nishantdahal/two-stage-lora-part-two ; https://www.kaggle.com/code/nishantdahal/two-stage-lora-on-the-public-pool .
+
+## V39 submission accepted
+
+Version 6 completed real dual-T4 execution in 635 seconds. All five required members and runtime version guards passed. Downloaded outputs passed schema, ID order, finite-score, weighted-vote arithmetic and prediction consistency checks. Kaggle accepted competition submission **58032484** using version 6 on November 5 UTC (November 6 IST). Hidden-test score remains pending. The full public baseline is credited to Nishant Dahal and its contributors; our addition is the fixed trained 8B component.
+
+## Stronger public comparison launched
+
+A separate exploratory candidate, `adithyagiri/ntl-credited-public-control-plus-ce8b-nov5` version 1, is running on Kaggle. It preserves Omer v2 and upstream credits, fixes verified global query indexing and a pathlib NameError, exercises real small-test inference, requires intended members, and preserves baseline outputs before adding our CE8B fixed 0.15 log-probability vote after public postprocessing. This fusion position differs from V39 and is not a validated improvement. Source SHA-256: `59639ba6b606adc88da876facab09ac9f3859fc984bc9eea7fb686e3e0a5955a`. Source, input identities, private access and pinned GPU image were read back. Explicit dataset versions were requested; exact Open Pool content is guarded at runtime. Notebook-output version resolution remains as documented in its manifest. No competition submission from this candidate yet.
+
+## Token-rank result: reject
+
+Frozen GPT2-medium token-rank/entropy/transition extraction completed all 2,699 passages on CPU in 1,034.6 seconds. Its fixed 10% probability blend with the existing raw V34 8B component changed balanced accuracy by -0.001484; prompt-bootstrap 95% interval [-0.004077, +0.000738]. Fold gains: +0.001852, -0.005556, -0.001852, -0.001852, 0. The promotion gate failed; no tuning, GPU training or submission follows this result. This was a model-likelihood feature hypothesis, not an attempt to emulate any target model’s tokenizer. Results and prediction arrays are preserved privately in `artifacts/nov5-rank-evaluation/`; feature SHA-256 is `08922c0d11078583ba9af12ffda08a176c63e0745164112db618b8062ae23a76`.

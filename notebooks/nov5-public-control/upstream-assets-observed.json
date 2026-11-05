@@ -1,0 +1,159 @@
+{
+  "metadata": {
+    "id": 142479539,
+    "ref": "omerfarukmerey/0-668-verifier-matched-rows-pool-prompts",
+    "title": "0.668 | Verifier + Matched Rows + Pool Prompts",
+    "author": "Omer Faruk Merey",
+    "slug": "0-668-verifier-matched-rows-pool-prompts",
+    "last_run_time": "2026-11-02T18:11:00.154621600Z",
+    "language": "python",
+    "kernel_type": "notebook",
+    "is_private": false,
+    "enable_gpu": true,
+    "enable_internet": false,
+    "dataset_data_sources": [
+      "dhruvtibarewal/nlm-l24-adapters",
+      "crtproduction/name-that-llm-open-pool",
+      "seyitkaangunes/ntl-extra-api-passages",
+      "abdullah1afify/ntl-generations",
+      "dophuchung/ntl-proxy-generations",
+      "zbigniewkirchner/ntl-qwen3-8b-lora-claude-head",
+      "dhruvtibarewal/nlm-matched-clean",
+      "dhruvtibarewal/nlm-offline-wheels",
+      "josephadamski91/ntl-atlas-qwen3-8b-v1",
+      "lucasboesen/ntl-free-proxy-generations",
+      "nishantdahal/ntl-two-stage-lora",
+      "nishantdahal/ntl-handwriting-blend",
+      "dhruvtibarewal/nlm-l24-adapters-v5",
+      "mercurydust/ntllm-chatgpt-a-b",
+      "prvsiyan/prvsiyans-extended-name-that-llm-dataset",
+      "pjmathematician/ultrabert-380m-ntl"
+    ],
+    "kernel_data_sources": [
+      "lucasboesen/name-that-llm-glm4-9b-trunc25",
+      "lucasboesen/name-that-llm-extract-encoders2",
+      "lucasboesen/name-that-llm-electra-large-weights",
+      "lucasboesen/name-that-llm-desklib-weights",
+      "lucasboesen/name-that-llm-train-lora24-s7",
+      "lucasboesen/name-that-llm-train-tokattn",
+      "lucasboesen/name-that-llm-train-tokattn2",
+      "vnton37nguyn/ntl-train-lora-qwen25-instyle"
+    ],
+    "competition_data_sources": [
+      "name-that-llm"
+    ],
+    "total_votes": 117,
+    "model_data_sources": [
+      "alexchilton/llama-3-1-8b-base/Transformers/default/1",
+      "qwen-lm/qwen-3/Transformers/4b-base/1",
+      "qwen-lm/qwen-3/Transformers/14b-base/1",
+      "qwen-lm/qwen-3/Transformers/14b/1",
+      "qwen-lm/qwen-3/Transformers/8b/1",
+      "qwen-lm/qwen-3/Transformers/8b-base/1",
+      "qwen-lm/qwen2.5/Transformers/7b/1",
+      "qwen-lm/qwen2.5/Transformers/14b/1"
+    ],
+    "enable_tpu": false,
+    "current_version_number": 2,
+    "docker_image": "gcr.io/kaggle-private-byod/python@sha256:2757e0c7d1e0a9cb43da657b97e223c321a98f5014bdf64f44f2f6b083ad2b2f",
+    "machine_shape": "NvidiaTeslaT4"
+  },
+  "datasets": [
+    {
+      "ref": "dhruvtibarewal/nlm-l24-adapters",
+      "observed_version": 7,
+      "bytes": 3730983134,
+      "license": "MIT"
+    },
+    {
+      "ref": "crtproduction/name-that-llm-open-pool",
+      "observed_version": 15,
+      "bytes": 117621243,
+      "license": "CC BY-SA 4.0"
+    },
+    {
+      "ref": "seyitkaangunes/ntl-extra-api-passages",
+      "observed_version": 2,
+      "bytes": 4660571,
+      "license": "Attribution 4.0 International (CC BY 4.0)"
+    },
+    {
+      "ref": "abdullah1afify/ntl-generations",
+      "observed_version": 11,
+      "bytes": 12218344,
+      "license": "Attribution 4.0 International (CC BY 4.0)"
+    },
+    {
+      "ref": "dophuchung/ntl-proxy-generations",
+      "observed_version": 1,
+      "bytes": 891947,
+      "license": "Attribution 4.0 International (CC BY 4.0)"
+    },
+    {
+      "ref": "zbigniewkirchner/ntl-qwen3-8b-lora-claude-head",
+      "observed_version": 1,
+      "bytes": 321066208,
+      "license": "Apache 2.0"
+    },
+    {
+      "ref": "dhruvtibarewal/nlm-matched-clean",
+      "observed_version": 3,
+      "bytes": 83376272,
+      "license": "MIT"
+    },
+    {
+      "ref": "dhruvtibarewal/nlm-offline-wheels",
+      "observed_version": 2,
+      "bytes": 45193795,
+      "license": "Other (specified in description)"
+    },
+    {
+      "ref": "josephadamski91/ntl-atlas-qwen3-8b-v1",
+      "observed_version": 3,
+      "bytes": 462803915,
+      "license": "Other (specified in description)"
+    },
+    {
+      "ref": "lucasboesen/ntl-free-proxy-generations",
+      "observed_version": 12,
+      "bytes": 7671212,
+      "license": "Attribution 4.0 International (CC BY 4.0)"
+    },
+    {
+      "ref": "nishantdahal/ntl-two-stage-lora",
+      "observed_version": 1,
+      "bytes": 317728259,
+      "license": "CC BY-SA 4.0"
+    },
+    {
+      "ref": "nishantdahal/ntl-handwriting-blend",
+      "observed_version": 1,
+      "bytes": 1281363560,
+      "license": "CC BY-SA 4.0"
+    },
+    {
+      "ref": "dhruvtibarewal/nlm-l24-adapters-v5",
+      "observed_version": 1,
+      "bytes": 2591835972,
+      "license": "Other (specified in description)"
+    },
+    {
+      "ref": "mercurydust/ntllm-chatgpt-a-b",
+      "observed_version": 1,
+      "bytes": 196110348,
+      "license": "Unknown"
+    },
+    {
+      "ref": "prvsiyan/prvsiyans-extended-name-that-llm-dataset",
+      "observed_version": 9,
+      "bytes": 131424133,
+      "license": "Attribution 4.0 International (CC BY 4.0)"
+    },
+    {
+      "ref": "pjmathematician/ultrabert-380m-ntl",
+      "observed_version": 1,
+      "bytes": 3819222687,
+      "license": "Apache 2.0"
+    }
+  ]
+}

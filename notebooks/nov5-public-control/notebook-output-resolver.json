@@ -1,0 +1,46 @@
+{
+  "observed_at": "2026-11-05/06",
+  "sources": [
+    {
+      "ref": "lucasboesen/name-that-llm-glm4-9b-trunc25",
+      "version": 1,
+      "private": false
+    },
+    {
+      "ref": "lucasboesen/name-that-llm-extract-encoders2",
+      "version": 1,
+      "private": false
+    },
+    {
+      "ref": "lucasboesen/name-that-llm-electra-large-weights",
+      "version": 1,
+      "private": false
+    },
+    {
+      "ref": "lucasboesen/name-that-llm-desklib-weights",
+      "version": 1,
+      "private": false
+    },
+    {
+      "ref": "lucasboesen/name-that-llm-train-lora24-s7",
+      "version": 1,
+      "private": false
+    },
+    {
+      "ref": "lucasboesen/name-that-llm-train-tokattn",
+      "version": 1,
+      "private": false
+    },
+    {
+      "ref": "lucasboesen/name-that-llm-train-tokattn2",
+      "version": 1,
+      "private": false
+    },
+    {
+      "ref": "vnton37nguyn/ntl-train-lora-qwen25-instyle",
+      "version": 2,
+      "private": false
+    }
+  ],
+  "note": "Metadata kernel sources retained documented owner/slug form; verify exact resolved versions before launch. No guessed suffix used."
+}

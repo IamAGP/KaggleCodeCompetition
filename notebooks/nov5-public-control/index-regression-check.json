@@ -1,0 +1,12 @@
+{
+  "fixed_batch_invariance_passed": true,
+  "rows": 257,
+  "batches_compared": [
+    128,
+    257
+  ],
+  "fixed_max_difference": 0.0,
+  "upstream_max_difference": 0.08990448713302612,
+  "gpu_execution": false,
+  "fixed_script_sha256": "f647a0aac72047e1fbd5dccd19c7e23074a4b6d989da4c4cfa164b7f7dfb81bd"
+}

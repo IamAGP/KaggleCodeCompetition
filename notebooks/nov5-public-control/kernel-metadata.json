@@ -1,0 +1,55 @@
+{
+  "id": "adithyagiri/ntl-public-control-nov5",
+  "title": "NTL Public Control Nov5 - credited repaired Omer v2",
+  "code_file": "inference.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "machine_shape": "NvidiaTeslaT4",
+  "enable_internet": false,
+  "competition_sources": [
+    "name-that-llm"
+  ],
+  "dataset_sources": [
+    "dhruvtibarewal/nlm-l24-adapters/7",
+    "crtproduction/name-that-llm-open-pool/13",
+    "seyitkaangunes/ntl-extra-api-passages/2",
+    "abdullah1afify/ntl-generations/11",
+    "dophuchung/ntl-proxy-generations/1",
+    "zbigniewkirchner/ntl-qwen3-8b-lora-claude-head/1",
+    "dhruvtibarewal/nlm-matched-clean/3",
+    "dhruvtibarewal/nlm-offline-wheels/2",
+    "josephadamski91/ntl-atlas-qwen3-8b-v1/3",
+    "lucasboesen/ntl-free-proxy-generations/12",
+    "nishantdahal/ntl-two-stage-lora/1",
+    "nishantdahal/ntl-handwriting-blend/1",
+    "dhruvtibarewal/nlm-l24-adapters-v5/1",
+    "mercurydust/ntllm-chatgpt-a-b/1",
+    "prvsiyan/prvsiyans-extended-name-that-llm-dataset/9",
+    "pjmathematician/ultrabert-380m-ntl/1",
+    "adithyagiri/name-that-llm-offline-quantization-deps/1"
+  ],
+  "kernel_sources": [
+    "lucasboesen/name-that-llm-glm4-9b-trunc25",
+    "lucasboesen/name-that-llm-extract-encoders2",
+    "lucasboesen/name-that-llm-electra-large-weights",
+    "lucasboesen/name-that-llm-desklib-weights",
+    "lucasboesen/name-that-llm-train-lora24-s7",
+    "lucasboesen/name-that-llm-train-tokattn",
+    "lucasboesen/name-that-llm-train-tokattn2",
+    "vnton37nguyn/ntl-train-lora-qwen25-instyle"
+  ],
+  "model_sources": [
+    "alexchilton/llama-3-1-8b-base/Transformers/default/1",
+    "qwen-lm/qwen-3/Transformers/4b-base/1",
+    "qwen-lm/qwen-3/Transformers/14b-base/1",
+    "qwen-lm/qwen-3/Transformers/14b/1",
+    "qwen-lm/qwen-3/Transformers/8b/1",
+    "qwen-lm/qwen-3/Transformers/8b-base/1",
+    "qwen-lm/qwen2.5/Transformers/7b/1",
+    "qwen-lm/qwen2.5/Transformers/14b/1"
+  ],
+  "docker_image": "gcr.io/kaggle-private-byod/python@sha256:9a6bcfda6d03b2cd9aa347ee8c1bae62043328ed0f4afe9bda014e4f8bbf9435",
+  "docker_image_pinning_type": "original"
+}
