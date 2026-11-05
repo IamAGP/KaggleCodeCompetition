@@ -1,0 +1,33 @@
+{
+  "experiment": "nov5-rank-transitions",
+  "hypothesis": "Consecutive frozen-evaluator token ranks contribute authorship information beyond their marginal distribution and improve a fixed held-out discriminative reference.",
+  "model": "openai-community/gpt2-medium",
+  "revision": "6dcaa7a952f72f9298047fd5137cd6e4f05f41da",
+  "revision_source": "https://huggingface.co/api/models/openai-community/gpt2-medium",
+  "paper": "https://arxiv.org/html/2603.28054v1",
+  "code_reference": "https://github.com/anudeex/TRACE/blob/main/src/generate-token-scores-TRACE.py",
+  "method_scope": "Independent short-paragraph adaptation; paper evidence concerns long books, not this dataset. Frozen evaluator is not a proxy for source tokenizers.",
+  "max_tokens": 1024,
+  "batch_size": 2,
+  "rank_bucket_upper_bounds": [
+    10,
+    100,
+    1000
+  ],
+  "rank_definition": "One plus number of strictly larger logits; ties share rank. No BOS/EOS added; token zero has no score.",
+  "features": "24 marginal/position features plus 16 transition frequencies = 40 dimensions. Each third: four bucket frequencies, mean entropy, mean surprisal, mean log rank, surprisal standard deviation. Empty thirds zero.",
+  "classifier": {
+    "C": 0.1,
+    "max_iter": 2000,
+    "random_state": 5105
+  },
+  "folds": "artifacts/baseline-v1/folds.csv",
+  "reference": "artifacts/improvement-v34/primary-oof.npz",
+  "reference_score_key": "candidate_scores",
+  "blend_weight": 0.1,
+  "gate": "All five fold blend gains positive, pooled balanced-accuracy gain >=0.005, prompt-bootstrap 95% lower bound >0; transitions must outperform marginal-only fixed blend. Previously inspected folds, not pristine confirmation. No full-ensemble leaderboard claim.",
+  "bootstrap_replicates": 2000,
+  "extraction_budget_seconds": 3600,
+  "execution": "Not launched. Start with 100-row throughput/causal-alignment probe. CPU/MPS preferred if benchmark projects <=1 hour. Otherwise root chooses Kaggle execution; no paid compute authorized by this protocol.",
+  "reference_description": "Raw V34 8B component scores, not fixed sparse blend and not full leaderboard ensemble."
+}
