@@ -26,3 +26,20 @@ Labels are read only in the final evaluation cell, after predictions exist. The 
 Source generations belong to Kilupy (README CC BY4.0; Kaggle license field unset), through crtproduction Open Pool (CC BY-SA4.0). Baseline models and method retain Nishant Dahal and upstream credits; our contribution is the trained CE8B adapter/readout and this separate fixed evaluation.
 
 The private dashboard's latest progress page is https://name-that-llm-lab-notebook.helpless-silly98.chatgpt.site/#progress . The deployment succeeded without changing its owner-only audience.
+
+## Completed result and decision
+
+Version 1 completed on November 5 UTC / November 6 IST. Its runtime audit records 913 seconds for model execution; all five mandatory members ran on all 544 rows, with the two original centered twins applied to 515 rows. The pinned CUDA runtime matched V39. Downloaded scores, predictions, report and runtime audit passed the independent verifier `scripts/verify_external_validation_nov6.py`, including a separate recalculation of the prompt-cluster bootstrap.
+
+| Frozen comparison | Baseline | Fixed CE8B addition |
+|---|---:|---:|
+| Primary: raw score argmax | 259/544 (47.61%) | 253/544 (46.51%) |
+| Secondary: original 18-class balancing | 271/544 (49.82%) | 271/544 (49.82%) |
+
+The primary addition fixes 5 errors and introduces 11: **−1.10 percentage points**, with the predeclared 5,000-draw prompt-cluster bootstrap 95% interval **[−2.54, +0.32] percentage points**. This does not support promoting the fixed CE8B addition. The missing class and external generation differences still limit extrapolation to the competition; these numbers are not leaderboard scores. No weights were adjusted after seeing the result, and the prompt-disjoint confirmation reserve remains unmeasured.
+
+V39 was already submitted before this evaluation completed; submission 58032484 remains pending at this snapshot. For the separately running stronger public comparison, prioritize its preserved **unaugmented** `submission-public-control.parquet` if execution and output checks pass, rather than automatically submitting the CE8B-augmented output. Credit remains with the original public authors. No original model gain is claimed.
+
+Independent verification: `artifacts/nov6-external-validation/independent-verification.json`. Downloaded outputs: `artifacts/nov6-external-validation-output/`. Score-array SHA-256: `6a6e817091c65c58541c2c2db16d2feb40381174dbda3a66c48b873e1c13be06`.
+
+Official resource-filtered Runpod billing now reports $4.1624992084 posted across the task's four pods and three volumes, leaving $5.8375007916 of the original $10 cap before future billing corrections. A $1 reserve would leave $4.8375007916 available. No paid compute was started in this resumed round. Sanitized evidence is in `artifacts/nov6-budget-reconciliation/`.
