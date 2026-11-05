@@ -7,6 +7,8 @@
   "required_open_pool_kaggle_version": 13,
   "required_open_pool_bytes": 96388050,
   "required_open_pool_rows": 190588,
+  "open_pool_attachment": "melvindenishl/ntl-open-pool-v13-snapshot/1",
+  "historical_pin_observation": "Root reports live candidate v1 ignored requested crtproduction historical /13 and failed the unchanged byte-size guard. Use dedicated snapshot with unchanged size, row and SHA256 guards; SDK acceptance does not establish backend version resolution.",
   "asset_observations": [
     {
       "ref": "dhruvtibarewal/nlm-l24-adapters",

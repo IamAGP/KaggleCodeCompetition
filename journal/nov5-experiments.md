@@ -65,3 +65,9 @@ A separate exploratory candidate, `adithyagiri/ntl-credited-public-control-plus-
 ## Token-rank result: reject
 
 Frozen GPT2-medium token-rank/entropy/transition extraction completed all 2,699 passages on CPU in 1,034.6 seconds. Its fixed 10% probability blend with the existing raw V34 8B component changed balanced accuracy by -0.001484; prompt-bootstrap 95% interval [-0.004077, +0.000738]. Fold gains: +0.001852, -0.005556, -0.001852, -0.001852, 0. The promotion gate failed; no tuning, GPU training or submission follows this result. This was a model-likelihood feature hypothesis, not an attempt to emulate any target model’s tokenizer. Results and prediction arrays are preserved privately in `artifacts/nov5-rank-evaluation/`; feature SHA-256 is `08922c0d11078583ba9af12ffda08a176c63e0745164112db618b8062ae23a76`.
+
+## Input snapshot correction
+
+The public comparison’s first execution stopped at its Open Pool byte-size guard: requesting historical `/13` did not deliver that content. Version 2 replaces only the attachment with `melvindenishl/ntl-open-pool-v13-snapshot/1`, independently rechecked at 96,388,050 bytes and the same published SHA-256. Notebook source is unchanged. Kaggle save/readback verified version 2, source and attachment identities; GPU execution remains pending.
+
+The completed rank experiment, private feature/prediction arrays, V39 submission/output evidence and comparison source were archived at `s3://kaggle-featured-code-comps/name-that-llm/research/2026-11-05/results-and-submission.tar.gz`, version `qtsMmHNMe2ES8Qelxd_E.20kw17_D2lJ`, 1,463,907 bytes, SHA-256 `cad0b630e23b2ebf51636ff1eb9c2a839f10eb1f372bfb5c7da8894ebfa2954d`. S3 verified the full-object SHA-256 and size. That snapshot predates the attachment correction.

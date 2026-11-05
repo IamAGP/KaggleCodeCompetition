@@ -1,6 +1,8 @@
 {
   "status": "local_preparation_not_executed",
   "baseline_candidate_sha256": "2ccef0403100c00187a50541e47c36d2dbf56411276e56c3740e264de30ffe52",
+  "open_pool_attachment": "melvindenishl/ntl-open-pool-v13-snapshot/1",
+  "historical_pin_observation": "Root reports live candidate v1 ignored requested crtproduction historical /13 and failed the unchanged byte-size guard. Use dedicated snapshot with unchanged size, row and SHA256 guards; SDK acceptance does not establish backend version resolution.",
   "candidate_sha256": "59639ba6b606adc88da876facab09ac9f3859fc984bc9eea7fb686e3e0a5955a",
   "v39_asset_manifest_sha256": "43d495fd102b19a439466f8554b84191227e0d10827f0c60677667f35575ca29",
   "helper_sha256": "8c3b54809128eb946278cb7262d0804a3789fc71deaca7012b6a73f8670d0c90",

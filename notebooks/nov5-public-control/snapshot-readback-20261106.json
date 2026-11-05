@@ -1,0 +1,20 @@
+{
+  "ref": "melvindenishl/ntl-open-pool-v13-snapshot",
+  "version": 1,
+  "total_bytes": "96388453",
+  "files": [
+    {
+      "name": "README.md",
+      "creation_date": "2026-11-04T13:58:24.569Z",
+      "total_bytes": "403"
+    },
+    {
+      "name": "ntl_open_pool.parquet",
+      "creation_date": "2026-11-04T13:58:28.251Z",
+      "total_bytes": "96388050"
+    }
+  ],
+  "sha256_from_publisher": "38e48b40e1db0ab1bf6e4f29d3697e37307c49d1ae5020a7af3cd59c484657d5",
+  "runtime_guard_preserved": true,
+  "download_hash_recomputed": false
+}

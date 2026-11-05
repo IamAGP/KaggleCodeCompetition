@@ -1,5 +1,5 @@
 {
-  "id": "adithyagiri/ntl-public-control-ce8b-nov5",
+  "id": "adithyagiri/ntl-credited-public-control-plus-ce8b-nov5",
   "title": "NTL Credited Public Control plus CE8B Nov5",
   "code_file": "inference-ce8b.ipynb",
   "language": "python",
@@ -13,7 +13,7 @@
   ],
   "dataset_sources": [
     "dhruvtibarewal/nlm-l24-adapters/7",
-    "crtproduction/name-that-llm-open-pool/13",
+    "melvindenishl/ntl-open-pool-v13-snapshot/1",
     "seyitkaangunes/ntl-extra-api-passages/2",
     "abdullah1afify/ntl-generations/11",
     "dophuchung/ntl-proxy-generations/1",

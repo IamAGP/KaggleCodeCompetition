@@ -8,8 +8,8 @@ from launch_v39_nov5 import SaveAndRunAllRequest, cell_sources, normalize_metada
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--execute',action='store_true');parser.add_argument('--verify-only',action='store_true');args=parser.parse_args()
-    folder=Path('notebooks/nov5-public-control');out=Path('artifacts/nov5-public-control');out.mkdir(exist_ok=True)
+    parser=argparse.ArgumentParser();parser.add_argument('--execute',action='store_true');parser.add_argument('--verify-only',action='store_true');parser.add_argument('--attempt',choices=['initial','snapshot'],default='initial');args=parser.parse_args()
+    folder=Path('notebooks/nov5-public-control');out=Path('artifacts/nov5-public-control' + ('-snapshot' if args.attempt=='snapshot' else ''));out.mkdir(exist_ok=True)
     meta=json.loads((folder/'kernel-metadata-ce8b.json').read_text())
     manifest=json.loads((folder/'build-manifest-ce8b.json').read_text())
     source=(folder/meta['code_file']).read_text()

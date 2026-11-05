@@ -145,7 +145,7 @@ assert os.path.isfile('/kaggle/working/public-control-completion.json')
     kernel = {'id': 'adithyagiri/ntl-public-control-nov5', 'title': 'NTL Public Control Nov5 - credited repaired Omer v2',
         'code_file': 'inference.ipynb', 'language': 'python', 'kernel_type': 'notebook', 'is_private': True,
         'enable_gpu': True, 'machine_shape': 'NvidiaTeslaT4', 'enable_internet': False,
-        'competition_sources': meta['competition_data_sources'], 'dataset_sources': [d['ref'] + '/' + str(13 if d['ref'] == 'crtproduction/name-that-llm-open-pool' else d['observed_version']) for d in observed['datasets']],
+        'competition_sources': meta['competition_data_sources'], 'dataset_sources': [('melvindenishl/ntl-open-pool-v13-snapshot/1' if d['ref'] == 'crtproduction/name-that-llm-open-pool' else d['ref'] + '/' + str(d['observed_version'])) for d in observed['datasets']],
         'kernel_sources': meta['kernel_data_sources'], 'model_sources': meta['model_data_sources']}
     kernel['dataset_sources'].append('adithyagiri/name-that-llm-offline-quantization-deps/1')
     kernel['docker_image'] = 'gcr.io/kaggle-private-byod/python@sha256:9a6bcfda6d03b2cd9aa347ee8c1bae62043328ed0f4afe9bda014e4f8bbf9435'
@@ -155,6 +155,8 @@ assert os.path.isfile('/kaggle/working/public-control-completion.json')
         'upstream_snapshot_sha256': hashlib.sha256(upstream_path.read_bytes()).hexdigest(),
         'candidate_sha256': hashlib.sha256((OUT / 'inference.ipynb').read_bytes()).hexdigest(),
         'required_open_pool_kaggle_version': 13, 'required_open_pool_bytes': 96388050, 'required_open_pool_rows': 190588,
+        'open_pool_attachment': 'melvindenishl/ntl-open-pool-v13-snapshot/1',
+        'historical_pin_observation': 'Root reports live candidate v1 ignored requested crtproduction historical /13 and failed the unchanged byte-size guard. Use dedicated snapshot with unchanged size, row and SHA256 guards; SDK acceptance does not establish backend version resolution.',
         'asset_observations': observed['datasets'], 'required_annotation_revision': '03',
         'unknown_license': ['mercurydust/ntllm-chatgpt-a-b'], 'ce8b_v39_included': False,
         'interface': 'public-control-final.npz: ids,labels,pre_postprocessing_logits,final_logits,probabilities; public-control-core.npz contains weighted core members',
@@ -248,11 +250,13 @@ del component, features; gc.collect(); torch.cuda.empty_cache()
     path = OUT / 'inference-ce8b.ipynb'
     path.write_text(json.dumps(candidate, indent=1))
     metadata = copy.deepcopy(public_metadata)
-    metadata.update(id='adithyagiri/ntl-public-control-ce8b-nov5', title='NTL Credited Public Control plus CE8B Nov5', code_file='inference-ce8b.ipynb',
+    metadata.update(id='adithyagiri/ntl-credited-public-control-plus-ce8b-nov5', title='NTL Credited Public Control plus CE8B Nov5', code_file='inference-ce8b.ipynb',
         docker_image='gcr.io/kaggle-private-byod/python@sha256:9a6bcfda6d03b2cd9aa347ee8c1bae62043328ed0f4afe9bda014e4f8bbf9435', docker_image_pinning_type='original')
     metadata['dataset_sources'] += ['adithyagiri/name-that-llm-v39-private-ce8b/1']
     (OUT / 'kernel-metadata-ce8b.json').write_text(json.dumps(metadata, indent=2))
     receipt = {'status': 'local_preparation_not_executed', 'baseline_candidate_sha256': public_manifest['candidate_sha256'],
+        'open_pool_attachment': public_manifest['open_pool_attachment'],
+        'historical_pin_observation': public_manifest['historical_pin_observation'],
         'candidate_sha256': hashlib.sha256(path.read_bytes()).hexdigest(), 'v39_asset_manifest_sha256': digest,
         'helper_sha256': helper_record['sha256'], 'component_log_weight': 0.15,
         'fusion_position': 'after public-control final postprocessing', 'helper_unchanged': True,
