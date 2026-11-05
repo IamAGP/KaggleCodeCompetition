@@ -1,0 +1,46 @@
+{
+  "status": "built_ready_for_review_not_launched",
+  "source": "artifacts/improvement-v39/nov5-v34image-saved-notebook.ipynb",
+  "source_sha256": "6f9931dc43c1b031658613a22726fed46f74491aea26db937149db8174f64ff2",
+  "canonical_source_sha256": "7bf9153d7d7ef99e02b861ba554d60f458c5cc63d8981f7f41b2bfc5572cb529",
+  "evaluation_protocol_sha256": "6f831e64e06a2b2d1181f4d6748417d1c7e767d340c6a76cb0aba8e87cf901d7",
+  "notebook_sha256": "1477374aa98fdebd9e10c8106c4ad4e8a314026e9823b1cc1d54d242d0f36e78",
+  "cohort_manifest_sha256": "6d7f2cee9c6ec5a027b17f87ddd3f75a4d93f6b46d1d17d9a94e09f380df1443",
+  "source_changed_cell_indices": [
+    5,
+    18,
+    20
+  ],
+  "preserved_code_cell_indices": [
+    1,
+    2,
+    6,
+    8,
+    11,
+    13,
+    15,
+    17
+  ],
+  "original_code_cells": 11,
+  "expected_rows": 544,
+  "expected_classes": 17,
+  "private_external_dataset": "adithyagiri/name-that-llm-nov6-external-validation",
+  "required_missing_attachment": null,
+  "expected_runtime_image": "gcr.io/kaggle-private-byod/python@sha256:9a6bcfda6d03b2cd9aa347ee8c1bae62043328ed0f4afe9bda014e4f8bbf9435",
+  "expected_image_pinning": "original",
+  "expected_execution": "SaveAndRunAll",
+  "expected_accelerator": "two Tesla T4 GPUs",
+  "competition_train_sha256": "40a22ce8d88c5f46feb4637a099db815bef5f713ffe53e89dbe1b7b21de77707",
+  "no_neural_fitting": true,
+  "labels_read_only_in_final_cell": true,
+  "no_submission_filename": true,
+  "launch_or_upload_performed": false,
+  "private_dataset_attachment_verified": false,
+  "validation_checks": [
+    "All code cells compile and nbformat validation passes",
+    "Eight original code cells preserved byte-for-byte; only input/output/audit cells modified",
+    "Synthetic544-row evaluator recovers known16/17balancedaccuracydelta and5000validpromptclusterbootstrapdraws",
+    "No competition submission filename remains",
+    "Cohort SHA and test/label file hashes verified locally without fitting"
+  ]
+}

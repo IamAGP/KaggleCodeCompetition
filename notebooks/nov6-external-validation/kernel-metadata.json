@@ -1,0 +1,27 @@
+{
+  "id": "adithyagiri/name-that-llm-external-validation-nov6",
+  "title": "Name That LLM External Validation Nov6",
+  "code_file": "external-validation.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "machine_shape": "NvidiaTeslaT4",
+  "enable_internet": false,
+  "enable_tpu": false,
+  "competition_sources": [
+    "name-that-llm"
+  ],
+  "dataset_sources": [
+    "nishantdahal/ntl-handwriting-blend",
+    "adithyagiri/name-that-llm-v39-private-ce8b",
+    "adithyagiri/name-that-llm-offline-quantization-deps",
+    "adithyagiri/name-that-llm-nov6-external-validation"
+  ],
+  "model_sources": [
+    "qwen-lm/qwen-3/Transformers/14b-base/1",
+    "qwen-lm/qwen2.5/Transformers/14b/1",
+    "qwen-lm/qwen-3/Transformers/8b-base/1"
+  ],
+  "kernel_sources": []
+}

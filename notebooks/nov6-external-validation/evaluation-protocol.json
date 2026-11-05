@@ -1,0 +1,17 @@
+{
+  "experiment": "nov6-external-validation",
+  "frozen_before_model_results": true,
+  "cohort_manifest_sha256": "6d7f2cee9c6ec5a027b17f87ddd3f75a4d93f6b46d1d17d9a94e09f380df1443",
+  "rows_unchanged": true,
+  "primary": "V16 versus fixed CE8B addition, raw 18-column full-ensemble score argmax before Sinkhorn; 17 observed-class balanced accuracy",
+  "secondary": "Original 18-class Sinkhorn output; deliberately mismatched class-mass stress check",
+  "retained": "Original label-free text clustering and centered twins, weights, models, tokenizers, training pool, numerical setup",
+  "override": "Root decision supersedes research manifest recommendation against centering/Sinkhorn; cohort selection and files remain unchanged",
+  "no_tuning": true,
+  "bootstrap": {
+    "unit": "prompt_id",
+    "draws": 5000,
+    "seed": 61106
+  },
+  "claims": "External domain-shift marginal screen only; not host OOF, public LB prediction or automatic promotion"
+}
